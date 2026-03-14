@@ -26,8 +26,8 @@ program
       new Promise((resolve) => rl.question(q, resolve));
 
     console.log('\n  Clawing Miner Setup\n');
-
-    const privateKey = await ask('? Enter your wallet private key: ');
+    console.log('  Note: For security, this setup does NOT ask for your private key.');
+    console.log('  After setup, edit .env and add your PRIVATE_KEY manually.\n');
 
     // ═══ API Provider Selection ═══
     console.log('\n  Select your AI API provider:');
@@ -75,7 +75,9 @@ program
         : '# Provider: xAI Direct (recommended)';
 
     const envContent = `# === Wallet ===
-PRIVATE_KEY=${privateKey}
+# SECURITY: Paste your private key below manually. Do NOT share it with any agent or chat.
+# Use a dedicated hot wallet with minimal ETH — never your main wallet or hardware wallet.
+PRIVATE_KEY=
 
 # === AI API ===
 ${providerComment}
@@ -95,8 +97,9 @@ MAX_GAS_PRICE_GWEI=${maxGas}
 TASK_PROMPT=${taskPrompt}
 `;
 
-    fs.writeFileSync('.env', envContent);
-    console.log('\n  .env file created successfully!\n');
+    fs.writeFileSync('.env', envContent, { mode: 0o600 });
+    console.log('\n  .env file created (permissions: 600).');
+    console.log('  ⚠  Open .env and paste your PRIVATE_KEY before running mine or auto.\n');
   });
 
 // ═══════════════════ status ═══════════════════
