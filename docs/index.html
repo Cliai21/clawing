@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!--
+   ______                            __
+  / ____/___  ____ ___  ____  __  __/ /____  _____
+ / /   / __ \/ __ `__ \/ __ \/ / / / __/ _ \/ ___/
+/ /___/ /_/ / / / / / / /_/ / /_/ / /_/  __/ /
+\____/\____/_/ /_/ /_/ .___/\__,_/\__/\___/_/
+                    /_/
+        Created with Perplexity Computer
+        https://www.perplexity.ai/computer
+-->
+<meta name="generator" content="Perplexity Computer">
+<meta name="author" content="Perplexity Computer">
+<meta property="og:see_also" content="https://www.perplexity.ai/computer">
+<link rel="author" href="https://www.perplexity.ai/computer">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CLAWING — The First AI Mining Skill for OpenClaw</title>
+<meta name="description" content="CLAWING is the first Proof of AI Work mining skill. Install on OpenClaw and start mining $CLAW in 60 seconds — no setup, no code, no private key access.">
+<meta property="og:title" content="CLAWING — Mine $CLAW with AI on OpenClaw">
+<meta property="og:description" content="Install the claw-mining skill on OpenClaw. Your AI does the work, you earn $CLAW. Proof of AI Work on Ethereum.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700,900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ═══ RESET & TOKENS ═══ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --bg:#0A0A0A;
+  --surface:#111111;
+  --surface-2:#161616;
+  --surface-3:#1A1A1A;
+  --border:#1E1E1E;
+  --border-2:#2A2A2A;
+  --border-3:#333;
+  --text:#E0E0E0;
+  --text-muted:#999;
+  --text-dim:#666;
+  --text-faint:#444;
+  --lime:#CDFF50;
+  --lime-dark:#9ACC2D;
+  --lime-glow:rgba(205,255,80,0.08);
+  --lime-glow-2:rgba(205,255,80,0.15);
+  --orange:#E8720A;
+  --green:#4EC36B;
+  --red:#E85050;
+  --blue:#5BA0D0;
+  --sans:'Satoshi',system-ui,-apple-system,sans-serif;
+  --mono:'JetBrains Mono','SF Mono','Fira Code',monospace;
+  --ease:cubic-bezier(0.16,1,0.3,1);
+  --max-w:1100px;
+}
+
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--sans);
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.6;
+  font-size:15px;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  overflow-x:hidden;
+}
+::selection{background:var(--lime);color:#000}
+img{max-width:100%;display:block}
+a{color:var(--lime);text-decoration:none;transition:opacity .2s}
+a:hover{opacity:.8}
+
+/* ═══ NAV ═══ */
+.nav{
+  position:sticky;top:0;z-index:100;
+  background:rgba(10,10,10,0.92);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  transition:box-shadow .3s var(--ease);
+}
+.nav.scrolled{box-shadow:0 1px 20px rgba(0,0,0,.5)}
+.nav-inner{
+  max-width:var(--max-w);margin:0 auto;
+  padding:0 clamp(16px,4vw,32px);
+  height:56px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.nav-logo{
+  display:flex;align-items:center;gap:10px;
+  font-weight:900;font-size:16px;letter-spacing:.06em;
+  color:var(--text);
+}
+.nav-logo svg{width:32px;height:32px}
+.nav-links{display:flex;gap:clamp(12px,2vw,24px);align-items:center}
+.nav-links a{
+  font-family:var(--mono);font-size:11px;
+  color:var(--text-dim);text-transform:uppercase;
+  letter-spacing:.06em;transition:color .2s;
+}
+.nav-links a:hover{color:var(--lime);opacity:1}
+.nav-cta{
+  background:var(--lime);color:#000;
+  padding:6px 14px;border-radius:6px;
+  font-family:var(--mono);font-size:11px;
+  font-weight:600;letter-spacing:.04em;
+  text-transform:uppercase;
+  transition:all .2s var(--ease);
+}
+.nav-cta:hover{background:var(--lime-dark);opacity:1;transform:translateY(-1px)}
+.mobile-menu{display:none;background:none;border:none;cursor:pointer;padding:4px}
+.mobile-menu svg{width:24px;height:24px;color:var(--text)}
+
+/* ═══ HERO ═══ */
+.hero{
+  min-height:calc(100vh - 56px);
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;
+  padding:clamp(48px,8vw,80px) clamp(16px,4vw,32px);
+  position:relative;
+  overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 40%, rgba(205,255,80,0.04) 0%, transparent 70%),
+    radial-gradient(ellipse 80% 60% at 50% 100%, rgba(205,255,80,0.02) 0%, transparent 50%);
+  pointer-events:none;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:6px 16px;border-radius:999px;
+  background:rgba(205,255,80,0.06);
+  border:1px solid rgba(205,255,80,0.12);
+  font-family:var(--mono);font-size:11px;
+  color:var(--lime);letter-spacing:.04em;
+  margin-bottom:2rem;
+  animation:fadeUp .6s var(--ease) both;
+}
+.hero-badge span{color:var(--text-muted)}
+.hero-logo{
+  width:clamp(80px,14vw,120px);
+  height:clamp(80px,14vw,120px);
+  margin-bottom:2rem;
+  filter:drop-shadow(0 0 40px rgba(205,255,80,0.15));
+  animation:float 6s ease-in-out infinite;
+}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.hero h1{
+  font-size:clamp(2.2rem,5.5vw,4rem);
+  font-weight:900;letter-spacing:-.01em;
+  line-height:1.1;margin-bottom:1rem;
+  animation:fadeUp .6s var(--ease) .1s both;
+}
+.hero h1 .hl{color:var(--lime)}
+.hero-sub{
+  font-size:clamp(1rem,2vw,1.2rem);
+  color:var(--text-muted);
+  font-weight:300;
+  max-width:560px;
+  margin-bottom:2rem;
+  line-height:1.7;
+  animation:fadeUp .6s var(--ease) .2s both;
+}
+
+/* Hero Chat Preview */
+.hero-chat{
+  width:100%;max-width:440px;
+  margin-bottom:2rem;
+  background:var(--surface);
+  border:1px solid var(--border-2);
+  border-radius:16px;
+  overflow:hidden;
+  box-shadow:0 8px 40px rgba(0,0,0,.4);
+  animation:fadeUp .6s var(--ease) .3s both;
+}
+.chat-header{
+  display:flex;align-items:center;gap:10px;
+  padding:10px 16px;
+  background:var(--surface-2);
+  border-bottom:1px solid var(--border);
+}
+.chat-avatar{
+  width:32px;height:32px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;flex-shrink:0;
+}
+.chat-avatar-oc{background:linear-gradient(135deg,#FF6B6B,#E85050)}
+.chat-avatar-claw{background:linear-gradient(135deg,#CDFF50,#9ACC2D)}
+.chat-hinfo{flex:1}
+.chat-hname{font-size:.8125rem;font-weight:700;color:var(--text)}
+.chat-hstatus{font-size:.6875rem;color:var(--green)}
+.chat-body{
+  padding:14px 12px;
+  display:flex;flex-direction:column;gap:8px;
+  background:var(--bg);
+}
+.bubble{
+  padding:8px 14px;
+  border-radius:12px;
+  font-size:.875rem;
+  line-height:1.5;
+  max-width:88%;
+  animation:fadeUp .5s var(--ease) both;
+}
+.bubble-user{
+  align-self:flex-end;
+  background:rgba(205,255,80,0.12);
+  color:var(--text);
+  border-bottom-right-radius:4px;
+}
+.bubble-bot{
+  align-self:flex-start;
+  background:var(--surface-2);
+  color:var(--text);
+  border-bottom-left-radius:4px;
+}
+.bubble-bot .hl{color:var(--lime);font-weight:700}
+.bubble:nth-child(1){animation-delay:.5s}
+.bubble:nth-child(2){animation-delay:.8s}
+.bubble:nth-child(3){animation-delay:1.1s}
+.chat-inputbar{
+  display:flex;align-items:center;gap:8px;
+  padding:8px 12px;
+  border-top:1px solid var(--border);
+  background:var(--surface-2);
+}
+.chat-inputbar span{
+  flex:1;padding:6px 12px;
+  background:var(--bg);border:1px solid var(--border);
+  border-radius:20px;
+  font-size:.75rem;color:var(--text-faint);
+  font-family:var(--sans);
+}
+.chat-sendbtn{
+  width:28px;height:28px;
+  background:var(--lime);border:none;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.chat-sendbtn svg{width:14px;height:14px;color:#000}
+
+/* Hero CTAs */
+.hero-ctas{
+  display:flex;gap:12px;flex-wrap:wrap;justify-content:center;
+  animation:fadeUp .6s var(--ease) .4s both;
+}
+.btn-primary{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--lime);color:#000;
+  padding:12px 24px;border-radius:8px;
+  font-family:var(--mono);font-size:13px;
+  font-weight:600;letter-spacing:.02em;
+  transition:all .2s var(--ease);
+  border:none;cursor:pointer;
+}
+.btn-primary:hover{background:var(--lime-dark);opacity:1;transform:translateY(-2px);box-shadow:0 4px 20px rgba(205,255,80,0.2)}
+.btn-secondary{
+  display:inline-flex;align-items:center;gap:8px;
+  background:transparent;color:var(--text);
+  padding:12px 24px;border-radius:8px;
+  font-family:var(--mono);font-size:13px;
+  font-weight:500;letter-spacing:.02em;
+  border:1px solid var(--border-2);
+  transition:all .2s var(--ease);
+  cursor:pointer;
+}
+.btn-secondary:hover{border-color:var(--lime);color:var(--lime);opacity:1;transform:translateY(-2px)}
+.hero-tag{
+  font-family:var(--mono);font-size:12px;
+  color:var(--text-faint);letter-spacing:.05em;
+  margin-top:1.5rem;
+  animation:fadeUp .6s var(--ease) .5s both;
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+/* ═══ SECTIONS ═══ */
+.section{
+  max-width:var(--max-w);margin:0 auto;
+  padding:clamp(48px,8vw,96px) clamp(16px,4vw,32px);
+}
+.section-header{margin-bottom:clamp(32px,5vw,48px)}
+.section-label{
+  font-family:var(--mono);font-size:11px;font-weight:500;
+  text-transform:uppercase;letter-spacing:.12em;
+  color:var(--lime);margin-bottom:8px;
+  display:flex;align-items:center;gap:10px;
+}
+.section-label::after{content:'';flex:1;height:1px;background:var(--border)}
+.section h2{
+  font-size:clamp(1.75rem,3.5vw,2.5rem);
+  font-weight:900;letter-spacing:-.02em;
+  line-height:1.2;margin-bottom:12px;
+}
+.section p.lead{
+  font-size:clamp(.9375rem,1.5vw,1.0625rem);
+  color:var(--text-muted);max-width:600px;
+  line-height:1.7;
+}
+.divider{
+  max-width:var(--max-w);margin:0 auto;
+  padding:0 clamp(16px,4vw,32px);
+}
+.divider-line{
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--border-2) 20%,var(--border-2) 80%,transparent);
+}
+
+/* ═══ SCROLL REVEAL ═══ */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.reveal.visible{opacity:1;transform:none}
+
+/* ═══ ABOUT: 2-COL GRID ═══ */
+.about-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:48px;
+  align-items:start;
+}
+.about-text h3{
+  font-size:1.125rem;font-weight:700;
+  margin-bottom:8px;letter-spacing:-.01em;
+}
+.about-text p{
+  font-size:.875rem;color:var(--text-muted);
+  line-height:1.7;margin-bottom:1.5rem;
+}
+.about-features{
+  list-style:none;padding:0;
+  display:flex;flex-direction:column;gap:0;
+}
+.about-features li{
+  font-size:.875rem;color:var(--text-muted);
+  padding:10px 0;
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:10px;
+}
+.about-features li:first-child{border-top:1px solid var(--border)}
+.feat-icon{
+  width:28px;height:28px;min-width:28px;
+  border-radius:6px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.875rem;
+  background:rgba(205,255,80,0.08);
+}
+
+/* About: Chat Demo */
+.about-chat-demo{
+  background:var(--surface);
+  border:1px solid var(--border-2);
+  border-radius:16px;
+  overflow:hidden;
+}
+.about-chat-body{
+  padding:14px 12px;
+  display:flex;flex-direction:column;gap:8px;
+  background:var(--bg);
+  min-height:280px;
+}
+.about-chat-body .bubble{animation:none;opacity:1}
+
+/* ═══ HOW IT WORKS: 4-step ═══ */
+.steps{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+}
+.step{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:clamp(20px,3vw,28px);
+  position:relative;
+  transition:border-color .3s, box-shadow .3s;
+}
+.step:hover{border-color:var(--border-2);box-shadow:0 2px 20px rgba(0,0,0,.3)}
+.step-num{
+  font-family:var(--mono);font-size:11px;
+  color:var(--lime);font-weight:600;
+  margin-bottom:12px;letter-spacing:.04em;
+}
+.step h3{
+  font-size:.9375rem;font-weight:700;
+  margin-bottom:8px;letter-spacing:-.01em;
+}
+.step p{font-size:.8125rem;color:var(--text-muted);line-height:1.7}
+
+/* ═══ FOUR NOES ═══ */
+.noes{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+}
+.noe{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:clamp(16px,2.5vw,24px);
+  text-align:center;
+  transition:border-color .3s, box-shadow .3s;
+}
+.noe:hover{border-color:var(--lime);box-shadow:0 0 20px var(--lime-glow)}
+.noe-icon{
+  font-size:1.5rem;margin-bottom:8px;
+  filter:grayscale(1) brightness(1.5);
+}
+.noe h4{
+  font-size:.8125rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:.04em;
+  margin-bottom:4px;
+}
+.noe p{font-size:.75rem;color:var(--text-dim);line-height:1.6}
+
+/* ═══ PLATFORMS ═══ */
+.platforms-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
+}
+.platform-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:clamp(20px,3vw,28px);
+  transition:all .3s var(--ease);
+  position:relative;
+}
+.platform-card:hover{border-color:var(--border-3);transform:translateY(-2px)}
+.platform-card-primary{border-color:rgba(205,255,80,0.2)}
+.platform-card-primary:hover{border-color:rgba(205,255,80,0.4);box-shadow:0 0 30px var(--lime-glow)}
+.platform-badge{
+  position:absolute;top:12px;right:12px;
+  font-family:var(--mono);font-size:9px;
+  padding:3px 8px;border-radius:4px;
+  text-transform:uppercase;letter-spacing:.06em;
+  font-weight:600;
+}
+.badge-rec{background:rgba(205,255,80,0.15);color:var(--lime)}
+.badge-compat{background:rgba(232,114,10,0.15);color:var(--orange)}
+.badge-soon{background:rgba(91,160,208,0.15);color:var(--blue)}
+.platform-icon{
+  width:40px;height:40px;margin-bottom:12px;
+  border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+}
+.platform-icon-oc{background:rgba(232,80,80,0.15)}
+.platform-icon-oc svg{color:#E85050}
+.platform-icon-ha{background:rgba(232,114,10,0.15)}
+.platform-icon-ha svg{color:var(--orange)}
+.platform-icon-px{background:rgba(91,160,208,0.15)}
+.platform-icon-px svg{color:var(--blue)}
+.platform-card h3{
+  font-size:1rem;font-weight:700;
+  margin-bottom:4px;
+}
+.platform-card p{font-size:.8125rem;color:var(--text-muted);line-height:1.6;margin-bottom:12px}
+.platform-cmd{
+  font-family:var(--mono);font-size:.75rem;
+  padding:8px 12px;
+  background:var(--bg);
+  border:1px solid var(--border);
+  border-radius:6px;
+  color:var(--text-dim);
+  word-break:break-all;
+}
+.platform-cmd code{color:var(--lime)}
+
+/* ═══ CONTRACTS ═══ */
+.contracts{display:grid;gap:8px}
+.contract-row{
+  display:grid;
+  grid-template-columns:140px 1fr;
+  gap:12px;
+  align-items:center;
+  padding:12px 16px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:8px;
+  font-family:var(--mono);
+  font-size:12px;
+  transition:border-color .2s;
+  cursor:pointer;
+}
+.contract-row:hover{border-color:var(--border-2)}
+.contract-label{color:var(--lime);font-weight:500}
+.contract-addr{
+  color:var(--text-dim);
+  word-break:break-all;
+  transition:color .2s;
+}
+.contract-row:hover .contract-addr{color:var(--text)}
+.contract-addr .copied{
+  color:var(--green);font-size:10px;
+  margin-left:6px;display:none;
+}
+
+/* ═══ COMMUNITY LINKS ═══ */
+.link-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:12px;
+}
+.link-card{
+  display:flex;align-items:center;gap:14px;
+  padding:16px 20px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:10px;
+  transition:all .2s var(--ease);
+  color:var(--text);
+}
+.link-card:hover{border-color:var(--border-3);transform:translateY(-2px);opacity:1}
+.link-icon{
+  width:36px;height:36px;min-width:36px;
+  background:var(--surface-2);border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+}
+.link-icon svg{width:18px;height:18px;color:var(--text-muted)}
+.link-name{font-size:.875rem;font-weight:600}
+.link-desc{font-size:.75rem;color:var(--text-dim)}
+
+/* ═══ ARCHITECTURE FLOW ═══ */
+.arch-flow{
+  display:flex;flex-direction:column;align-items:center;gap:0;
+}
+.arch-card{
+  padding:14px 24px;
+  border-radius:10px;
+  font-weight:700;font-size:.9375rem;
+  text-align:center;
+  position:relative;
+  display:flex;align-items:center;gap:10px;
+  justify-content:center;
+}
+.arch-primary{
+  background:var(--surface);
+  border:1px solid rgba(205,255,80,0.2);
+  color:var(--lime);min-width:200px;
+}
+.arch-secondary{
+  background:var(--surface);
+  border:1px solid var(--border-2);
+  color:var(--orange);min-width:120px;
+}
+.arch-label{
+  font-family:var(--mono);font-size:.625rem;
+  text-transform:uppercase;letter-spacing:.08em;
+  color:var(--text-faint);font-weight:500;
+}
+.arch-arrow{
+  font-family:var(--mono);font-size:.75rem;
+  color:var(--text-faint);padding:6px 0;
+  letter-spacing:.04em;
+}
+.arch-row{display:flex;gap:12px}
+
+/* ═══ POAIW GRID ═══ */
+.poaiw-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:40px;
+  align-items:start;
+}
+.poaiw-text h3{
+  font-size:1.125rem;font-weight:700;
+  margin-bottom:8px;
+}
+.poaiw-text p{
+  font-size:.875rem;color:var(--text-muted);
+  line-height:1.7;margin-bottom:1rem;
+}
+.poaiw-text ul{list-style:none;padding:0}
+.poaiw-text li{
+  font-size:.875rem;color:var(--text-muted);
+  padding:6px 0;
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:baseline;gap:8px;
+}
+.poaiw-text li::before{
+  content:'›';color:var(--lime);font-weight:700;
+  font-size:1rem;
+}
+
+/* ═══ FOOTER ═══ */
+.footer{
+  border-top:1px solid var(--border);
+  margin-top:clamp(48px,8vw,80px);
+}
+.footer-inner{
+  max-width:var(--max-w);margin:0 auto;
+  padding:clamp(32px,5vw,48px) clamp(16px,4vw,32px);
+  text-align:center;
+}
+.footer-logo{
+  display:inline-flex;align-items:center;gap:8px;
+  font-weight:900;font-size:15px;letter-spacing:.06em;
+  color:var(--text);margin-bottom:8px;
+}
+.footer-logo svg{width:24px;height:24px}
+.footer-tagline{
+  font-size:.8125rem;color:var(--text-dim);
+  margin-bottom:1.5rem;
+}
+.footer-links{
+  display:flex;justify-content:center;gap:clamp(16px,3vw,28px);
+  flex-wrap:wrap;margin-bottom:1.5rem;
+}
+.footer-links a{
+  font-family:var(--mono);font-size:11px;
+  color:var(--text-dim);text-transform:uppercase;
+  letter-spacing:.06em;
+}
+.footer-links a:hover{color:var(--lime);opacity:1}
+.footer-bottom{font-size:.75rem;color:var(--text-faint)}
+.footer-bottom a{color:var(--text-faint);font-size:.6875rem}
+.footer-bottom a:hover{color:var(--lime)}
+
+/* ═══ MOBILE ═══ */
+@media(max-width:768px){
+  .nav-links{
+    display:none;flex-direction:column;
+    position:absolute;top:56px;left:0;right:0;
+    background:rgba(10,10,10,0.97);
+    padding:16px clamp(16px,4vw,32px);
+    border-bottom:1px solid var(--border);
+    gap:12px;
+  }
+  .nav-links.open{display:flex}
+  .mobile-menu{display:block}
+  
+  .hero h1{font-size:clamp(1.75rem,7vw,2.5rem)}
+
+  .about-grid{grid-template-columns:1fr;gap:32px}
+  
+  .steps{grid-template-columns:1fr 1fr}
+  
+  .noes{grid-template-columns:1fr 1fr}
+  
+  .platforms-grid{grid-template-columns:1fr}
+  
+  .poaiw-grid{grid-template-columns:1fr}
+  
+  .contract-row{grid-template-columns:1fr;gap:4px}
+  .contract-label{font-size:11px}
+}
+@media(max-width:480px){
+  .steps{grid-template-columns:1fr}
+  .noes{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <div class="nav-logo">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <rect x="16" y="16" width="168" height="168" rx="36" fill="#CDFF50"/>
+        <rect x="72" y="78" width="56" height="56" rx="16" fill="#0a0a0a"/>
+        <circle cx="88" cy="102" r="6" fill="#CDFF50"/>
+        <circle cx="112" cy="102" r="6" fill="#CDFF50"/>
+        <path d="M 72 90 L 52 78 L 40 86 L 54 98 L 40 110 L 52 118 L 72 106" fill="#0a0a0a"/>
+        <path d="M 128 90 L 148 78 L 160 86 L 146 98 L 160 110 L 148 118 L 128 106" fill="#0a0a0a"/>
+        <line x1="88" y1="78" x2="72" y2="50" stroke="#0a0a0a" stroke-width="4.5" stroke-linecap="round"/>
+        <circle cx="72" cy="50" r="4" fill="#0a0a0a"/>
+        <line x1="112" y1="78" x2="128" y2="50" stroke="#0a0a0a" stroke-width="4.5" stroke-linecap="round"/>
+        <circle cx="128" cy="50" r="4" fill="#0a0a0a"/>
+      </svg>
+      CLAWING
+    </div>
+    <div class="nav-links" id="navLinks">
+      <a href="#about">About</a>
+      <a href="#how-it-works">PoAIW</a>
+      <a href="#platforms">Platforms</a>
+      <a href="#contracts">Contracts</a>
+      <a href="#community">Community</a>
+      <a href="https://clawhub.ai/skills/claw-mining" target="_blank" rel="noopener noreferrer" class="nav-cta">Install Skill</a>
+    </div>
+    <button class="mobile-menu" id="mobileMenu" aria-label="Menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="hero-badge">
+    <svg width="14" height="14" viewBox="0 0 200 200"><rect x="16" y="16" width="168" height="168" rx="36" fill="#CDFF50"/><rect x="72" y="78" width="56" height="56" rx="16" fill="#0a0a0a"/><circle cx="88" cy="102" r="6" fill="#CDFF50"/><circle cx="112" cy="102" r="6" fill="#CDFF50"/></svg>
+    The First AI Mining Skill <span>&middot; Ethereum</span>
+  </div>
+
+  <h1>Install. Say <span class="hl">"Mine CLAW"</span>.<br>That's it.</h1>
+  
+  <p class="hero-sub">CLAWING is an OpenClaw skill that mines $CLAW tokens through Proof of AI Work. No setup, no code, no private key access. Your AI does the work, you earn the tokens.</p>
+
+  <!-- Chat Preview -->
+  <div class="hero-chat">
+    <div class="chat-header">
+      <div class="chat-avatar chat-avatar-oc">
+        <svg viewBox="0 0 40 40" width="18" height="18"><circle cx="20" cy="22" r="14" fill="#E85050"/><circle cx="14" cy="20" r="3" fill="#fff"/><circle cx="26" cy="20" r="3" fill="#fff"/><circle cx="14" cy="19.5" r="1.5" fill="#222"/><circle cx="26" cy="19.5" r="1.5" fill="#222"/><line x1="20" y1="8" x2="20" y2="2" stroke="#E85050" stroke-width="2.5" stroke-linecap="round"/><circle cx="20" cy="1" r="2" fill="#E85050"/></svg>
+      </div>
+      <div class="chat-hinfo">
+        <div class="chat-hname">Your OpenClaw</div>
+        <div class="chat-hstatus">online</div>
+      </div>
+    </div>
+    <div class="chat-body">
+      <div class="bubble bubble-user">Mine CLAW</div>
+      <div class="bubble bubble-bot">🦞 Mining complete!<br><span class="hl">⛏ Mined 866,038 $CLAW</span><br><span style="font-size:.75rem;color:var(--text-dim)">TX: 0xae4f...c821 &middot; Ethereum Mainnet</span></div>
+    </div>
+    <div class="chat-inputbar">
+      <span>Message Your OpenClaw...</span>
+      <div class="chat-sendbtn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg></div>
+    </div>
+  </div>
+
+  <div class="hero-ctas">
+    <a href="https://clawhub.ai/skills/claw-mining" target="_blank" rel="noopener noreferrer" class="btn-primary">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Install on OpenClaw
+    </a>
+    <a href="https://clawhub.ai/skills/claw-mining" target="_blank" rel="noopener noreferrer" class="btn-secondary">
+      View on ClawHub
+    </a>
+  </div>
+  <div class="hero-tag">$CLAW &middot; Ethereum Mainnet &middot; No premine &middot; No ICO &middot; No VC &middot; 100% mined</div>
+</section>
+
+<!-- ═══ ABOUT ═══ -->
+<div class="divider"><div class="divider-line"></div></div>
+<section class="section" id="about">
+  <div class="section-header reveal">
+    <div class="section-label">01 &middot; About</div>
+    <h2>OpenClaw's First AI Mining Skill</h2>
+    <p class="lead">CLAWING turns your AI agent into a miner. Install the skill, say "Mine CLAW", and earn tokens backed by verified AI computation on Ethereum.</p>
+  </div>
+
+  <div class="about-grid reveal">
+    <!-- Left: Feature list -->
+    <div class="about-text">
+      <h3>One Skill. Zero Complexity.</h3>
+      <p>No wallets to configure, no nodes to run, no private keys to share. The claw-mining skill handles everything — wallet setup, oracle connection, Ethereum submission, and token minting — in a single chat command.</p>
+      
+      <ul class="about-features">
+        <li>
+          <span class="feat-icon">⛏</span>
+          <span><strong style="color:var(--text)">Proof of AI Work</strong> — every token represents real AI inference</span>
+        </li>
+        <li>
+          <span class="feat-icon">🔒</span>
+          <span><strong style="color:var(--text)">No private key access</strong> — the skill never touches your keys</span>
+        </li>
+        <li>
+          <span class="feat-icon">⚡</span>
+          <span><strong style="color:var(--text)">60-second setup</strong> — install and mine in one command</span>
+        </li>
+        <li>
+          <span class="feat-icon">🔓</span>
+          <span><strong style="color:var(--text)">Fully open-source</strong> — read every line on GitHub</span>
+        </li>
+        <li>
+          <span class="feat-icon">⚖️</span>
+          <span><strong style="color:var(--text)">Fair launch</strong> — no premine, no ICO, no team allocation, no VC</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Right: Chat demo showing install flow -->
+    <div class="about-chat-demo">
+      <div class="chat-header">
+        <div class="chat-avatar chat-avatar-oc">
+          <svg viewBox="0 0 40 40" width="18" height="18"><circle cx="20" cy="22" r="14" fill="#E85050"/><circle cx="14" cy="20" r="3" fill="#fff"/><circle cx="26" cy="20" r="3" fill="#fff"/><circle cx="14" cy="19.5" r="1.5" fill="#222"/><circle cx="26" cy="19.5" r="1.5" fill="#222"/><line x1="20" y1="8" x2="20" y2="2" stroke="#E85050" stroke-width="2.5" stroke-linecap="round"/><circle cx="20" cy="1" r="2" fill="#E85050"/></svg>
+        </div>
+        <div class="chat-hinfo">
+          <div class="chat-hname">Your OpenClaw</div>
+          <div class="chat-hstatus">online</div>
+        </div>
+      </div>
+      <div class="about-chat-body">
+        <div class="bubble bubble-user">Install claw-mining skill</div>
+        <div class="bubble bubble-bot">🔍 Searching ClawHub...<br><span style="font-size:.8125rem">Found <code style="font-family:var(--mono);font-size:.75rem;background:var(--surface-3);padding:1px 6px;border-radius:3px;color:var(--lime)">claw-mining</code> by CLAWING</span></div>
+        <div class="bubble bubble-bot"><span style="color:var(--green)">✓</span> Dependencies resolved<br><span style="color:var(--green)">✓</span> Wallet module loaded<br><span style="color:var(--green)">✓</span> Oracle endpoint configured<br><span style="color:var(--green)">✓</span> Ethereum RPC connected</div>
+        <div class="bubble bubble-bot"><span style="color:var(--green)">✓</span> Skill installed.<br><span style="font-size:.75rem;color:var(--text-dim)">Say "Mine CLAW" to start mining.</span></div>
+        <div class="bubble bubble-user">Mine CLAW</div>
+        <div class="bubble bubble-bot">🦞 <span class="hl">⛏ Mined 866,038 $CLAW</span><br><span style="font-size:.75rem;color:var(--text-dim)">TX: 0xae4f...c821 &middot; Ethereum Mainnet</span></div>
+      </div>
+      <div class="chat-inputbar">
+        <span>Message Your OpenClaw...</span>
+        <div class="chat-sendbtn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ HOW IT WORKS ═══ -->
+<div class="divider"><div class="divider-line"></div></div>
+<section class="section" id="how-it-works">
+  <div class="section-header reveal">
+    <div class="section-label">02 &middot; Mechanism</div>
+    <h2>Proof of AI Work</h2>
+    <p class="lead">A new consensus where mining produces useful AI computation instead of wasting energy on arbitrary hashes.</p>
+  </div>
+
+  <div class="steps reveal">
+    <div class="step">
+      <div class="step-num">01</div>
+      <h3>Request Task</h3>
+      <p>The skill calls the smart contract to receive an AI inference task — real computation that produces useful output.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <h3>Run Inference</h3>
+      <p>Your AI agent runs the model. The output is real work — not a random hash, but actual cognitive computation.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <h3>Oracle Verify</h3>
+      <p>An independent oracle verifies the AI inference was performed correctly and the output meets quality standards.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <h3>Mint $CLAW</h3>
+      <p>The verified proof is submitted on-chain. The smart contract mints $CLAW tokens as reward.</p>
+    </div>
+  </div>
+
+  <div class="poaiw-grid reveal" style="margin-top:48px">
+    <div class="poaiw-text">
+      <h3>Why It Matters</h3>
+      <p>Bitcoin mining consumes more electricity than some countries — all to compute meaningless SHA-256 hashes. CLAWING proves there's a better way.</p>
+      <ul>
+        <li>Every mined token represents real AI work done</li>
+        <li>Verified by independent oracle on-chain</li>
+        <li>4 audited smart contracts, 154 tests passing</li>
+        <li>Fully open-source — read every line of code</li>
+        <li>Fair launch — same rules for everyone</li>
+      </ul>
+    </div>
+    <div class="arch-flow">
+      <div class="arch-card arch-primary"><span class="arch-label">ERC-20</span>CLAW Token</div>
+      <div class="arch-arrow">↓ mint()</div>
+      <div class="arch-card arch-primary"><span class="arch-label">Core</span>PoAIWMint</div>
+      <div class="arch-arrow">↓</div>
+      <div class="arch-row">
+        <div class="arch-card arch-secondary"><span class="arch-label">Proxy</span>Minter</div>
+        <div class="arch-card arch-secondary"><span class="arch-label">Verify</span>Oracle</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOUR NOES ═══ -->
+<div class="divider"><div class="divider-line"></div></div>
+<section class="section">
+  <div class="section-header reveal">
+    <div class="section-label">03 &middot; Design Philosophy</div>
+    <h2>No Keys. No Nodes. No Setup. No Worry.</h2>
+    <p class="lead">CLAWING was designed to be the simplest crypto-earning experience ever built.</p>
+  </div>
+  <div class="noes reveal">
+    <div class="noe">
+      <div class="noe-icon">🔑</div>
+      <h4>No Private Keys</h4>
+      <p>The skill never asks for your private key. Non-custodial by design.</p>
+    </div>
+    <div class="noe">
+      <div class="noe-icon">🖥</div>
+      <h4>No Node Setup</h4>
+      <p>No Ethereum node to run. No RPC to configure. The skill handles everything.</p>
+    </div>
+    <div class="noe">
+      <div class="noe-icon">💻</div>
+      <h4>No Code</h4>
+      <p>Install from ClawHub, say "Mine CLAW". No programming knowledge needed.</p>
+    </div>
+    <div class="noe">
+      <div class="noe-icon">😟</div>
+      <h4>No Worry</h4>
+      <p>4 audited contracts, 154 tests, fully open-source. Transparent and verifiable.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PLATFORMS ═══ -->
+<div class="divider"><div class="divider-line"></div></div>
+<section class="section" id="platforms">
+  <div class="section-header reveal">
+    <div class="section-label">04 &middot; Platforms</div>
+    <h2>Works With Your AI Agent</h2>
+    <p class="lead">CLAWING works natively with OpenClaw. Support for other platforms coming soon.</p>
+  </div>
+  <div class="platforms-grid reveal">
+    <div class="platform-card platform-card-primary">
+      <div class="platform-badge badge-rec">Recommended</div>
+      <div class="platform-icon platform-icon-oc">
+        <svg viewBox="0 0 40 40" width="20" height="20" fill="none">
+          <circle cx="20" cy="22" r="14" fill="#E85050"/>
+          <circle cx="14" cy="20" r="3" fill="#fff"/>
+          <circle cx="26" cy="20" r="3" fill="#fff"/>
+          <circle cx="14" cy="19.5" r="1.5" fill="#222"/>
+          <circle cx="26" cy="19.5" r="1.5" fill="#222"/>
+          <line x1="20" y1="8" x2="20" y2="2" stroke="#E85050" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="20" cy="1" r="2" fill="#E85050"/>
+        </svg>
+      </div>
+      <h3>OpenClaw</h3>
+      <p>Native integration. Full Proof of AI Work support. The reference platform for CLAWING.</p>
+      <div class="platform-cmd">Install via ClawHub or say:<br><code>install skill claw-mining</code></div>
+    </div>
+    <div class="platform-card">
+      <div class="platform-badge badge-compat">Compatible</div>
+      <div class="platform-icon platform-icon-ha">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+      </div>
+      <h3>Home Assistant</h3>
+      <p>Run CLAWING from your smart home hub. Automate mining schedules with Home Assistant automations.</p>
+      <div class="platform-cmd">MCP skill compatible</div>
+    </div>
+    <div class="platform-card">
+      <div class="platform-badge badge-soon">Coming Soon</div>
+      <div class="platform-icon platform-icon-px">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+      </div>
+      <h3>Perplexity</h3>
+      <p>Coming soon: mine $CLAW directly through Perplexity AI. No additional setup required.</p>
+      <div class="platform-cmd">Stay tuned</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CONTRACTS ═══ -->
+<div class="divider"><div class="divider-line"></div></div>
+<section class="section" id="contracts">
+  <div class="section-header reveal">
+    <div class="section-label">05 &middot; Contracts</div>
+    <h2>On-Chain. Audited. Open.</h2>
+    <p class="lead">4 smart contracts, fully verified on Etherscan. All source code available on GitHub.</p>
+  </div>
+  <div class="contracts reveal">
+    <div class="contract-row" onclick="copyAddr(this, '0x...')" title="Click to copy">
+      <span class="contract-label">CLAW Token</span>
+      <span class="contract-addr">0x1234...abcd <span class="copied">✓ copied</span></span>
+    </div>
+    <div class="contract-row" onclick="copyAddr(this, '0x...')" title="Click to copy">
+      <span class="contract-label">PoAIWMint</span>
+      <span class="contract-addr">0x5678...ef01 <span class="copied">✓ copied</span></span>
+    </div>
+    <div class="contract-row" onclick="copyAddr(this, '0x...')" title="Click to copy">
+      <span class="contract-label">MinerProxy</span>
+      <span class="contract-addr">0x9abc...2345 <span class="copied">✓ copied</span></span>
+    </div>
+    <div class="contract-row" onclick="copyAddr(this, '0x...')" title="Click to copy">
+      <span class="contract-label">Oracle</span>
+      <span class="contract-addr">0xdef0...6789 <span class="copied">✓ copied</span></span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ COMMUNITY ═══ -->
+<div class="divider"><div class="divider-line"></div></div>
+<section class="section" id="community">
+  <div class="section-header reveal">
+    <div class="section-label">06 &middot; Community</div>
+    <h2>Join the Miners</h2>
+    <p class="lead">CLAWING is built in public. Follow the project, contribute code, or just come mine.</p>
+  </div>
+  <div class="link-grid reveal">
+    <a href="https://github.com/Cliai21/clawing" target="_blank" rel="noopener noreferrer" class="link-card">
+      <div class="link-icon">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+      </div>
+      <div>
+        <div class="link-name">GitHub</div>
+        <div class="link-desc">Source code & contracts</div>
+      </div>
+    </a>
+    <a href="https://clawhub.ai/skills/claw-mining" target="_blank" rel="noopener noreferrer" class="link-card">
+      <div class="link-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      </div>
+      <div>
+        <div class="link-name">ClawHub</div>
+        <div class="link-desc">Install the skill</div>
+      </div>
+    </a>
+    <a href="https://x.com/clawingtoken" target="_blank" rel="noopener noreferrer" class="link-card">
+      <div class="link-icon">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.259 5.632L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/></svg>
+      </div>
+      <div>
+        <div class="link-name">X / Twitter</div>
+        <div class="link-desc">@clawingtoken</div>
+      </div>
+    </a>
+    <a href="https://t.me/clawingtoken" target="_blank" rel="noopener noreferrer" class="link-card">
+      <div class="link-icon">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.96 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+      </div>
+      <div>
+        <div class="link-name">Telegram</div>
+        <div class="link-desc">Community chat</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" width="24" height="24">
+        <rect x="16" y="16" width="168" height="168" rx="36" fill="#CDFF50"/>
+        <rect x="72" y="78" width="56" height="56" rx="16" fill="#0a0a0a"/>
+        <circle cx="88" cy="102" r="6" fill="#CDFF50"/>
+        <circle cx="112" cy="102" r="6" fill="#CDFF50"/>
+        <path d="M 72 90 L 52 78 L 40 86 L 54 98 L 40 110 L 52 118 L 72 106" fill="#0a0a0a"/>
+        <path d="M 128 90 L 148 78 L 160 86 L 146 98 L 160 110 L 148 118 L 128 106" fill="#0a0a0a"/>
+        <line x1="88" y1="78" x2="72" y2="50" stroke="#0a0a0a" stroke-width="4.5" stroke-linecap="round"/>
+        <circle cx="72" cy="50" r="4" fill="#0a0a0a"/>
+        <line x1="112" y1="78" x2="128" y2="50" stroke="#0a0a0a" stroke-width="4.5" stroke-linecap="round"/>
+        <circle cx="128" cy="50" r="4" fill="#0a0a0a"/>
+      </svg>
+      CLAWING
+    </div>
+    <p class="footer-tagline">The First AI Mining Skill for OpenClaw</p>
+    <div class="footer-links">
+      <a href="#about">About</a>
+      <a href="#how-it-works">PoAIW</a>
+      <a href="#platforms">Platforms</a>
+      <a href="#contracts">Contracts</a>
+      <a href="#community">Community</a>
+      <a href="https://clawhub.ai/skills/claw-mining" target="_blank" rel="noopener noreferrer">Install Skill</a>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 CLAWING &middot; <a href="https://github.com/Cliai21/clawing" target="_blank" rel="noopener noreferrer">Open Source</a> &middot; Built on Ethereum</p>
+      <p style="margin-top:4px">$CLAW is not a security. Mining rewards are not guaranteed. Use at your own risk.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── Nav scroll effect ──
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 10);
+}, { passive: true });
+
+// ── Mobile menu ──
+const mobileMenu = document.getElementById('mobileMenu');
+const navLinks = document.getElementById('navLinks');
+mobileMenu.addEventListener('click', () => {
+  navLinks.classList.toggle('open');
+  const isOpen = navLinks.classList.contains('open');
+  mobileMenu.innerHTML = isOpen
+    ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>'
+    : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>';
+});
+
+// ── Scroll Reveal ──
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ── Contract copy ──
+function copyAddr(row, addr) {
+  navigator.clipboard.writeText(addr).then(() => {
+    const copied = row.querySelector('.copied');
+    copied.style.display = 'inline';
+    setTimeout(() => { copied.style.display = 'none'; }, 2000);
+  });
+}
+
+// ── Smooth scroll for nav links ──
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const href = a.getAttribute('href');
+    if (href === '#') return;
+    e.preventDefault();
+    const target = document.querySelector(href);
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+</script>
+</body>
+</html>
