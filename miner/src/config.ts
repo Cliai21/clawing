@@ -19,12 +19,12 @@ export interface MinerConfig {
 
 export function loadConfig(): MinerConfig {
   const privateKey = requireEnv('PRIVATE_KEY');
-  const rpcUrl = requireEnv('RPC_URL');
+  const rpcUrl = envOrDefault('RPC_URL', 'https://eth.llamarpc.com');
   const provider = new ethers.JsonRpcProvider(rpcUrl);
   const wallet = new ethers.Wallet(privateKey, provider);
 
   // F-02: Enforce HTTPS for Oracle URL in production
-  const oracleUrl = envOrDefault('ORACLE_URL', 'http://localhost:3000');
+  const oracleUrl = envOrDefault('ORACLE_URL', 'https://oracle.minewithclaw.com');
   if (
     !oracleUrl.startsWith('https://') &&
     !oracleUrl.startsWith('http://localhost') &&
@@ -52,7 +52,7 @@ export function loadConfig(): MinerConfig {
     aiModel: envOrDefault('AI_MODEL', 'grok-4.1-fast'),
     oracleUrl,
     rpcUrl,
-    poaiwMintAddress: ethers.getAddress(requireEnv('POAIW_MINT_ADDRESS')),
+    poaiwMintAddress: ethers.getAddress(envOrDefault('POAIW_MINT_ADDRESS', '0x511351940d99f3012c79c613478e8f2c887a8259')),
     maxGasPriceGwei,
     taskPrompt: envOrDefault('TASK_PROMPT', 'Write a detailed, comprehensive analysis of the following topic. Include multiple perspectives, examples, and nuanced arguments. Your response should be thorough and substantive.'),
   };

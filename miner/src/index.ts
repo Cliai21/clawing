@@ -26,8 +26,8 @@ program
       new Promise((resolve) => rl.question(q, resolve));
 
     console.log('\n  Clawing Miner Setup\n');
-    console.log('  Note: For security, this setup does NOT ask for your private key.');
-    console.log('  After setup, edit .env and add your PRIVATE_KEY manually.\n');
+    console.log('  This wizard will configure your miner. You only need an AI API key.');
+    console.log('  All other settings have sensible defaults.\n');
 
     // ═══ API Provider Selection ═══
     console.log('\n  Select your AI API provider:');
@@ -58,13 +58,45 @@ program
       aiApiKey = await ask('? Enter your xAI API key: ');
     }
 
-    const oracleUrl = (await ask('\n? Enter Oracle URL (default: http://localhost:3000): '))
-      || 'http://localhost:3000';
-    const rpcUrl = await ask('? Enter RPC URL: ');
-    const poaiwMintAddress = await ask('? Enter PoAIWMint contract address: ');
-    const maxGas = (await ask('? Max gas price in gwei (default: 2): ')) || '2';
-    const taskPrompt = (await ask('? Mining task prompt (default: Explain quantum computing in detail.): '))
-      || 'Explain quantum computing in detail.';
+    // ═══ Defaults (user does not need to touch these) ═══
+    const DEFAULTS = {
+      oracleUrl: 'https://oracle.minewithclaw.com',
+      rpcUrl: 'https://eth.llamarpc.com',
+      poaiwMintAddress: '0x511351940d99f3012c79c613478e8f2c887a8259',
+      maxGas: '3',
+      taskPrompt: 'Explain quantum computing in detail.',
+    };
+
+    console.log('\n  Using built-in defaults:');
+    console.log(`    Oracle URL:     ${DEFAULTS.oracleUrl}`);
+    console.log(`    RPC URL:        ${DEFAULTS.rpcUrl}`);
+    console.log(`    PoAIWMint:      ${DEFAULTS.poaiwMintAddress}`);
+    console.log(`    Max gas:        ${DEFAULTS.maxGas} gwei`);
+
+    const customize = (await ask('\n? Customize advanced settings? [y/N] (default: N): ')).toLowerCase();
+
+    let oracleUrl = DEFAULTS.oracleUrl;
+    let rpcUrl = DEFAULTS.rpcUrl;
+    let poaiwMintAddress = DEFAULTS.poaiwMintAddress;
+    let maxGas = DEFAULTS.maxGas;
+    let taskPrompt = DEFAULTS.taskPrompt;
+
+    if (customize === 'y' || customize === 'yes') {
+      oracleUrl = (await ask(`? Oracle URL (default: ${DEFAULTS.oracleUrl}): `)) || DEFAULTS.oracleUrl;
+      rpcUrl = (await ask(`? RPC URL (default: ${DEFAULTS.rpcUrl}): `)) || DEFAULTS.rpcUrl;
+      poaiwMintAddress = (await ask(`? PoAIWMint address (default: ${DEFAULTS.poaiwMintAddress}): `)) || DEFAULTS.poaiwMintAddress;
+      maxGas = (await ask(`? Max gas price in gwei (default: ${DEFAULTS.maxGas}): `)) || DEFAULTS.maxGas;
+      taskPrompt = (await ask(`? Mining task prompt (default: ${DEFAULTS.taskPrompt}): `)) || DEFAULTS.taskPrompt;
+    }
+
+    // ═══ Private Key (optional, user-initiated) ═══
+    console.log('\n  Your private key is needed to sign mining transactions.');
+    console.log('  It stays in the local .env file and is NEVER sent anywhere.');
+    const wantsKey = (await ask('? Enter private key now? [y/N] (you can add it to .env later): ')).toLowerCase();
+    let privateKeyValue = '';
+    if (wantsKey === 'y' || wantsKey === 'yes') {
+      privateKeyValue = await ask('? Paste your private key (0x...): ');
+    }
 
     rl.close();
 
@@ -74,10 +106,15 @@ program
         ? '# Provider: Custom endpoint'
         : '# Provider: xAI Direct (recommended)';
 
+    const privateKeyLine = privateKeyValue || '';
+    const privateKeyComment = privateKeyValue
+      ? '# Private key set during init. Do NOT share it with any agent or chat.'
+      : '# SECURITY: Paste your private key below. Do NOT share it with any agent or chat.';
+
     const envContent = `# === Wallet ===
-# SECURITY: Paste your private key below manually. Do NOT share it with any agent or chat.
+${privateKeyComment}
 # Use a dedicated hot wallet with minimal ETH — never your main wallet or hardware wallet.
-PRIVATE_KEY=
+PRIVATE_KEY=${privateKeyLine}
 
 # === AI API ===
 ${providerComment}
@@ -98,8 +135,11 @@ TASK_PROMPT=${taskPrompt}
 `;
 
     fs.writeFileSync('.env', envContent, { mode: 0o600 });
-    console.log('\n  .env file created (permissions: 600).');
-    console.log('  ⚠  Open .env and paste your PRIVATE_KEY before running mine or auto.\n');
+    console.log('\n  ✓ .env file created (permissions: 600).');
+    if (!privateKeyValue) {
+      console.log('  ⚠  Open .env and paste your PRIVATE_KEY before running mine or auto.');
+    }
+    console.log('  Run: npx tsx src/index.ts status   — to verify your setup\n');
   });
 
 // ═══════════════════ status ═══════════════════

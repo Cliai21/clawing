@@ -25,8 +25,8 @@ Use when the user wants to:
 
 **CRITICAL — READ BEFORE PROCEEDING**
 
-- The `init` command creates a `.env` file with an empty `PRIVATE_KEY=` placeholder. It never prompts for, receives, or writes the actual private key value.
-- The user must manually edit `.env` and paste their own `PRIVATE_KEY` value. The agent MUST NOT ask the user to paste, share, or reveal their private key in conversation.
+- The `init` command optionally asks the user if they want to enter their private key. If they decline, the `.env` file is created with an empty `PRIVATE_KEY=` placeholder for them to fill in later. Either way, the choice is entirely the user's.
+- The agent MUST NOT ask the user to paste, share, or reveal their private key in conversation. Only the CLI's local `init` prompt handles this.
 - The `.env` file is created with `chmod 600` permissions (owner-only read/write).
 - At runtime, the miner reads `PRIVATE_KEY` from the environment, loads it into an in-memory `ethers.Wallet` object, and removes it from the config object immediately. The key is used only for local transaction signing and is never logged, transmitted, or sent to the Oracle, AI API, or any external service.
 - All transactions are signed locally by the miner process on the user's own computer.
@@ -109,13 +109,12 @@ The user runs this command in their terminal:
 npx tsx src/index.ts init
 ```
 
-This will prompt the user for AI API provider, API key, Oracle URL, RPC URL, contract address, and gas settings. It does NOT ask for the private key. When prompted:
+This will prompt the user for AI API provider and API key. All other settings (Oracle URL, RPC, contract address, gas limit) use sensible built-in defaults. When prompted:
 - **AI API provider**: Choose `[1] xAI Direct` (recommended) or `[2] OpenRouter`
-- **Oracle URL**: Enter `https://oracle.minewithclaw.com`
-- **PoAIWMint address**: Enter `0x511351940d99f3012c79c613478e8f2c887a8259`
-- **Max gas price**: Enter `3` (gwei, conservative default)
+- **Customize advanced settings?**: Press Enter for No (defaults are correct for mainnet)
+- **Enter private key now?**: The user chooses — they can enter it in the CLI or add it to `.env` later
 
-After `init` completes, tell the user to open `.env` and paste their `PRIVATE_KEY` on the designated line. The agent must not handle this step.
+If the user skipped the private key step, tell them to open `.env` and paste their `PRIVATE_KEY` on the designated line.
 
 #### Method B: Manual .env File
 
@@ -159,9 +158,9 @@ chmod 600 .env
 | `AI_API_KEY` | Yes | — | xAI or OpenRouter API key |
 | `AI_API_URL` | No | `https://api.x.ai/v1/chat/completions` | AI chat completions endpoint |
 | `AI_MODEL` | No | `grok-4.1-fast` | Model name (must match on-chain Era model) |
-| `ORACLE_URL` | No | `http://localhost:3000` | Oracle verification server URL. **Must use HTTPS** in production (only localhost allowed over HTTP). |
-| `RPC_URL` | Yes | — | Ethereum mainnet JSON-RPC endpoint |
-| `POAIW_MINT_ADDRESS` | Yes | — | PoAIWMint contract address |
+| `ORACLE_URL` | No | `https://oracle.minewithclaw.com` | Oracle verification server URL. **Must use HTTPS** in production (only localhost allowed over HTTP). |
+| `RPC_URL` | No | `https://eth.llamarpc.com` | Ethereum mainnet JSON-RPC endpoint. Free public RPC; replace with Alchemy/Infura for higher reliability. |
+| `POAIW_MINT_ADDRESS` | No | `0x511351940d99f3012c79c613478e8f2c887a8259` | PoAIWMint contract address |
 | `MAX_GAS_PRICE_GWEI` | No | `2` | Max gas price — auto-waits if exceeded. Must be a finite positive number. |
 | `TASK_PROMPT` | No | (built-in default) | Text prompt sent to AI model |
 
