@@ -1,0 +1,13 @@
+[package]
+name = "openclaw-circuit"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+sp1-zkvm = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+sha2 = { workspace = true }
+tiny-keccak = { workspace = true }
+alloy-sol-types = { workspace = true }
+alloy-primitives = { workspace = true }

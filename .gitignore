@@ -1,0 +1,50 @@
+# ==========================
+# Clawing (CLAW) — .gitignore
+# ==========================
+
+# ---- Node.js ----
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ---- Environment / Secrets ----
+.env
+.env.local
+.env.production
+.env.*.local
+
+# ---- Foundry (Solidity) ----
+contracts/out/
+contracts/cache/
+contracts/broadcast/
+contracts/foundry.lock
+
+# ---- Rust / SP1 ----
+target/
+Cargo.lock
+
+# ---- OS ----
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# ---- IDE ----
+.vscode/
+.idea/
+*.iml
+
+# ---- Build Artifacts ----
+dist/
+build/
+*.tsbuildinfo
+
+# ---- Logs ----
+*.log
+
+# ---- Legacy / Backup ----
+contracts/legacy_backup/
+.github/workflows/ci.yml
