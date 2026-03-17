@@ -17,151 +17,269 @@
 <link rel="author" href="https://www.perplexity.ai/computer">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roadmap — CLAWING</title>
+<meta name="description" content="CLAWING development roadmap — from centralized oracle to trustless zkTLS verification and sovereign L1 network.">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
 <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
 <link href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700,900&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
-<title>CLAWING — Roadmap</title>
-<meta name="description" content="CLAWING project roadmap — four phases from Genesis to full Ecosystem expansion.">
 <style>
-/* ── TIMELINE ── */
-.timeline{
-  position:relative;
-  padding-left:40px;
-  margin-top:8px;
+/* ═══ ROADMAP PAGE ═══ */
+
+/* Trust evolution bar */
+.trust-evolution{
+  max-width:var(--max-w);margin:0 auto;
+  padding:0 clamp(16px,4vw,32px) clamp(32px,4vw,48px);
 }
-.timeline::before{
-  content:'';position:absolute;
-  left:15px;top:0;bottom:0;
-  width:2px;
-  background:linear-gradient(to bottom,var(--lime),var(--lime) 40%,var(--border-2) 40%);
+.trust-bar{
+  display:flex;align-items:center;
+  gap:0;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:10px;
+  overflow:hidden;
+}
+.trust-bar-seg{
+  flex:1;
+  padding:12px 16px;
+  text-align:center;
+  border-right:1px solid var(--border);
+  transition:background .3s;
+}
+.trust-bar-seg:last-child{border-right:none}
+.trust-bar-seg.active{background:rgba(205,255,80,0.06)}
+.trust-bar-label{
+  font-family:var(--mono);font-size:.625rem;
+  text-transform:uppercase;letter-spacing:.08em;
+  color:var(--text-faint);margin-bottom:2px;
+}
+.trust-bar-value{
+  font-size:.75rem;font-weight:600;
+  color:var(--text-muted);
+}
+.trust-bar-seg.active .trust-bar-value{color:var(--lime)}
+
+/* Timeline container */
+.timeline{
+  max-width:var(--max-w);margin:0 auto;
+  padding:clamp(32px,6vw,64px) clamp(16px,4vw,32px);
+  position:relative;
 }
 
+/* Vertical line */
+.timeline::before{
+  content:'';
+  position:absolute;
+  left:24px;
+  top:0;
+  bottom:0;
+  width:2px;
+  background:linear-gradient(
+    180deg,
+    var(--lime) 0%,
+    var(--lime) 18%,
+    var(--orange) 18%,
+    var(--orange) 28%,
+    var(--border-2) 28%,
+    var(--border-2) 100%
+  );
+}
+
+/* Phase block */
 .phase{
   position:relative;
-  margin-bottom:clamp(32px,5vw,48px);
+  padding-left:60px;
+  margin-bottom:clamp(48px,6vw,72px);
 }
 .phase:last-child{margin-bottom:0}
 
+/* Phase dot */
 .phase-dot{
   position:absolute;
-  left:-40px;top:4px;
-  width:30px;height:30px;
-  display:flex;align-items:center;justify-content:center;
+  left:12px;
+  top:4px;
+  width:26px;height:26px;
   border-radius:50%;
-  background:var(--surface);
-  border:2px solid var(--border-2);
+  display:flex;align-items:center;justify-content:center;
   z-index:2;
 }
-.phase-dot.completed{
-  background:var(--green);
-  border-color:var(--green);
-}
-.phase-dot.completed svg{
-  width:14px;height:14px;
-  stroke:#000;fill:none;
-  stroke-width:3;stroke-linecap:round;stroke-linejoin:round;
-}
-.phase-dot.in-progress{
-  border-color:var(--lime);
-}
-.phase-dot.in-progress::after{
-  content:'';
-  width:10px;height:10px;
+.phase-dot-completed{
   background:var(--lime);
-  border-radius:50%;
-  animation:pulse 2s ease-in-out infinite;
 }
-.phase-dot.planned::after{
-  content:'';
-  width:8px;height:8px;
+.phase-dot-completed svg{width:14px;height:14px;color:#0A0A0A}
+.phase-dot-progress{
+  background:var(--orange);
+  box-shadow:0 0 12px rgba(232,114,10,0.4);
+  animation:pulse-dot 2s ease-in-out infinite;
+}
+.phase-dot-progress::after{
+  content:'';position:absolute;
+  width:8px;height:8px;border-radius:50%;
+  background:#fff;
+}
+@keyframes pulse-dot{
+  0%,100%{box-shadow:0 0 8px rgba(232,114,10,0.3)}
+  50%{box-shadow:0 0 20px rgba(232,114,10,0.6)}
+}
+.phase-dot-planned{
+  background:var(--surface-3);
+  border:2px solid var(--border-2);
+}
+.phase-dot-planned::after{
+  content:'';position:absolute;
+  width:6px;height:6px;border-radius:50%;
   background:var(--text-faint);
-  border-radius:50%;
 }
 
-@keyframes pulse{
-  0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(205,255,80,0.4)}
-  50%{opacity:.7;box-shadow:0 0 0 8px rgba(205,255,80,0)}
-}
-
-.phase-header{
+/* Phase header */
+.phase-header{margin-bottom:16px}
+.phase-title{
+  font-size:clamp(1.25rem,2.5vw,1.75rem);
+  font-weight:900;letter-spacing:-.02em;
+  line-height:1.3;
   display:flex;align-items:center;gap:12px;
   flex-wrap:wrap;
-  margin-bottom:12px;
-}
-.phase-header h3{
-  font-size:clamp(1.125rem,2vw,1.375rem);
-  font-weight:800;letter-spacing:-.01em;
 }
 .phase-badge{
-  font-family:var(--mono);font-size:10px;font-weight:600;
+  font-family:var(--mono);font-size:.625rem;
   text-transform:uppercase;letter-spacing:.08em;
-  padding:3px 10px;border-radius:100px;
+  padding:3px 10px;border-radius:4px;
+  font-weight:600;
+  display:inline-block;
+  vertical-align:middle;
 }
-.badge-completed{background:var(--green);color:#000}
-.badge-in-progress{background:var(--lime);color:#000}
-.badge-planned{background:var(--surface-3);color:var(--text-dim);border:1px solid var(--border)}
-
+.badge-completed{background:rgba(205,255,80,0.15);color:var(--lime)}
+.badge-progress{background:rgba(232,114,10,0.15);color:var(--orange)}
+.badge-planned{background:rgba(102,102,102,0.15);color:var(--text-dim)}
 .phase-desc{
   font-size:.9375rem;color:var(--text-muted);
-  line-height:1.7;margin-bottom:16px;
-  max-width:640px;
+  line-height:1.7;margin-top:6px;
+  max-width:700px;
 }
 
-.phase-items{
-  display:flex;flex-direction:column;gap:8px;
+/* Milestone items */
+.milestones{
+  display:flex;flex-direction:column;gap:6px;
+  margin-bottom:16px;
 }
-.phase-item{
-  display:flex;align-items:center;gap:10px;
+.milestone{
+  display:flex;align-items:flex-start;gap:10px;
   padding:10px 14px;
   background:var(--surface);
   border:1px solid var(--border);
   border-radius:8px;
-  font-size:.875rem;
-  transition:border-color .3s;
+  font-size:.8125rem;
+  color:var(--text-muted);
+  line-height:1.6;
+  transition:border-color .2s;
 }
-.phase-item:hover{border-color:var(--border-2)}
-
-.phase-item .item-check{
-  flex-shrink:0;
-  width:20px;height:20px;
+.milestone:hover{border-color:var(--border-2)}
+.milestone-icon{
+  min-width:18px;height:18px;
   display:flex;align-items:center;justify-content:center;
-  border-radius:50%;
+  margin-top:1px;
 }
-.item-check.done{background:var(--green)}
-.item-check.done svg{width:11px;height:11px;stroke:#000;fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
-.item-check.active{background:var(--lime)}
-.item-check.active::after{content:'';width:6px;height:6px;background:#000;border-radius:50%}
-.item-check.pending{background:var(--surface-3);border:1px solid var(--border-2)}
+.milestone-done .milestone-icon{color:var(--lime)}
+.milestone-done .milestone-icon svg{width:16px;height:16px}
+.milestone-active{border-color:rgba(232,114,10,0.3);background:rgba(232,114,10,0.03)}
+.milestone-active .milestone-icon{color:var(--orange)}
+.milestone-pending .milestone-icon{color:var(--text-faint)}
+.milestone-pending .milestone-icon::after{
+  content:'';width:6px;height:6px;border-radius:50%;
+  background:var(--text-faint);
+}
 
-.phase-item .item-label{color:var(--text)}
-.phase-item .item-label.muted{color:var(--text-dim)}
-
-/* ── ROADMAP NOTE ── */
-.roadmap-note{
-  margin-top:clamp(32px,5vw,48px);
-  padding:16px 20px;
+/* Step cards (collapsible) */
+.step-card{
   background:var(--surface);
   border:1px solid var(--border);
   border-radius:10px;
+  margin-bottom:8px;
+  overflow:hidden;
+  transition:border-color .3s;
+}
+.step-card:hover{border-color:var(--border-2)}
+.step-card-header{
+  padding:14px 16px;
+  display:flex;align-items:center;gap:10px;
+  cursor:pointer;
+  user-select:none;
+  transition:background .2s;
+}
+.step-card-header:hover{background:rgba(205,255,80,0.02)}
+.step-card-arrow{
+  width:20px;height:20px;
+  color:var(--text-faint);
+  transition:transform .3s var(--ease);
+  flex-shrink:0;
+}
+.step-card.open .step-card-arrow{transform:rotate(90deg)}
+.step-card-title{
+  font-size:.875rem;font-weight:700;
+  color:var(--text);flex:1;
+}
+.step-card-body{
+  padding:0 16px 14px;
+  display:none;
+}
+.step-card.open .step-card-body{display:block}
+.step-card-body .milestones{margin-bottom:0}
+
+/* Trust model callout */
+.trust-model{
+  margin-top:12px;
+  padding:12px 16px;
+  background:rgba(205,255,80,0.03);
+  border-left:3px solid var(--lime);
+  border-radius:0 8px 8px 0;
   font-size:.8125rem;
-  color:var(--text-dim);
-  line-height:1.65;
-  font-style:italic;
+  color:var(--text-muted);
+  line-height:1.7;
+}
+.trust-model strong{color:var(--lime);font-weight:600}
+.trust-model-planned{
+  border-left-color:var(--border-2);
+  background:rgba(102,102,102,0.03);
+}
+.trust-model-planned strong{color:var(--text-dim)}
+
+/* Phase number */
+.phase-num{
+  font-family:var(--mono);
+  font-size:.6875rem;
+  color:var(--text-faint);
+  letter-spacing:.06em;
+  margin-bottom:4px;
 }
 
-/* ── MOBILE ── */
+/* Footer note */
+.roadmap-note{
+  max-width:var(--max-w);margin:0 auto;
+  padding:0 clamp(16px,4vw,32px) clamp(32px,4vw,48px);
+  text-align:center;
+}
+.roadmap-note p{
+  font-size:.8125rem;color:var(--text-faint);
+  font-style:italic;
+}
+.roadmap-note a{color:var(--text-dim)}
+
 @media(max-width:768px){
-  .timeline{padding-left:36px}
-  .phase-dot{left:-36px}
+  .timeline::before{left:16px}
+  .phase{padding-left:48px}
+  .phase-dot{left:4px;width:24px;height:24px}
+  .trust-bar{flex-direction:column}
+  .trust-bar-seg{border-right:none;border-bottom:1px solid var(--border);padding:8px 12px}
+  .trust-bar-seg:last-child{border-bottom:none}
+  .phase-title{font-size:1.125rem}
 }
 </style>
 </head>
 <body>
 
-<!-- ── NAV ── -->
+<!-- ═══ NAV ═══ -->
 <nav class="nav" id="nav">
   <div class="nav-inner">
     <a href="index.html" class="nav-logo">
@@ -184,7 +302,7 @@
       <a href="poaiw.html">PoAIW</a>
       <a href="tokenomics.html">Tokenomics</a>
       <a href="whitepaper.html">Whitepaper</a>
-      <a href="roadmap.html" class="active">Roadmap</a>
+      <a href="roadmap.html">Roadmap</a>
       <a href="community.html">Community</a>
       <a href="https://clawhub.ai/skills/claw-mining" target="_blank" rel="noopener noreferrer" class="nav-cta">Install Skill</a>
     </div>
@@ -194,154 +312,453 @@
   </div>
 </nav>
 
-<!-- ── PAGE HEADER ── -->
-<header class="page-header">
+<!-- ═══ PAGE HEADER ═══ -->
+<div class="page-header">
   <div class="page-label">Roadmap</div>
-  <h1>Where We're Going</h1>
-  <p class="lead">Four phases from Genesis to full ecosystem expansion. Built in the open, one block at a time.</p>
-</header>
+  <h1>From Server to Math</h1>
+  <p class="lead">Five phases from centralized oracle to trustless cryptographic verification. Every step reduces trust assumptions &mdash; until the only thing you trust is math.</p>
+</div>
 
-<!-- ── DIVIDER ── -->
+<!-- ═══ TRUST EVOLUTION BAR ═══ -->
+<div class="trust-evolution reveal">
+  <div class="trust-bar">
+    <div class="trust-bar-seg active">
+      <div class="trust-bar-label">Phase 1</div>
+      <div class="trust-bar-value">Trust a server</div>
+    </div>
+    <div class="trust-bar-seg">
+      <div class="trust-bar-label">Phase 2</div>
+      <div class="trust-bar-value">Harden the server</div>
+    </div>
+    <div class="trust-bar-seg">
+      <div class="trust-bar-label">Phase 3</div>
+      <div class="trust-bar-value">Trust math (zkTLS)</div>
+    </div>
+    <div class="trust-bar-seg">
+      <div class="trust-bar-label">Phase 4</div>
+      <div class="trust-bar-value">Trust the network</div>
+    </div>
+    <div class="trust-bar-seg">
+      <div class="trust-bar-label">Phase 5</div>
+      <div class="trust-bar-value">Sovereign L1</div>
+    </div>
+  </div>
+</div>
+
 <div class="divider"><div class="divider-line"></div></div>
 
-<!-- ── TIMELINE ── -->
-<section class="section reveal">
-  <div class="timeline">
+<!-- ═══ TIMELINE ═══ -->
+<div class="timeline">
 
-    <!-- Phase 1: Genesis -->
-    <div class="phase">
-      <div class="phase-dot completed">
-        <svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>
+  <!-- ════ PHASE 1 ════ -->
+  <div class="phase reveal">
+    <div class="phase-dot phase-dot-completed">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+    </div>
+    <div class="phase-header">
+      <div class="phase-num">Phase 1</div>
+      <div class="phase-title">
+        Centralized Oracle
+        <span class="phase-badge badge-completed">Current</span>
       </div>
-      <div class="phase-header">
-        <h3>Phase 1 — Genesis</h3>
-        <span class="phase-badge badge-completed">Completed</span>
+      <div class="phase-desc">Prove that Proof of AI Work works. Ship fast, iterate, validate the mechanism.</div>
+    </div>
+
+    <div class="milestones">
+      <div class="milestone milestone-done">
+        <div class="milestone-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+        <span>v2 smart contracts on Ethereum mainnet &mdash; CLAW_Token, PoAIWMint, MinterProxy, OracleVerifier</span>
       </div>
-      <p class="phase-desc">Core protocol launch. Smart contracts deployed, mining skill live, first blocks mined on Ethereum mainnet.</p>
-      <div class="phase-items">
-        <div class="phase-item">
-          <div class="item-check done"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg></div>
-          <span class="item-label">CLAW ERC-20 token contract deployed</span>
-        </div>
-        <div class="phase-item">
-          <div class="item-check done"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg></div>
-          <span class="item-label">PoAIWMint contract deployed &amp; verified</span>
-        </div>
-        <div class="phase-item">
-          <div class="item-check done"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg></div>
-          <span class="item-label">OracleVerifier with Groth16 ZK proofs</span>
-        </div>
-        <div class="phase-item">
-          <div class="item-check done"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg></div>
-          <span class="item-label">MinterProxy deployed for upgradability</span>
-        </div>
-        <div class="phase-item">
-          <div class="item-check done"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg></div>
-          <span class="item-label">claw-mining skill published on ClawHub</span>
-        </div>
-        <div class="phase-item">
-          <div class="item-check done"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg></div>
-          <span class="item-label">First block mined on Ethereum mainnet</span>
-        </div>
+      <div class="milestone milestone-done">
+        <div class="milestone-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+        <span>Centralized Oracle service &mdash; 7-step verification pipeline with ECDSA signing</span>
+      </div>
+      <div class="milestone milestone-done">
+        <div class="milestone-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+        <span>Genesis mining &mdash; first $CLAW minted on-chain</span>
+      </div>
+      <div class="milestone milestone-done">
+        <div class="milestone-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+        <span>Mining Skill &mdash; one-click mining via AI Agent platforms (OpenClaw, Hermes Agent, Perplexity)</span>
+      </div>
+      <div class="milestone milestone-done">
+        <div class="milestone-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+        <span>Brand identity and website launch</span>
+      </div>
+      <div class="milestone milestone-done">
+        <div class="milestone-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+        <span>Real-time mining dashboard</span>
+      </div>
+      <div class="milestone milestone-active">
+        <div class="milestone-icon"><svg viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="8" r="4"/></svg></div>
+        <span>ClawHub Skill listing &mdash; publish on OpenClaw marketplace</span>
+      </div>
+      <div class="milestone milestone-active">
+        <div class="milestone-icon"><svg viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="8" r="4"/></svg></div>
+        <span>Protocol documentation on GitBook</span>
       </div>
     </div>
 
-    <!-- Phase 2: Growth -->
-    <div class="phase">
-      <div class="phase-dot in-progress"></div>
-      <div class="phase-header">
-        <h3>Phase 2 — Growth</h3>
-        <span class="phase-badge badge-in-progress">In Progress</span>
-      </div>
-      <p class="phase-desc">Expanding platform compatibility, improving miner experience, and growing the mining community.</p>
-      <div class="phase-items">
-        <div class="phase-item">
-          <div class="item-check done"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg></div>
-          <span class="item-label">OpenClaw native integration</span>
-        </div>
-        <div class="phase-item">
-          <div class="item-check active"></div>
-          <span class="item-label">Hermes Agent compatibility</span>
-        </div>
-        <div class="phase-item">
-          <div class="item-check pending"></div>
-          <span class="item-label muted">Perplexity skill support</span>
-        </div>
-        <div class="phase-item">
-          <div class="item-check pending"></div>
-          <span class="item-label muted">Mining dashboard &amp; analytics</span>
-        </div>
-        <div class="phase-item">
-          <div class="item-check pending"></div>
-          <span class="item-label muted">Community documentation &amp; guides</span>
-        </div>
-      </div>
+    <div class="trust-model">
+      <strong>Trust model:</strong> Miners trust a single Oracle server to honestly verify AI work and issue signatures.
     </div>
-
-    <!-- Phase 3: Governance -->
-    <div class="phase">
-      <div class="phase-dot planned"></div>
-      <div class="phase-header">
-        <h3>Phase 3 — Governance</h3>
-        <span class="phase-badge badge-planned">Planned</span>
-      </div>
-      <p class="phase-desc">On-chain model governance goes live. Miners nominate, vote, and rotate the approved AI model set each Epoch.</p>
-      <div class="phase-items">
-        <div class="phase-item">
-          <div class="item-check pending"></div>
-          <span class="item-label muted">Model nomination system (Epochs 11–15)</span>
-        </div>
-        <div class="phase-item">
-          <div class="item-check pending"></div>
-          <span class="item-label muted">On-chain voting mechanism (Epochs 16–20)</span>
-        </div>
-        <div class="phase-item">
-          <div class="item-check pending"></div>
-          <span class="item-label muted">Model rotation &amp; announcement (Epoch 21)</span>
-        </div>
-        <div class="phase-item">
-          <div class="item-check pending"></div>
-          <span class="item-label muted">Governance UI in mining skill</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Phase 4: Ecosystem -->
-    <div class="phase">
-      <div class="phase-dot planned"></div>
-      <div class="phase-header">
-        <h3>Phase 4 — Ecosystem</h3>
-        <span class="phase-badge badge-planned">Planned</span>
-      </div>
-      <p class="phase-desc">Full ecosystem expansion — DEX liquidity, cross-chain bridges, third-party integrations, and developer tooling.</p>
-      <div class="phase-items">
-        <div class="phase-item">
-          <div class="item-check pending"></div>
-          <span class="item-label muted">DEX liquidity pools</span>
-        </div>
-        <div class="phase-item">
-          <div class="item-check pending"></div>
-          <span class="item-label muted">Cross-chain bridge support</span>
-        </div>
-        <div class="phase-item">
-          <div class="item-check pending"></div>
-          <span class="item-label muted">Developer SDK &amp; API</span>
-        </div>
-        <div class="phase-item">
-          <div class="item-check pending"></div>
-          <span class="item-label muted">Third-party skill integrations</span>
-        </div>
-      </div>
-    </div>
-
   </div>
 
-  <div class="roadmap-note">
-    This roadmap is a living document. Priorities may shift based on community feedback, technical discoveries, and ecosystem needs. Follow <a href="https://x.com/minewithclaw" target="_blank" rel="noopener noreferrer">@minewithclaw</a> for real-time updates.
-  </div>
-</section>
+  <!-- ════ PHASE 2 ════ -->
+  <div class="phase reveal">
+    <div class="phase-dot phase-dot-planned"></div>
+    <div class="phase-header">
+      <div class="phase-num">Phase 2 &mdash; Q2 2026</div>
+      <div class="phase-title">
+        Infrastructure Hardening
+        <span class="phase-badge badge-planned">Planned</span>
+      </div>
+      <div class="phase-desc">Strengthen the foundation before decentralizing.</div>
+    </div>
 
-<!-- ── FOOTER ── -->
+    <div class="milestones">
+      <div class="milestone milestone-pending">
+        <div class="milestone-icon"></div>
+        <span>SQLite persistence &mdash; Oracle state recovery on restart, prevents duplicate submissions</span>
+      </div>
+      <div class="milestone milestone-pending">
+        <div class="milestone-icon"></div>
+        <span>Oracle monitoring &mdash; Prometheus + Grafana for uptime, latency, and error tracking</span>
+      </div>
+      <div class="milestone milestone-pending">
+        <div class="milestone-icon"></div>
+        <span>RPC optimization &mdash; Multicall3 batched on-chain reads to reduce verification latency</span>
+      </div>
+      <div class="milestone milestone-pending">
+        <div class="milestone-icon"></div>
+        <span>Multi-model support &mdash; expand AI providers beyond xAI (OpenRouter, Anthropic, etc.)</span>
+      </div>
+      <div class="milestone milestone-pending">
+        <div class="milestone-icon"></div>
+        <span>Mining pool &mdash; managed mining service for non-technical users</span>
+      </div>
+      <div class="milestone milestone-pending">
+        <div class="milestone-icon"></div>
+        <span>Community onboarding &mdash; first external miners join the network</span>
+      </div>
+      <div class="milestone milestone-pending">
+        <div class="milestone-icon"></div>
+        <span>First DEX listing</span>
+      </div>
+    </div>
+
+    <div class="trust-model trust-model-planned">
+      <strong>Trust model:</strong> Still centralized Oracle, but with production-grade reliability and monitoring.
+    </div>
+  </div>
+
+  <!-- ════ PHASE 3 ════ -->
+  <div class="phase reveal">
+    <div class="phase-dot phase-dot-planned"></div>
+    <div class="phase-header">
+      <div class="phase-num">Phase 3 &mdash; Q3&ndash;Q4 2026</div>
+      <div class="phase-title">
+        zkTLS Integration
+        <span class="phase-badge badge-planned">Planned</span>
+      </div>
+      <div class="phase-desc">Replace the centralized Oracle with cryptographic verification. The core technical transition.</div>
+    </div>
+
+    <!-- Step 1 -->
+    <div class="step-card">
+      <div class="step-card-header" onclick="this.parentElement.classList.toggle('open')">
+        <svg class="step-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+        <div class="step-card-title">Step 1 &mdash; zkTLS Protocol Selection</div>
+      </div>
+      <div class="step-card-body">
+        <div class="milestones">
+          <div class="milestone milestone-pending">
+            <div class="milestone-icon"></div>
+            <span>Evaluate candidates: TLSNotary (MPC-TLS, most mature), Opacity Network (MPC-TLS + TEE + EigenLayer), Reclaim Protocol (proxy witness), zkPass (VOLE-based ZKP)</span>
+          </div>
+          <div class="milestone milestone-pending">
+            <div class="milestone-icon"></div>
+            <span>Benchmark: proof generation speed, gas cost, Ethereum compatibility, Agent environment support</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="step-card">
+      <div class="step-card-header" onclick="this.parentElement.classList.toggle('open')">
+        <svg class="step-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+        <div class="step-card-title">Step 2 &mdash; MPC-TLS Proof of Concept</div>
+      </div>
+      <div class="step-card-body">
+        <div class="milestones">
+          <div class="milestone milestone-pending">
+            <div class="milestone-icon"></div>
+            <span>Notarized AI API call &mdash; Miner and Notary jointly perform TLS handshake, splitting the encryption key via MPC</span>
+          </div>
+          <div class="milestone milestone-pending">
+            <div class="milestone-icon"></div>
+            <span>Notary attestation &mdash; Notary signs proof that a real TLS session occurred (without seeing plaintext data)</span>
+          </div>
+          <div class="milestone milestone-pending">
+            <div class="milestone-icon"></div>
+            <span>ZK selective disclosure &mdash; Miner proves mining criteria (correct model, valid seed, token count) without revealing full API response</span>
+          </div>
+          <div class="milestone milestone-pending">
+            <div class="milestone-icon"></div>
+            <span>On-chain verification &mdash; ZK proof submitted and verified on Ethereum</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="step-card">
+      <div class="step-card-header" onclick="this.parentElement.classList.toggle('open')">
+        <svg class="step-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+        <div class="step-card-title">Step 3 &mdash; ZK Circuit Design</div>
+      </div>
+      <div class="step-card-body">
+        <div class="milestones">
+          <div class="milestone milestone-pending">
+            <div class="milestone-icon"></div>
+            <span>Encode the 7-step Oracle verification pipeline as ZK circuit constraints</span>
+          </div>
+          <div class="milestone milestone-pending">
+            <div class="milestone-icon"></div>
+            <span>Support selective disclosure: model validation, seed matching, token count range, session freshness</span>
+          </div>
+          <div class="milestone milestone-pending">
+            <div class="milestone-icon"></div>
+            <span>Optimize for gas cost &mdash; proof aggregation and batching strategies</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 4 -->
+    <div class="step-card">
+      <div class="step-card-header" onclick="this.parentElement.classList.toggle('open')">
+        <svg class="step-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+        <div class="step-card-title">Step 4 &mdash; ZkTLSVerifier Contract</div>
+      </div>
+      <div class="step-card-body">
+        <div class="milestones">
+          <div class="milestone milestone-pending">
+            <div class="milestone-icon"></div>
+            <span>Deploy ZkTLSVerifier contract &mdash; replaces OracleVerifier for on-chain ZK proof verification</span>
+          </div>
+          <div class="milestone milestone-pending">
+            <div class="milestone-icon"></div>
+            <span>Security audit &mdash; independent audit of the new verifier contract</span>
+          </div>
+          <div class="milestone milestone-pending">
+            <div class="milestone-icon"></div>
+            <span>MinterProxy upgrade &mdash; use 7-day timelock to transition from OracleVerifier to ZkTLSVerifier</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="trust-model trust-model-planned">
+      <strong>Trust model:</strong> Trust math + cryptography. MPC key splitting ensures neither miner nor Notary can forge data alone.
+    </div>
+  </div>
+
+  <!-- ════ PHASE 4 ════ -->
+  <div class="phase reveal">
+    <div class="phase-dot phase-dot-planned"></div>
+    <div class="phase-header">
+      <div class="phase-num">Phase 4 &mdash; 2027</div>
+      <div class="phase-title">
+        Notary Network
+        <span class="phase-badge badge-planned">Planned</span>
+      </div>
+      <div class="phase-desc">Decentralize verification from one server to a network of independent nodes.</div>
+    </div>
+
+    <!-- Step 1 -->
+    <div class="step-card">
+      <div class="step-card-header" onclick="this.parentElement.classList.toggle('open')">
+        <svg class="step-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+        <div class="step-card-title">Step 1 &mdash; Notary Node Specification</div>
+      </div>
+      <div class="step-card-body">
+        <div class="milestones">
+          <div class="milestone milestone-pending">
+            <div class="milestone-icon"></div>
+            <span>Define staking requirements, registration process, and slashing conditions</span>
+          </div>
+          <div class="milestone milestone-pending">
+            <div class="milestone-icon"></div>
+            <span>Random assignment mechanism &mdash; miners cannot choose their Notary (on-chain VRF)</span>
+          </div>
+          <div class="milestone milestone-pending">
+            <div class="milestone-icon"></div>
+            <span>Commit-and-reveal &mdash; miners commit mining parameters before Notary is assigned</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="step-card">
+      <div class="step-card-header" onclick="this.parentElement.classList.toggle('open')">
+        <svg class="step-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+        <div class="step-card-title">Step 2 &mdash; Anti-Collusion Mechanisms</div>
+      </div>
+      <div class="step-card-body">
+        <div class="milestones">
+          <div class="milestone milestone-pending">
+            <div class="milestone-icon"></div>
+            <span>Multi-Notary verification &mdash; critical operations require attestations from multiple independent Notaries</span>
+          </div>
+          <div class="milestone milestone-pending">
+            <div class="milestone-icon"></div>
+            <span>TEE isolation &mdash; Notary key management inside Trusted Execution Environments (Intel SGX)</span>
+          </div>
+          <div class="milestone milestone-pending">
+            <div class="milestone-icon"></div>
+            <span>On-chain audit trail &mdash; every attestation attempt logged publicly</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="step-card">
+      <div class="step-card-header" onclick="this.parentElement.classList.toggle('open')">
+        <svg class="step-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+        <div class="step-card-title">Step 3 &mdash; Testnet &amp; Migration</div>
+      </div>
+      <div class="step-card-body">
+        <div class="milestones">
+          <div class="milestone milestone-pending">
+            <div class="milestone-icon"></div>
+            <span>Testnet deployment on Sepolia &mdash; full end-to-end with live Notary nodes</span>
+          </div>
+          <div class="milestone milestone-pending">
+            <div class="milestone-icon"></div>
+            <span>Parallel operation &mdash; both Oracle and zkTLS+Notary paths active on mainnet simultaneously</span>
+          </div>
+          <div class="milestone milestone-pending">
+            <div class="milestone-icon"></div>
+            <span>Oracle sunset &mdash; centralized Oracle deprecated, Notary network becomes sole verification path</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="trust-model trust-model-planned">
+      <strong>Trust model:</strong> Trust-minimized. Decentralized Notary network with staking/slashing + MPC cryptography + TEE. Secure as long as at least one Notary in the selected set is honest.
+    </div>
+  </div>
+
+  <!-- ════ PHASE 5 ════ -->
+  <div class="phase reveal">
+    <div class="phase-dot phase-dot-planned"></div>
+    <div class="phase-header">
+      <div class="phase-num">Phase 5 &mdash; 2027+</div>
+      <div class="phase-title">
+        The Money of AI
+        <span class="phase-badge badge-planned">Vision</span>
+      </div>
+      <div class="phase-desc">The Bitcoin of AI. $CLAW becomes the medium of exchange, store of value, and unit of account for AI computation &mdash; on its own sovereign network.</div>
+    </div>
+
+    <!-- Step 1 -->
+    <div class="step-card">
+      <div class="step-card-header" onclick="this.parentElement.classList.toggle('open')">
+        <svg class="step-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+        <div class="step-card-title">Step 1 &mdash; Sovereign L1 Network (Blockless Architecture)</div>
+      </div>
+      <div class="step-card-body">
+        <div class="milestones">
+          <div class="milestone milestone-pending">
+            <div class="milestone-icon"></div>
+            <span>Launch the CLAW L1 &mdash; a blockless, modular compute network purpose-built for AI verification</span>
+          </div>
+          <div class="milestone milestone-pending">
+            <div class="milestone-icon"></div>
+            <span>Network-Neutral Application (nnApp) framework &mdash; miners and Notaries run as nestled nodes, no dedicated hardware required</span>
+          </div>
+          <div class="milestone milestone-pending">
+            <div class="milestone-icon"></div>
+            <span>Dynamic consensus &mdash; workload-specific consensus selection, optimized for AI attestation throughput</span>
+          </div>
+          <div class="milestone milestone-pending">
+            <div class="milestone-icon"></div>
+            <span>WASM execution environment &mdash; Mining Skills run natively in the network&rsquo;s secure WebAssembly runtime</span>
+          </div>
+          <div class="milestone milestone-pending">
+            <div class="milestone-icon"></div>
+            <span>Automated orchestration &mdash; dynamic resource matching assigns Notary nodes based on capacity, geolocation, and reputation</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="step-card">
+      <div class="step-card-header" onclick="this.parentElement.classList.toggle('open')">
+        <svg class="step-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+        <div class="step-card-title">Step 2 &mdash; Migration from Ethereum</div>
+      </div>
+      <div class="step-card-body">
+        <div class="milestones">
+          <div class="milestone milestone-pending">
+            <div class="milestone-icon"></div>
+            <span>Bridge CLAW from ERC-20 to native L1 token &mdash; trustless two-way bridge</span>
+          </div>
+          <div class="milestone milestone-pending">
+            <div class="milestone-icon"></div>
+            <span>Migrate PoAIW mining to native L1 &mdash; faster finality, near-zero gas costs</span>
+          </div>
+          <div class="milestone milestone-pending">
+            <div class="milestone-icon"></div>
+            <span>Preserve all tokenomics &mdash; 210B supply, Era/Epoch structure, halving schedule unchanged</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="step-card">
+      <div class="step-card-header" onclick="this.parentElement.classList.toggle('open')">
+        <svg class="step-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+        <div class="step-card-title">Step 3 &mdash; AI Economy</div>
+      </div>
+      <div class="step-card-body">
+        <div class="milestones">
+          <div class="milestone milestone-pending">
+            <div class="milestone-icon"></div>
+            <span>On-chain governance &mdash; community votes on AI model rotation, parameters, and protocol upgrades</span>
+          </div>
+          <div class="milestone milestone-pending">
+            <div class="milestone-icon"></div>
+            <span>AI inference pricing &mdash; $CLAW as the unit of account for AI computation across providers</span>
+          </div>
+          <div class="milestone milestone-pending">
+            <div class="milestone-icon"></div>
+            <span>Ecosystem growth &mdash; third-party Skills, AI service marketplaces, and cross-chain interoperability</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="trust-model trust-model-planned">
+      <strong>Trust model:</strong> Fully sovereign. CLAW L1 with native verification, decentralized Notary network, and community governance. The Bitcoin of AI.
+    </div>
+  </div>
+
+</div><!-- /timeline -->
+
+<!-- ═══ NOTE ═══ -->
+<div class="roadmap-note">
+  <p>This roadmap is a living document. Follow <a href="https://x.com/minewithclaw" target="_blank" rel="noopener noreferrer">@minewithclaw</a> for updates.</p>
+</div>
+
+<!-- ═══ FOOTER ═══ -->
 <footer class="footer">
   <div class="footer-inner">
     <a href="index.html" class="footer-logo">
@@ -374,7 +791,7 @@
     </div>
   </div>
 </footer>
-<script src="main.js"></script>
 
+<script src="main.js"></script>
 </body>
 </html>
