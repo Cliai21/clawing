@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!-- CLAWING Logo · F1 Original · Primary (with container) -->
+  <!-- Genesis Block container -->
+  <rect x="16" y="16" width="168" height="168" rx="36" fill="#CDFF50"/>
+  <!-- Head: rounded square -->
+  <rect x="72" y="78" width="56" height="56" rx="16" fill="#0a0a0a"/>
+  <!-- Eyes -->
+  <circle cx="88" cy="102" r="6" fill="#CDFF50"/>
+  <circle cx="112" cy="102" r="6" fill="#CDFF50"/>
+  <!-- Left claw: chevron pincer -->
+  <path d="M 72 90 L 52 78 L 40 86 L 54 98 L 40 110 L 52 118 L 72 106" fill="#0a0a0a"/>
+  <!-- Right claw: chevron pincer -->
+  <path d="M 128 90 L 148 78 L 160 86 L 146 98 L 160 110 L 148 118 L 128 106" fill="#0a0a0a"/>
+  <!-- Left antenna -->
+  <line x1="88" y1="78" x2="72" y2="50" stroke="#0a0a0a" stroke-width="4.5" stroke-linecap="round"/>
+  <circle cx="72" cy="50" r="4" fill="#0a0a0a"/>
+  <!-- Right antenna -->
+  <line x1="112" y1="78" x2="128" y2="50" stroke="#0a0a0a" stroke-width="4.5" stroke-linecap="round"/>
+  <circle cx="128" cy="50" r="4" fill="#0a0a0a"/>
+</svg>
