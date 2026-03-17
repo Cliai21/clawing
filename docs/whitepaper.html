@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!--
+   ______                            __
+  / ____/___  ____ ___  ____  __  __/ /____  _____
+ / /   / __ \/ __ `__ \/ __ \/ / / / __/ _ \/ ___/
+/ /___/ /_/ / / / / / / /_/ / /_/ / /_/  __/ /
+\____/\____/_/ /_/ /_/ .___/\__,_/\__/\___/_/
+                    /_/
+        Created with Perplexity Computer
+        https://www.perplexity.ai/computer
+-->
+<meta name="generator" content="Perplexity Computer">
+<meta name="author" content="Perplexity Computer">
+<meta property="og:see_also" content="https://www.perplexity.ai/computer">
+<link rel="author" href="https://www.perplexity.ai/computer">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700,900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<title>CLAWING — Whitepaper v4.2</title>
+<meta name="description" content="Full technical specification of CLAWING v4.2 — Proof of AI Work protocol. Dual-layer emission, on-chain model governance, ZK verification.">
+<style>
+/* ── WHITEPAPER LAYOUT ── */
+.wp-body{
+  max-width:var(--max-w);margin:0 auto;
+  display:grid;
+  grid-template-columns:200px 1fr;
+  gap:clamp(24px,3vw,48px);
+  padding:0 clamp(16px,4vw,32px);
+  align-items:start;
+}
+.wp-content{
+  max-width:720px;
+  padding-bottom:clamp(48px,8vw,80px);
+}
+
+/* ── TABLE OF CONTENTS ── */
+.wp-toc{
+  position:sticky;top:72px;
+  padding:20px 0;
+}
+.wp-toc-title{
+  font-family:var(--mono);font-size:10px;font-weight:600;
+  text-transform:uppercase;letter-spacing:.12em;
+  color:var(--text-faint);margin-bottom:12px;
+}
+.wp-toc a{
+  display:block;
+  font-size:.8125rem;
+  color:var(--text-dim);
+  padding:5px 0 5px 12px;
+  border-left:2px solid var(--border);
+  transition:all .2s;
+  line-height:1.4;
+}
+.wp-toc a:hover{color:var(--lime);border-left-color:var(--lime);opacity:1}
+.wp-toc a.active{color:var(--lime);border-left-color:var(--lime)}
+
+/* ── SECTION HEADINGS ── */
+.wp-section{
+  margin-bottom:clamp(48px,6vw,64px);
+  scroll-margin-top:80px;
+}
+.wp-section h2{
+  font-size:clamp(1.5rem,3vw,2rem);
+  font-weight:900;letter-spacing:-.02em;
+  line-height:1.2;
+  padding-left:16px;
+  border-left:3px solid var(--lime);
+  margin-bottom:20px;
+}
+.wp-section h3{
+  font-size:1.0625rem;font-weight:800;
+  margin:28px 0 12px;
+  color:var(--text);
+}
+.wp-section p{
+  font-size:.9375rem;color:var(--text-muted);
+  line-height:1.8;margin-bottom:16px;
+}
+.wp-section p:last-child{margin-bottom:0}
+.wp-section strong{color:var(--text);font-weight:700}
+
+/* ── CODE BLOCKS ── */
+.wp-code{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:16px 20px;
+  margin:16px 0;
+  font-family:var(--mono);font-size:.8125rem;
+  color:var(--text-muted);line-height:1.7;
+  overflow-x:auto;
+  white-space:pre;
+}
+.wp-code .hl{color:var(--lime);font-weight:600}
+
+/* ── INLINE CODE ── */
+.wp-section code{
+  font-family:var(--mono);font-size:.8125rem;
+  background:var(--surface);
+  border:1px solid var(--border);
+  padding:2px 6px;border-radius:4px;
+  color:var(--lime);
+}
+
+/* ── TABLES ── */
+.wp-table-wrap{
+  overflow-x:auto;
+  border:1px solid var(--border);
+  border-radius:10px;
+  margin:16px 0;
+  background:var(--surface);
+}
+.wp-table{
+  width:100%;border-collapse:collapse;
+  font-size:.8125rem;
+}
+.wp-table th{
+  font-family:var(--mono);font-size:10px;
+  text-transform:uppercase;letter-spacing:.08em;
+  color:var(--text-dim);font-weight:600;
+  padding:12px 14px;text-align:left;
+  border-bottom:1px solid var(--border);
+  white-space:nowrap;
+}
+.wp-table td{
+  padding:10px 14px;
+  border-bottom:1px solid var(--border);
+  color:var(--text-muted);
+  white-space:nowrap;
+}
+.wp-table tr:last-child td{border-bottom:none}
+.wp-table .row-hl{
+  background:rgba(205,255,80,0.04);
+}
+.wp-table .row-hl td{color:var(--text);font-weight:600}
+.wp-table .val{font-family:var(--mono)}
+.wp-table .collapse-row td{
+  color:var(--text-faint);font-style:italic;font-size:.75rem;
+}
+.wp-bar{
+  width:80px;height:5px;
+  background:var(--surface-2);
+  border-radius:3px;
+  overflow:hidden;
+  display:inline-block;
+  vertical-align:middle;
+  margin-right:6px;
+}
+.wp-bar-fill{
+  height:100%;background:var(--lime);
+  border-radius:3px;
+}
+
+/* ── LISTS ── */
+.wp-section ul{
+  list-style:none;margin:12px 0;
+  display:flex;flex-direction:column;gap:6px;
+}
+.wp-section ul li{
+  font-size:.875rem;color:var(--text-muted);
+  line-height:1.6;padding-left:18px;
+  position:relative;
+}
+.wp-section ul li::before{
+  content:'';position:absolute;left:0;top:9px;
+  width:6px;height:6px;
+  background:var(--lime);border-radius:50%;
+}
+.wp-section ol{
+  list-style:none;counter-reset:wp-ol;
+  margin:12px 0;
+  display:flex;flex-direction:column;gap:8px;
+}
+.wp-section ol li{
+  font-size:.875rem;color:var(--text-muted);
+  line-height:1.6;padding-left:24px;
+  position:relative;counter-increment:wp-ol;
+}
+.wp-section ol li::before{
+  content:counter(wp-ol);
+  position:absolute;left:0;top:0;
+  font-family:var(--mono);font-size:.75rem;
+  font-weight:700;color:var(--lime);
+}
+
+/* ── CALLOUT ── */
+.wp-callout{
+  background:var(--lime-glow);
+  border:1px solid rgba(205,255,80,0.12);
+  border-radius:10px;
+  padding:16px 20px;
+  margin:16px 0;
+  font-size:.875rem;color:var(--text);
+  line-height:1.65;
+}
+.wp-callout strong{color:var(--lime)}
+
+/* ── FORMULA ── */
+.wp-formula{
+  text-align:center;
+  padding:20px;
+  margin:16px 0;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:10px;
+}
+.wp-formula-math{
+  font-family:var(--mono);
+  font-size:clamp(1.125rem,2.5vw,1.5rem);
+  font-weight:700;color:var(--lime);
+  margin-bottom:6px;
+}
+.wp-formula-sub{
+  font-size:.8125rem;color:var(--text-dim);
+}
+
+/* ── GOVERNANCE FLOW ── */
+.wp-gov-flow{
+  display:flex;gap:8px;flex-wrap:wrap;
+  margin:16px 0;
+}
+.wp-gov-phase{
+  flex:1;min-width:120px;
+  padding:14px 16px;
+  border-radius:10px;
+  text-align:center;
+  font-family:var(--mono);font-size:.75rem;
+  font-weight:600;letter-spacing:.04em;
+}
+.wp-gov-phase .phase-label{
+  display:block;margin-bottom:4px;
+  font-size:10px;text-transform:uppercase;
+  letter-spacing:.1em;opacity:.7;
+}
+.wp-gov-phase.phase-nom{
+  background:rgba(232,114,10,0.12);color:var(--orange);
+  border:1px solid rgba(232,114,10,0.2);
+}
+.wp-gov-phase.phase-vote{
+  background:rgba(91,160,208,0.12);color:var(--blue);
+  border:1px solid rgba(91,160,208,0.2);
+}
+.wp-gov-phase.phase-announce{
+  background:rgba(78,195,107,0.12);color:var(--green);
+  border:1px solid rgba(78,195,107,0.2);
+}
+.wp-gov-arrow{
+  display:flex;align-items:center;
+  color:var(--text-faint);font-size:1.25rem;
+  flex-shrink:0;
+}
+
+/* ── CONTRACT LIST ── */
+.wp-contracts{
+  display:flex;flex-direction:column;gap:12px;
+  margin:16px 0;
+}
+.wp-contract{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:16px 20px;
+}
+.wp-contract h4{
+  font-family:var(--mono);font-size:.875rem;
+  font-weight:700;color:var(--lime);
+  margin-bottom:6px;
+}
+.wp-contract p{
+  font-size:.8125rem;color:var(--text-muted);
+  line-height:1.6;margin-bottom:0;
+}
+
+/* ── MOBILE ── */
+@media(max-width:768px){
+  .wp-body{
+    grid-template-columns:1fr;
+  }
+  .wp-toc{
+    position:relative;top:0;
+    display:flex;flex-wrap:wrap;gap:0;
+    border-bottom:1px solid var(--border);
+    padding:12px 0;margin-bottom:24px;
+  }
+  .wp-toc-title{display:none}
+  .wp-toc a{
+    border-left:none;
+    padding:4px 12px;
+    font-size:.75rem;
+    border:1px solid var(--border);
+    border-radius:100px;
+    margin:3px;
+  }
+  .wp-toc a:hover,.wp-toc a.active{
+    border-color:var(--lime);
+  }
+  .wp-gov-flow{flex-direction:column}
+  .wp-gov-arrow{justify-content:center;transform:rotate(90deg)}
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <rect x="16" y="16" width="168" height="168" rx="36" fill="#CDFF50"/>
+        <rect x="72" y="78" width="56" height="56" rx="16" fill="#0a0a0a"/>
+        <circle cx="88" cy="102" r="6" fill="#CDFF50"/>
+        <circle cx="112" cy="102" r="6" fill="#CDFF50"/>
+        <path d="M 72 90 L 52 78 L 40 86 L 54 98 L 40 110 L 52 118 L 72 106" fill="#0a0a0a"/>
+        <path d="M 128 90 L 148 78 L 160 86 L 146 98 L 160 110 L 148 118 L 128 106" fill="#0a0a0a"/>
+        <line x1="88" y1="78" x2="72" y2="50" stroke="#0a0a0a" stroke-width="4.5" stroke-linecap="round"/>
+        <circle cx="72" cy="50" r="4" fill="#0a0a0a"/>
+        <line x1="112" y1="78" x2="128" y2="50" stroke="#0a0a0a" stroke-width="4.5" stroke-linecap="round"/>
+        <circle cx="128" cy="50" r="4" fill="#0a0a0a"/>
+      </svg>
+      CLAWING
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">Start Mining</a>
+      <a href="poaiw.html">PoAIW</a>
+      <a href="tokenomics.html">Tokenomics</a>
+      <a href="whitepaper.html">Whitepaper</a>
+      <a href="roadmap.html">Roadmap</a>
+      <a href="community.html">Community</a>
+      <a href="https://clawhub.ai/skills/claw-mining" target="_blank" rel="noopener noreferrer" class="nav-cta">Install Skill</a>
+    </div>
+    <button class="mobile-menu" id="mobileMenu" aria-label="Menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+  </div>
+</nav>
+
+<!-- ── PAGE HEADER ── -->
+<header class="page-header">
+  <div class="page-label">Whitepaper</div>
+  <h1>CLAWING v4.2 Architecture</h1>
+  <p class="lead">Eras define halving, Epochs define rhythm, community defines the model, blocks define everything. Full technical specification of the Proof of AI Work protocol.</p>
+</header>
+
+<!-- ── DIVIDER ── -->
+<div class="divider"><div class="divider-line"></div></div>
+
+<!-- ── MAIN CONTENT ── -->
+<div class="wp-body">
+
+  <!-- TABLE OF CONTENTS -->
+  <aside class="wp-toc" id="wpToc">
+    <div class="wp-toc-title">Contents</div>
+    <a href="#dual-layer">Dual-Layer Structure</a>
+    <a href="#emission">Emission Schedule</a>
+    <a href="#mining">Mining Mechanics</a>
+    <a href="#governance">Model Governance</a>
+    <a href="#contracts">Smart Contracts</a>
+    <a href="#security">Security</a>
+  </aside>
+
+  <!-- CONTENT -->
+  <div class="wp-content">
+
+    <!-- §1 DUAL-LAYER STRUCTURE -->
+    <section class="wp-section" id="dual-layer">
+      <h2>1. Dual-Layer Structure</h2>
+
+      <p>CLAWING uses a dual-layer timing structure built entirely on <code>block.number</code> — no timestamps, no manipulation vectors, fully deterministic.</p>
+
+      <div class="wp-code"><span class="hl">Era</span>   = 1,050,000 blocks &asymp; 145.8 days &asymp; 4.8 months
+       &rarr; Halving cycle: each new Era halves perBlock
+
+<span class="hl">Epoch</span> = 50,000 blocks &asymp; 6.94 days &asymp; 1 week
+       &rarr; Emission cycle: each Epoch has an independent hard cap
+
+<span class="hl">1 Era = 21 Epochs</span> &middot; 24 Eras total &middot; 504 Epochs total</div>
+
+      <h3>Core Parameters</h3>
+
+      <div class="wp-table-wrap">
+        <table class="wp-table">
+          <thead>
+            <tr><th>Parameter</th><th>Value</th><th>Description</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Total supply</td><td class="val">210,000,000,000 CLAW</td><td>MAX_SUPPLY</td></tr>
+            <tr><td>Era length</td><td class="val">1,050,000 blocks</td><td>&asymp; 145.8 days (halving cycle)</td></tr>
+            <tr><td>Epoch length</td><td class="val">50,000 blocks</td><td>&asymp; 6.94 days (emission cycle)</td></tr>
+            <tr><td>Epochs per Era</td><td class="val">21</td><td></td></tr>
+            <tr><td>First Era perBlock</td><td class="val">100,000 CLAW</td><td>INITIAL_PER_BLOCK</td></tr>
+            <tr><td>Epoch hard cap</td><td class="val">perBlock &times; 50,000</td><td>Era 1: 5 billion/epoch</td></tr>
+            <tr><td>Claim cooldown</td><td class="val">3,500 blocks</td><td>&asymp; 11.67 hours</td></tr>
+            <tr><td>Max claims/epoch</td><td class="val">14</td><td>50,000 &divide; 3,500</td></tr>
+            <tr><td>Seed update</td><td class="val">Per Epoch</td><td>Based on blockhash</td></tr>
+            <tr><td>Halving rule</td><td class="val">perBlock >> (era-1)</td><td>50% reduction each Era</td></tr>
+            <tr><td>Stop condition</td><td class="val">&lt; 0.01 CLAW</td><td>&lt; 10<sup>16</sup> wei</td></tr>
+            <tr><td>Total Eras</td><td class="val">24</td><td></td></tr>
+            <tr><td>Total Epochs</td><td class="val">504</td><td>24 &times; 21</td></tr>
+            <tr><td>Total duration</td><td class="val">&asymp; 9.58 years</td><td>25.2M blocks &times; 12s</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Why Two Layers?</h3>
+
+      <p>In v4.0, one Epoch spanned 1M blocks (&asymp; 4.6 months). If many miners joined early, the hard cap exhausted in weeks, leaving months of idle time. The dual-layer fix reduces emission granularity to 1 week — if an Epoch's cap is exhausted, the idle period lasts days, not months.</p>
+
+      <div class="wp-table-wrap">
+        <table class="wp-table">
+          <thead>
+            <tr><th>Model</th><th>Idle Period</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>v4.0 (single-layer, 4.6 months)</td><td>Cap exhausted &rarr; wait months</td></tr>
+            <tr class="row-hl"><td>v4.2 (dual-layer, 1 week)</td><td>Cap exhausted &rarr; new cap next Monday</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Pure Block-Based Timing</h3>
+
+      <p>The entire contract uses <code>block.number</code> for all time logic. No <code>block.timestamp</code> anywhere.</p>
+
+      <ul>
+        <li><strong>Non-manipulable:</strong> <code>block.timestamp</code> allows &plusmn;15s miner adjustment. <code>block.number</code> is strictly monotonic.</li>
+        <li><strong>Deterministic:</strong> Given startBlock, anyone can calculate which Era/Epoch any block belongs to.</li>
+        <li><strong>Simple:</strong> One unified time model — block arithmetic only.</li>
+      </ul>
+    </section>
+
+    <!-- §2 EMISSION SCHEDULE -->
+    <section class="wp-section" id="emission">
+      <h2>2. Emission Schedule</h2>
+
+      <p>Each Era halves the per-block reward. 50% of all $CLAW is mined in Era 1. Over 98% is mined by Era 6. The full schedule spans 24 Eras across approximately 9.58 years.</p>
+
+      <div class="wp-table-wrap">
+        <table class="wp-table">
+          <thead>
+            <tr><th>Era</th><th>perBlock</th><th>Epoch Cap</th><th>Era Total</th><th>Cumulative</th><th>Years</th><th>Supply %</th></tr>
+          </thead>
+          <tbody>
+            <tr class="row-hl">
+              <td class="val">1</td><td class="val">100,000</td><td class="val">5.00B</td><td class="val">105.00B</td><td class="val">105.00B</td><td class="val">0.40</td>
+              <td><span class="wp-bar"><span class="wp-bar-fill" style="width:50%"></span></span>50.0%</td>
+            </tr>
+            <tr>
+              <td class="val">2</td><td class="val">50,000</td><td class="val">2.50B</td><td class="val">52.50B</td><td class="val">157.50B</td><td class="val">0.80</td>
+              <td><span class="wp-bar"><span class="wp-bar-fill" style="width:75%"></span></span>75.0%</td>
+            </tr>
+            <tr>
+              <td class="val">3</td><td class="val">25,000</td><td class="val">1.25B</td><td class="val">26.25B</td><td class="val">183.75B</td><td class="val">1.20</td>
+              <td><span class="wp-bar"><span class="wp-bar-fill" style="width:87.5%"></span></span>87.5%</td>
+            </tr>
+            <tr>
+              <td class="val">4</td><td class="val">12,500</td><td class="val">625M</td><td class="val">13.13B</td><td class="val">196.88B</td><td class="val">1.60</td>
+              <td><span class="wp-bar"><span class="wp-bar-fill" style="width:93.75%"></span></span>93.8%</td>
+            </tr>
+            <tr>
+              <td class="val">5</td><td class="val">6,250</td><td class="val">312.5M</td><td class="val">6.56B</td><td class="val">203.44B</td><td class="val">2.00</td>
+              <td><span class="wp-bar"><span class="wp-bar-fill" style="width:96.88%"></span></span>96.9%</td>
+            </tr>
+            <tr>
+              <td class="val">6</td><td class="val">3,125</td><td class="val">156.25M</td><td class="val">3.28B</td><td class="val">206.72B</td><td class="val">2.40</td>
+              <td><span class="wp-bar"><span class="wp-bar-fill" style="width:98.44%"></span></span>98.4%</td>
+            </tr>
+            <tr>
+              <td class="val">7</td><td class="val">1,562.5</td><td class="val">78.13M</td><td class="val">1.64B</td><td class="val">208.36B</td><td class="val">2.79</td>
+              <td><span class="wp-bar"><span class="wp-bar-fill" style="width:99.22%"></span></span>99.2%</td>
+            </tr>
+            <tr>
+              <td class="val">8</td><td class="val">781.25</td><td class="val">39.06M</td><td class="val">820.31M</td><td class="val">209.18B</td><td class="val">3.19</td>
+              <td><span class="wp-bar"><span class="wp-bar-fill" style="width:99.61%"></span></span>99.6%</td>
+            </tr>
+            <tr class="collapse-row">
+              <td colspan="7">Eras 9-24: continues halving &mdash; perBlock drops from 390.6 to 0.012, cumulative approaches 210B over ~9.58 years</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="wp-callout">
+        <strong>Total mined:</strong> 209,999,987,483 CLAW (12,517 less than 210B, accounting for 0.000006% — rounding from integer halving).
+      </div>
+
+      <h3>Idle Period Analysis</h3>
+
+      <p>Under the 3,500-block cooldown, a single address claims at most 14 times per Epoch. Assuming average T = 1,000 (logarithmic bonus &asymp; 7.24&times;), single reward &asymp; 723,700 CLAW:</p>
+
+      <div class="wp-table-wrap">
+        <table class="wp-table">
+          <thead>
+            <tr><th>Active Miners</th><th>Claims/Epoch</th><th>Consumed</th><th>vs Hard Cap</th><th>Idle Period</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="val">100</td><td class="val">1,400</td><td class="val">1.01B</td><td class="val">0.20&times;</td><td>None</td></tr>
+            <tr class="row-hl"><td class="val">500</td><td class="val">7,000</td><td class="val">5.07B</td><td class="val">1.01&times;</td><td>~0 days (equilibrium)</td></tr>
+            <tr><td class="val">1,000</td><td class="val">14,000</td><td class="val">10.13B</td><td class="val">2.03&times;</td><td>~3.5 days</td></tr>
+            <tr><td class="val">5,000</td><td class="val">70,000</td><td class="val">50.66B</td><td class="val">10.1&times;</td><td>~6.3 days</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p><strong>500 miners is the equilibrium point.</strong> Below that, no idle period. Above, the idle period never exceeds one week — it automatically resets when the next Epoch begins.</p>
+    </section>
+
+    <!-- §3 MINING MECHANICS -->
+    <section class="wp-section" id="mining">
+      <h2>3. Mining Mechanics</h2>
+
+      <h3>Reward Formula</h3>
+
+      <div class="wp-formula">
+        <div class="wp-formula-math">R = Base &times; (1 + ln(T))</div>
+        <div class="wp-formula-sub">Where R = reward, Base = perBlock for current Era, T = blocks of AI work, ln = natural log</div>
+      </div>
+
+      <p>The logarithmic curve is the anti-whale mechanism. Doing 10&times; the work yields roughly 3.3&times; the reward — not 10&times;. This ensures diminishing returns for large miners while still rewarding genuine AI computation.</p>
+
+      <p>Implementation uses MSB bitwise operation for the logarithm calculation, costing approximately <strong>30 Gas</strong> — negligible overhead.</p>
+
+      <div class="wp-code">function _calculateReward(uint256 totalTokens, uint256 base)
+    internal pure returns (uint256)
+{
+    uint256 log2T = _msb(totalTokens);
+    return base * (1000 + log2T * 693) / 1000;
+    <span class="hl">// 693 ≈ ln(2) × 1000 → converts log₂ to ln</span>
+}</div>
+
+      <h3>Cooldown: 3,500 Blocks</h3>
+
+      <p>Each address must wait 3,500 blocks (&asymp; 11.67 hours) between claims. This replaces the old <code>block.timestamp / 1 days</code> approach which was manipulable at UTC boundaries. The new approach is fully deterministic — given <code>block.number</code> and <code>lastClaimBlock</code>, anyone can calculate if a claim is possible.</p>
+
+      <h3>Max 14 Claims Per Epoch</h3>
+
+      <p>With 50,000 blocks per Epoch and 3,500-block cooldown: 50,000 &divide; 3,500 = <strong>14 claims maximum</strong> per address per Epoch. Hard-coded in the contract as <code>MAX_CLAIMS_PER_EPOCH</code>.</p>
+
+      <h3>Epoch Seed</h3>
+
+      <p>Updated once per Epoch (every 50,000 blocks) based on a combination of recent blockhashes and <code>block.prevrandao</code>. All claims within an Epoch share the same Seed — miners fetch it once per week.</p>
+
+      <div class="wp-code">currentSeed = keccak256(abi.encodePacked(
+    blockhash(block.number - 1),
+    blockhash(block.number - 2),
+    blockhash(block.number - 3),
+    block.prevrandao
+));</div>
+    </section>
+
+    <!-- §4 MODEL GOVERNANCE -->
+    <section class="wp-section" id="governance">
+      <h2>4. Model Governance</h2>
+
+      <p>CLAWING v4.2 introduces on-chain model governance. Instead of a hard-coded whitelist, the community votes on which AI model to use each Era.</p>
+
+      <h3>Era 1: Hard-Coded</h3>
+      <p>Era 1 uses GPT-5.4, set in the constructor. No vote needed — this bootstraps the system with a known model.</p>
+
+      <h3>Subsequent Eras: On-Chain Voting</h3>
+      <p>For Era N (N &gt; 1), the model is decided by on-chain voting during Era N-1. The governance cycle has three phases within each Era:</p>
+
+      <div class="wp-gov-flow">
+        <div class="wp-gov-phase phase-nom">
+          <span class="phase-label">Phase 1</span>
+          Nomination<br>Ep 11-15<br>&asymp; 34.7 days
+        </div>
+        <div class="wp-gov-arrow">&rarr;</div>
+        <div class="wp-gov-phase phase-vote">
+          <span class="phase-label">Phase 2</span>
+          Voting<br>Ep 16-20<br>&asymp; 34.7 days
+        </div>
+        <div class="wp-gov-arrow">&rarr;</div>
+        <div class="wp-gov-phase phase-announce">
+          <span class="phase-label">Phase 3</span>
+          Announce<br>Ep 21<br>&asymp; 6.9 days
+        </div>
+      </div>
+
+      <h3>Voting Mechanics</h3>
+
+      <ul>
+        <li><strong>One-token-one-vote:</strong> 1 CLAW = 1 vote. Tokens are locked into the contract during voting.</li>
+        <li><strong>Flash-loan protection:</strong> Tokens must be transferred to the contract (locked) during the voting window. Cannot vote and withdraw in the same transaction.</li>
+        <li><strong>Withdrawal:</strong> Locked tokens can only be withdrawn during the announcement phase (Epoch 21) or after the Era ends.</li>
+        <li><strong>No vote switching:</strong> Once you vote for a model, you cannot change your vote — only add more tokens to the same choice.</li>
+        <li><strong>Max 20 candidates</strong> per Era. One nomination per address per Era.</li>
+      </ul>
+
+      <h3>zkTLS Model Verification</h3>
+      <p>The ZK proof verifies the specific <code>modelHash</code> — not just the API domain. TLSNotary captures the model ID from the API response (OpenAI-compatible format) and the SP1 circuit proves it matches the Era's designated model. All candidate models must support the <code>/v1/chat/completions</code> standard interface.</p>
+    </section>
+
+    <!-- §5 SMART CONTRACT ARCHITECTURE -->
+    <section class="wp-section" id="contracts">
+      <h2>5. Smart Contract Architecture</h2>
+
+      <p>Three-contract decoupled design. Each contract has a single responsibility, minimizing attack surface and enabling independent auditing.</p>
+
+      <div class="wp-contracts">
+        <div class="wp-contract">
+          <h4>CLAW_Token (ERC-20)</h4>
+          <p>Standard ERC-20 with <code>MAX_SUPPLY = 210,000,000,000</code>. Immutable minter set at deployment. Zero premine — <code>totalSupply()</code> starts at 0. MIT licensed.</p>
+        </div>
+        <div class="wp-contract">
+          <h4>OracleVerifier (ClawingVerifier)</h4>
+          <p>Verifies SP1 Groth16 zero-knowledge proofs. Checks <code>modelHash</code> against the Era's designated model. Does not depend on tokenomics parameters — unchanged since v3.0.</p>
+        </div>
+        <div class="wp-contract">
+          <h4>PoAIWMint (Core)</h4>
+          <p>Core minting logic. Manages Era/Epoch tracking, reward calculation (MSB log), cooldown enforcement, epoch hard caps, claim counting, Epoch Seed, and model governance (nomination, voting, finalization). Gas budget: ~320-340k per mint.</p>
+        </div>
+        <div class="wp-contract">
+          <h4>MinterProxy</h4>
+          <p>Upgradeable oracle endpoint. Allows the verification contract to be updated without redeploying the token or minting contracts.</p>
+        </div>
+      </div>
+
+      <h3>Key Design Decisions</h3>
+
+      <ul>
+        <li><strong>Epoch hard cap = perBlock &times; 50,000</strong> — mathematically equivalent to EraCap/21 but requires only the current Era's perBlock (no division).</li>
+        <li><strong>globalEpoch as epochMinted key</strong> — single-layer mapping, one SLOAD per call (saves ~2,100 gas vs nested mapping).</li>
+        <li><strong>3,500-block cooldown over daily cap</strong> — eliminates timestamp dependency, reduces single-address output by 60%, requires more miners for equilibrium.</li>
+        <li><strong>Single model per Era over whitelist</strong> — community self-governance, model-ID granularity, adaptive to AI iteration pace, zero admin privileges.</li>
+      </ul>
+    </section>
+
+    <!-- §6 SECURITY & VERIFICATION -->
+    <section class="wp-section" id="security">
+      <h2>6. Security &amp; Verification</h2>
+
+      <h3>zkTLS + Groth16</h3>
+      <p>Every mining claim requires a <strong>Groth16 zero-knowledge proof</strong> generated by an SP1 circuit. The proof verifies that real AI inference was performed via <strong>TLSNotary (zkTLS)</strong> — capturing the TLS session, extracting the model response, and proving the model ID matches the Era's designated <code>modelHash</code>. The oracle cannot forge proofs — the math guarantees it.</p>
+
+      <h3>MSB Logarithm (~30 Gas)</h3>
+      <p>The logarithmic reward calculation uses a bitwise MSB (Most Significant Bit) operation — 8 rounds of binary search in assembly. Total cost: approximately 30 Gas. This converts <code>log₂(T)</code> to <code>ln(T)</code> via the identity <code>ln(T) = log₂(T) &times; ln(2) &asymp; log₂(T) &times; 0.693</code>.</p>
+
+      <h3>Pure block.number Timing</h3>
+      <p>Zero <code>block.timestamp</code> dependency anywhere in the contract. Era calculation, Epoch calculation, cooldown checks, and Seed updates all use <code>block.number</code> exclusively. Non-manipulable, deterministic, and simple.</p>
+
+      <h3>Flash-Loan Protection</h3>
+      <p>Governance voting uses a lock-up mechanism. Tokens are transferred into the contract during voting and can only be withdrawn during the announcement phase or after the Era ends. This prevents flash-loan attacks where an attacker borrows tokens, votes, and returns them in a single transaction.</p>
+
+      <h3>Replay Protection</h3>
+      <p>The tuple <code>(address, globalEpoch, claimIndex)</code> is globally unique. Combined with the Epoch Seed validation and cooldown check, no proof can be submitted twice. The <code>claimIndex</code> must exactly match the current claim count for that address in that Epoch.</p>
+
+      <div class="wp-callout">
+        <strong>Security summary:</strong> Zero trust architecture. Groth16 proofs are mathematically unforgeable. Block-based timing is non-manipulable. Flash-loan protection via lock-up. Replay protection via unique claim tuples. MIT open source — verify everything.
+      </div>
+    </section>
+
+  </div><!-- /wp-content -->
+</div><!-- /wp-body -->
+
+<!-- ── FOOTER ── -->
+<footer class="footer">
+  <div class="footer-inner">
+    <a href="index.html" class="footer-logo">
+      <svg viewBox="0 0 200 200" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+        <rect x="16" y="16" width="168" height="168" rx="36" fill="#CDFF50"/>
+        <rect x="72" y="78" width="56" height="56" rx="16" fill="#0a0a0a"/>
+        <circle cx="88" cy="102" r="6" fill="#CDFF50"/>
+        <circle cx="112" cy="102" r="6" fill="#CDFF50"/>
+        <path d="M 72 90 L 52 78 L 40 86 L 54 98 L 40 110 L 52 118 L 72 106" fill="#0a0a0a"/>
+        <path d="M 128 90 L 148 78 L 160 86 L 146 98 L 160 110 L 148 118 L 128 106" fill="#0a0a0a"/>
+        <line x1="88" y1="78" x2="72" y2="50" stroke="#0a0a0a" stroke-width="4.5" stroke-linecap="round"/>
+        <line x1="112" y1="78" x2="128" y2="50" stroke="#0a0a0a" stroke-width="4.5" stroke-linecap="round"/>
+        <circle cx="72" cy="50" r="4" fill="#0a0a0a"/>
+        <circle cx="128" cy="50" r="4" fill="#0a0a0a"/>
+      </svg>
+      CLAWING
+    </a>
+    <div class="footer-tagline">AI Works. You Earn. &middot; $CLAW Mining &mdash; Proof of AI Work</div>
+    <div class="footer-links">
+      <a href="index.html">Start Mining</a>
+      <a href="poaiw.html">PoAIW</a>
+      <a href="tokenomics.html">Tokenomics</a>
+      <a href="whitepaper.html">Whitepaper</a>
+      <a href="roadmap.html">Roadmap</a>
+      <a href="community.html">Community</a>
+    </div>
+    <div class="footer-bottom">
+      <p>$CLAW &middot; No premine. No ICO. No team allocation. No VC. 100% mined on Ethereum.</p>
+      <p style="margin-top:8px"><a href="https://www.perplexity.ai/computer" target="_blank" rel="noopener noreferrer">Created with Perplexity Computer</a></p>
+    </div>
+  </div>
+</footer>
+<script src="main.js"></script>
+
+</body>
+</html>

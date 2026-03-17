@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!--
+   ______                            __
+  / ____/___  ____ ___  ____  __  __/ /____  _____
+ / /   / __ \/ __ `__ \/ __ \/ / / / __/ _ \/ ___/
+/ /___/ /_/ / / / / / / /_/ / /_/ / /_/  __/ /
+\____/\____/_/ /_/ /_/ .___/\__,_/\__/\___/_/
+                    /_/
+        Created with Perplexity Computer
+        https://www.perplexity.ai/computer
+-->
+<meta name="generator" content="Perplexity Computer">
+<meta name="author" content="Perplexity Computer">
+<meta property="og:see_also" content="https://www.perplexity.ai/computer">
+<link rel="author" href="https://www.perplexity.ai/computer">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700,900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<title>CLAWING — Tokenomics</title>
+<meta name="description" content="CLAWING uses a dual-layer structure — Eras and Epochs — to control token release. 210B max supply, 24 Eras, 504 Epochs, 100% mined.">
+<style>
+/* ── CORE PARAMETERS ── */
+.token-params{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:clamp(12px,2vw,16px);
+}
+.token-param{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:clamp(20px,3vw,28px);
+  text-align:center;
+  transition:border-color .3s,box-shadow .3s;
+}
+.token-param:hover{border-color:var(--border-2);box-shadow:0 2px 20px rgba(0,0,0,.3)}
+.token-param-value{
+  font-family:var(--mono);
+  font-size:clamp(1.5rem,3vw,2.25rem);
+  font-weight:900;
+  color:var(--lime);
+  letter-spacing:-.02em;
+  line-height:1.2;
+  margin-bottom:6px;
+}
+.token-param-label{
+  font-family:var(--mono);font-size:11px;
+  color:var(--text-dim);text-transform:uppercase;
+  letter-spacing:.08em;
+}
+
+/* ── CONCEPT CARDS ── */
+.concept-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:clamp(16px,2vw,24px);
+}
+.concept-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:clamp(24px,3vw,32px);
+  transition:border-color .3s,box-shadow .3s;
+}
+.concept-card:hover{border-color:var(--border-2);box-shadow:0 2px 20px rgba(0,0,0,.3)}
+.concept-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:var(--mono);font-size:10px;font-weight:600;
+  text-transform:uppercase;letter-spacing:.1em;
+  color:var(--lime);
+  background:var(--lime-glow);
+  border:1px solid rgba(205,255,80,0.12);
+  padding:4px 12px;border-radius:100px;
+  margin-bottom:16px;
+}
+.concept-card h3{
+  font-size:1.25rem;font-weight:900;
+  margin-bottom:8px;
+}
+.concept-duration{
+  font-family:var(--mono);font-size:.8125rem;
+  color:var(--lime);font-weight:600;
+  margin-bottom:12px;
+  display:block;
+}
+.concept-card p{
+  font-size:.875rem;color:var(--text-muted);
+  line-height:1.65;margin-bottom:8px;
+}
+.concept-card p:last-child{margin-bottom:0}
+
+/* ── ERA 1 VISUAL TIMELINE ── */
+.dual-layer{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:clamp(24px,3vw,32px);
+}
+.dual-layer-title{
+  font-family:var(--mono);font-size:11px;font-weight:600;
+  color:var(--lime);text-transform:uppercase;
+  letter-spacing:.1em;margin-bottom:20px;
+}
+.era-visual{display:flex;flex-direction:column;gap:8px}
+.epoch-row{display:flex;gap:4px;flex-wrap:wrap}
+.epoch-block{
+  flex:1;min-width:40px;
+  padding:8px 4px;
+  border-radius:6px;
+  text-align:center;
+  font-family:var(--mono);font-size:10px;
+  font-weight:600;letter-spacing:.04em;
+  transition:transform .2s;
+}
+.epoch-block:hover{transform:translateY(-2px)}
+.epoch-mining{background:rgba(205,255,80,0.15);color:var(--lime);border:1px solid rgba(205,255,80,0.2)}
+.epoch-nom{background:rgba(232,114,10,0.15);color:var(--orange);border:1px solid rgba(232,114,10,0.2)}
+.epoch-vote{background:rgba(91,160,208,0.15);color:var(--blue);border:1px solid rgba(91,160,208,0.2)}
+.epoch-announce{background:rgba(78,195,107,0.15);color:var(--green);border:1px solid rgba(78,195,107,0.2)}
+.epoch-label{
+  display:flex;gap:clamp(12px,2vw,24px);
+  margin-top:16px;flex-wrap:wrap;
+}
+.epoch-label span{
+  display:flex;align-items:center;gap:6px;
+  font-family:var(--mono);font-size:10px;
+  color:var(--text-dim);text-transform:uppercase;
+  letter-spacing:.06em;
+}
+.epoch-label span::before{
+  content:'';width:8px;height:8px;
+  border-radius:50%;flex-shrink:0;
+}
+.epoch-label .legend-mining::before{background:var(--lime)}
+.epoch-label .legend-nom::before{background:var(--orange)}
+.epoch-label .legend-vote::before{background:var(--blue)}
+.epoch-label .legend-announce::before{background:var(--green)}
+
+/* ── MINING RULES ── */
+.rules-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:clamp(12px,2vw,16px);
+}
+.rule-item{
+  display:flex;align-items:flex-start;gap:12px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:16px 18px;
+  transition:border-color .3s;
+}
+.rule-item:hover{border-color:var(--border-2)}
+.rule-icon{
+  flex-shrink:0;
+  width:36px;height:36px;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--lime-glow);
+  border:1px solid rgba(205,255,80,0.1);
+  border-radius:8px;
+  font-size:16px;
+}
+.rule-text h4{
+  font-size:.875rem;font-weight:700;
+  margin-bottom:2px;
+}
+.rule-text p{
+  font-size:.8125rem;color:var(--text-muted);
+  line-height:1.55;
+}
+
+/* ── REWARD FORMULA ── */
+.formula-box{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:clamp(32px,4vw,48px);
+  text-align:center;
+}
+.formula-display{margin-bottom:24px}
+.formula-math{
+  font-family:var(--mono);
+  font-size:clamp(1.25rem,3vw,1.75rem);
+  font-weight:700;
+  color:var(--lime);
+  letter-spacing:.02em;
+  margin-bottom:8px;
+}
+.formula-sub{
+  font-size:.875rem;color:var(--text-muted);
+  max-width:480px;margin:0 auto;
+  line-height:1.6;
+}
+.formula-params{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:clamp(8px,1.5vw,16px);
+  max-width:640px;margin:0 auto;
+}
+.formula-param{
+  background:var(--surface-2);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:14px 12px;
+  text-align:center;
+}
+.formula-param .var{
+  font-family:var(--mono);font-size:1rem;
+  font-weight:700;color:var(--lime);
+  margin-bottom:4px;display:block;
+}
+.formula-param .desc{
+  font-size:.75rem;color:var(--text-dim);
+  line-height:1.5;
+}
+
+/* ── FAIR DISTRIBUTION ── */
+.fair-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:clamp(12px,2vw,16px);
+}
+.fair-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:clamp(20px,3vw,28px);
+  text-align:center;
+  transition:border-color .3s,box-shadow .3s;
+}
+.fair-card:hover{border-color:var(--border-2);box-shadow:0 2px 20px rgba(0,0,0,.3)}
+.fair-icon{font-size:28px;margin-bottom:10px;display:block}
+.fair-title{
+  font-size:1rem;font-weight:800;
+  margin-bottom:4px;
+}
+.fair-desc{
+  font-size:.8125rem;color:var(--text-muted);
+  line-height:1.55;
+}
+
+/* ── ERA HALVING TABLE ── */
+.era-table-wrap{
+  overflow-x:auto;
+  border:1px solid var(--border);
+  border-radius:12px;
+  background:var(--surface);
+}
+.era-table{
+  width:100%;border-collapse:collapse;
+  font-size:.8125rem;
+}
+.era-table th{
+  font-family:var(--mono);font-size:10px;
+  text-transform:uppercase;letter-spacing:.08em;
+  color:var(--text-dim);font-weight:600;
+  padding:14px 16px;text-align:left;
+  border-bottom:1px solid var(--border);
+  white-space:nowrap;
+}
+.era-table td{
+  padding:12px 16px;
+  border-bottom:1px solid var(--border);
+  color:var(--text-muted);
+  white-space:nowrap;
+}
+.era-table tr:last-child td{border-bottom:none}
+.era-table .era-active{
+  background:rgba(205,255,80,0.04);
+}
+.era-table .era-active td{
+  color:var(--text);font-weight:600;
+}
+.era-table .era-active td:first-child{
+  color:var(--lime);
+}
+.era-table .era-num{
+  font-family:var(--mono);font-weight:700;
+  color:var(--text-dim);
+}
+.era-table .era-val{
+  font-family:var(--mono);
+}
+.era-bar{
+  width:100%;max-width:120px;
+  height:6px;
+  background:var(--surface-2);
+  border-radius:3px;
+  overflow:hidden;
+  display:inline-block;
+  vertical-align:middle;
+  margin-right:8px;
+}
+.era-bar-fill{
+  height:100%;
+  background:var(--lime);
+  border-radius:3px;
+  transition:width .6s var(--ease);
+}
+.era-table .era-collapse td{
+  color:var(--text-faint);
+  font-style:italic;
+  font-size:.75rem;
+}
+.era-duration{
+  font-family:var(--mono);font-size:.75rem;
+  color:var(--text-faint);
+  text-align:center;
+  padding:16px;
+  border-top:1px solid var(--border);
+}
+
+/* ── MOBILE ── */
+@media(max-width:768px){
+  .token-params{grid-template-columns:repeat(2,1fr)}
+  .concept-grid{grid-template-columns:1fr}
+  .rules-grid{grid-template-columns:1fr}
+  .fair-grid{grid-template-columns:1fr 1fr}
+  .formula-params{grid-template-columns:1fr 1fr}
+  .epoch-block{min-width:32px;font-size:9px;padding:6px 2px}
+}
+@media(max-width:480px){
+  .token-params{grid-template-columns:1fr}
+  .fair-grid{grid-template-columns:1fr}
+  .formula-params{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <rect x="16" y="16" width="168" height="168" rx="36" fill="#CDFF50"/>
+        <rect x="72" y="78" width="56" height="56" rx="16" fill="#0a0a0a"/>
+        <circle cx="88" cy="102" r="6" fill="#CDFF50"/>
+        <circle cx="112" cy="102" r="6" fill="#CDFF50"/>
+        <path d="M 72 90 L 52 78 L 40 86 L 54 98 L 40 110 L 52 118 L 72 106" fill="#0a0a0a"/>
+        <path d="M 128 90 L 148 78 L 160 86 L 146 98 L 160 110 L 148 118 L 128 106" fill="#0a0a0a"/>
+        <line x1="88" y1="78" x2="72" y2="50" stroke="#0a0a0a" stroke-width="4.5" stroke-linecap="round"/>
+        <circle cx="72" cy="50" r="4" fill="#0a0a0a"/>
+        <line x1="112" y1="78" x2="128" y2="50" stroke="#0a0a0a" stroke-width="4.5" stroke-linecap="round"/>
+        <circle cx="128" cy="50" r="4" fill="#0a0a0a"/>
+      </svg>
+      CLAWING
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">Start Mining</a>
+      <a href="poaiw.html">PoAIW</a>
+      <a href="tokenomics.html">Tokenomics</a>
+      <a href="whitepaper.html">Whitepaper</a>
+      <a href="roadmap.html">Roadmap</a>
+      <a href="community.html">Community</a>
+      <a href="https://clawhub.ai/skills/claw-mining" target="_blank" rel="noopener noreferrer" class="nav-cta">Install Skill</a>
+    </div>
+    <button class="mobile-menu" id="mobileMenu" aria-label="Menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+  </div>
+</nav>
+
+<!-- ── PAGE HEADER ── -->
+<header class="page-header">
+  <div class="page-label">Tokenomics</div>
+  <h1>How the Emission Works</h1>
+  <p class="lead">CLAWING uses a dual-layer structure — Eras and Epochs — to control token release. Think of Eras as seasons, Epochs as weeks within each season. Here's how the game works.</p>
+</header>
+
+<!-- ── DIVIDER ── -->
+<div class="divider"><div class="divider-line"></div></div>
+
+<!-- ── CORE PARAMETERS ── -->
+<section class="section reveal">
+  <div class="section-header">
+    <div class="section-label">Parameters</div>
+    <h2>Core Parameters</h2>
+  </div>
+
+  <div class="token-params">
+    <div class="token-param">
+      <div class="token-param-value">210B</div>
+      <div class="token-param-label">Max Supply</div>
+    </div>
+    <div class="token-param">
+      <div class="token-param-value">CLAW</div>
+      <div class="token-param-label">ERC-20 Token</div>
+    </div>
+    <div class="token-param">
+      <div class="token-param-value">24 Eras</div>
+      <div class="token-param-label">Total Halvings</div>
+    </div>
+    <div class="token-param">
+      <div class="token-param-value">504</div>
+      <div class="token-param-label">Total Epochs</div>
+    </div>
+    <div class="token-param">
+      <div class="token-param-value">50%</div>
+      <div class="token-param-label">Mined in Era 1</div>
+    </div>
+    <div class="token-param">
+      <div class="token-param-value">0%</div>
+      <div class="token-param-label">Pre-mine / ICO / VC</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── DIVIDER ── -->
+<div class="divider"><div class="divider-line"></div></div>
+
+<!-- ── ERA & EPOCH CONCEPT ── -->
+<section class="section reveal">
+  <div class="section-header">
+    <div class="section-label">Structure</div>
+    <h2>Eras &amp; Epochs</h2>
+    <p class="lead">Two interlocking cycles that govern emission, governance, and halving.</p>
+  </div>
+
+  <div class="concept-grid">
+    <div class="concept-card">
+      <div class="concept-tag">Halving Cycle</div>
+      <h3>Era</h3>
+      <span class="concept-duration">1,050,000 blocks &asymp; 146 days</span>
+      <p>Each Era halves the per-block reward, following the same deflationary logic as Bitcoin. When an Era ends, the reward drops by 50% and a new season begins.</p>
+      <p>Each Era contains <strong>21 Epochs</strong>. There are <strong>24 Eras</strong> total, after which the max supply of 210B $CLAW is fully mined.</p>
+    </div>
+    <div class="concept-card">
+      <div class="concept-tag">Weekly Cycle</div>
+      <h3>Epoch</h3>
+      <span class="concept-duration">50,000 blocks &asymp; 7 days</span>
+      <p>Epochs are the heartbeat of the system. Each Epoch enforces a hard cap on total tokens that can be mined — preventing runaway emission even if mining activity surges.</p>
+      <p>In Era 1, the cap is <strong>5 billion $CLAW per Epoch</strong>. This cap halves with each new Era alongside the per-block reward.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── DIVIDER ── -->
+<div class="divider"><div class="divider-line"></div></div>
+
+<!-- ── ERA 1 VISUAL TIMELINE ── -->
+<section class="section reveal">
+  <div class="section-header">
+    <div class="section-label">Timeline</div>
+    <h2>Era 1 Visual Timeline</h2>
+    <p class="lead">21 Epochs across mining, nomination, voting, and announcement phases.</p>
+  </div>
+
+  <div class="dual-layer">
+    <div class="dual-layer-title">Era 1 — 21 Epochs</div>
+    <div class="era-visual">
+      <div class="epoch-row">
+        <div class="epoch-block epoch-mining">Ep 1</div>
+        <div class="epoch-block epoch-mining">Ep 2</div>
+        <div class="epoch-block epoch-mining">Ep 3</div>
+        <div class="epoch-block epoch-mining">Ep 4</div>
+        <div class="epoch-block epoch-mining">Ep 5</div>
+        <div class="epoch-block epoch-mining">Ep 6</div>
+        <div class="epoch-block epoch-mining">Ep 7</div>
+        <div class="epoch-block epoch-mining">Ep 8</div>
+        <div class="epoch-block epoch-mining">Ep 9</div>
+        <div class="epoch-block epoch-mining">Ep 10</div>
+      </div>
+      <div class="epoch-row">
+        <div class="epoch-block epoch-nom">Ep 11</div>
+        <div class="epoch-block epoch-nom">Ep 12</div>
+        <div class="epoch-block epoch-nom">Ep 13</div>
+        <div class="epoch-block epoch-nom">Ep 14</div>
+        <div class="epoch-block epoch-nom">Ep 15</div>
+        <div class="epoch-block epoch-vote">Ep 16</div>
+        <div class="epoch-block epoch-vote">Ep 17</div>
+        <div class="epoch-block epoch-vote">Ep 18</div>
+        <div class="epoch-block epoch-vote">Ep 19</div>
+        <div class="epoch-block epoch-vote">Ep 20</div>
+        <div class="epoch-block epoch-announce">Ep 21</div>
+      </div>
+    </div>
+    <div class="epoch-label">
+      <span class="legend-mining">Mining Only</span>
+      <span class="legend-nom">Nomination</span>
+      <span class="legend-vote">Voting</span>
+      <span class="legend-announce">Announce</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── DIVIDER ── -->
+<div class="divider"><div class="divider-line"></div></div>
+
+<!-- ── MINING RULES ── -->
+<section class="section reveal">
+  <div class="section-header">
+    <div class="section-label">Rules</div>
+    <h2>Mining Rules</h2>
+    <p class="lead">Guardrails that keep the system fair and predictable.</p>
+  </div>
+
+  <div class="rules-grid">
+    <div class="rule-item">
+      <div class="rule-icon">⏱</div>
+      <div class="rule-text">
+        <h4>Cooldown Period</h4>
+        <p>3,500 blocks (~11.67 hours) between claims. Prevents rapid-fire mining.</p>
+      </div>
+    </div>
+    <div class="rule-item">
+      <div class="rule-icon">🔢</div>
+      <div class="rule-text">
+        <h4>Max 14 Claims</h4>
+        <p>Maximum of 14 claims per Epoch per miner. Hard-coded, non-negotiable.</p>
+      </div>
+    </div>
+    <div class="rule-item">
+      <div class="rule-icon">📊</div>
+      <div class="rule-text">
+        <h4>Weekly Hard Cap</h4>
+        <p>Each Epoch has a fixed token cap. Once reached, mining pauses until the next Epoch.</p>
+      </div>
+    </div>
+    <div class="rule-item">
+      <div class="rule-icon">🧱</div>
+      <div class="rule-text">
+        <h4>Pure Block-Based</h4>
+        <p>All timing uses block.number — no timestamps, no manipulation, fully deterministic.</p>
+      </div>
+    </div>
+    <div class="rule-item">
+      <div class="rule-icon">🐋</div>
+      <div class="rule-text">
+        <h4>Logarithmic Anti-Whale</h4>
+        <p>Rewards scale logarithmically — doing 10x the work does not yield 10x the reward.</p>
+      </div>
+    </div>
+    <div class="rule-item">
+      <div class="rule-icon">🔐</div>
+      <div class="rule-text">
+        <h4>ZK-Verified Proofs</h4>
+        <p>Every claim requires a Groth16 ZK proof. No proof, no tokens — enforced on-chain.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── DIVIDER ── -->
+<div class="divider"><div class="divider-line"></div></div>
+
+<!-- ── REWARD FORMULA ── -->
+<section class="section reveal">
+  <div class="section-header">
+    <div class="section-label">Formula</div>
+    <h2>Reward Formula</h2>
+  </div>
+
+  <div class="formula-box">
+    <div class="formula-display">
+      <div class="formula-math">R = perBlock &times; (1 + ln(T))</div>
+      <p class="formula-sub">How much you earn per claim depends on how much AI work your agent does.</p>
+    </div>
+    <div class="formula-params">
+      <div class="formula-param">
+        <span class="var">R</span>
+        <span class="desc">Reward per claim in $CLAW</span>
+      </div>
+      <div class="formula-param">
+        <span class="var">perBlock</span>
+        <span class="desc">Base reward for current Era</span>
+      </div>
+      <div class="formula-param">
+        <span class="var">T</span>
+        <span class="desc">Blocks of AI work performed</span>
+      </div>
+      <div class="formula-param">
+        <span class="var">ln(T)</span>
+        <span class="desc">Natural log — anti-whale scaling</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── DIVIDER ── -->
+<div class="divider"><div class="divider-line"></div></div>
+
+<!-- ── FAIR DISTRIBUTION ── -->
+<section class="section reveal">
+  <div class="section-header">
+    <div class="section-label">Distribution</div>
+    <h2>Fair Distribution</h2>
+    <p class="lead">Every token earned, none allocated.</p>
+  </div>
+
+  <div class="fair-grid">
+    <div class="fair-card">
+      <span class="fair-icon">🚫</span>
+      <div class="fair-title">No Pre-mine</div>
+      <div class="fair-desc">Genesis block starts at zero supply. Not a single token was minted before launch.</div>
+    </div>
+    <div class="fair-card">
+      <span class="fair-icon">🚫</span>
+      <div class="fair-title">No ICO</div>
+      <div class="fair-desc">No token sale, no fundraise, no early bird pricing. Equal access from day one.</div>
+    </div>
+    <div class="fair-card">
+      <span class="fair-icon">🚫</span>
+      <div class="fair-title">No Team Alloc</div>
+      <div class="fair-desc">Zero reserved for founders. The team mines like everyone else — same rules, same rate.</div>
+    </div>
+    <div class="fair-card">
+      <span class="fair-icon">⛏</span>
+      <div class="fair-title">100% Mined</div>
+      <div class="fair-desc">Every single $CLAW token enters circulation through Proof of AI Work. No exceptions.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── DIVIDER ── -->
+<div class="divider"><div class="divider-line"></div></div>
+
+<!-- ── ERA HALVING TABLE ── -->
+<section class="section reveal">
+  <div class="section-header">
+    <div class="section-label">Halving Schedule</div>
+    <h2>Era Halving Table</h2>
+    <p class="lead">How supply unfolds across 24 Eras.</p>
+  </div>
+
+  <div class="era-table-wrap">
+    <table class="era-table">
+      <thead>
+        <tr>
+          <th>Era</th>
+          <th>perBlock</th>
+          <th>Epoch Cap</th>
+          <th>Era Total</th>
+          <th>Cumulative</th>
+          <th>Supply %</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="era-active">
+          <td class="era-num">1</td>
+          <td class="era-val">100,000</td>
+          <td class="era-val">5.00B</td>
+          <td class="era-val">105.00B</td>
+          <td class="era-val">105.00B</td>
+          <td><span class="era-bar"><span class="era-bar-fill" style="width:50%"></span></span>50.00%</td>
+        </tr>
+        <tr>
+          <td class="era-num">2</td>
+          <td class="era-val">50,000</td>
+          <td class="era-val">2.50B</td>
+          <td class="era-val">52.50B</td>
+          <td class="era-val">157.50B</td>
+          <td><span class="era-bar"><span class="era-bar-fill" style="width:75%"></span></span>75.00%</td>
+        </tr>
+        <tr>
+          <td class="era-num">3</td>
+          <td class="era-val">25,000</td>
+          <td class="era-val">1.25B</td>
+          <td class="era-val">26.25B</td>
+          <td class="era-val">183.75B</td>
+          <td><span class="era-bar"><span class="era-bar-fill" style="width:87.5%"></span></span>87.50%</td>
+        </tr>
+        <tr>
+          <td class="era-num">4</td>
+          <td class="era-val">12,500</td>
+          <td class="era-val">625M</td>
+          <td class="era-val">13.13B</td>
+          <td class="era-val">196.88B</td>
+          <td><span class="era-bar"><span class="era-bar-fill" style="width:93.75%"></span></span>93.75%</td>
+        </tr>
+        <tr>
+          <td class="era-num">5</td>
+          <td class="era-val">6,250</td>
+          <td class="era-val">312.5M</td>
+          <td class="era-val">6.56B</td>
+          <td class="era-val">203.44B</td>
+          <td><span class="era-bar"><span class="era-bar-fill" style="width:96.88%"></span></span>96.88%</td>
+        </tr>
+        <tr>
+          <td class="era-num">6</td>
+          <td class="era-val">3,125</td>
+          <td class="era-val">156.25M</td>
+          <td class="era-val">3.28B</td>
+          <td class="era-val">206.72B</td>
+          <td><span class="era-bar"><span class="era-bar-fill" style="width:98.44%"></span></span>98.44%</td>
+        </tr>
+        <tr class="era-collapse">
+          <td colspan="6">Continues halving every Era — perBlock drops below 0.01 at Era 24</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="era-duration">1 Era = 21 Epochs = 1,050,000 blocks &asymp; 146 days &middot; 24 Eras &times; 21 Epochs = 504 Epochs total</div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="footer">
+  <div class="footer-inner">
+    <a href="index.html" class="footer-logo">
+      <svg viewBox="0 0 200 200" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+        <rect x="16" y="16" width="168" height="168" rx="36" fill="#CDFF50"/>
+        <rect x="72" y="78" width="56" height="56" rx="16" fill="#0a0a0a"/>
+        <circle cx="88" cy="102" r="6" fill="#CDFF50"/>
+        <circle cx="112" cy="102" r="6" fill="#CDFF50"/>
+        <path d="M 72 90 L 52 78 L 40 86 L 54 98 L 40 110 L 52 118 L 72 106" fill="#0a0a0a"/>
+        <path d="M 128 90 L 148 78 L 160 86 L 146 98 L 160 110 L 148 118 L 128 106" fill="#0a0a0a"/>
+        <line x1="88" y1="78" x2="72" y2="50" stroke="#0a0a0a" stroke-width="4.5" stroke-linecap="round"/>
+        <line x1="112" y1="78" x2="128" y2="50" stroke="#0a0a0a" stroke-width="4.5" stroke-linecap="round"/>
+        <circle cx="72" cy="50" r="4" fill="#0a0a0a"/>
+        <circle cx="128" cy="50" r="4" fill="#0a0a0a"/>
+      </svg>
+      CLAWING
+    </a>
+    <div class="footer-tagline">AI Works. You Earn. &middot; $CLAW Mining &mdash; Proof of AI Work</div>
+    <div class="footer-links">
+      <a href="index.html">Start Mining</a>
+      <a href="poaiw.html">PoAIW</a>
+      <a href="tokenomics.html">Tokenomics</a>
+      <a href="whitepaper.html">Whitepaper</a>
+      <a href="roadmap.html">Roadmap</a>
+      <a href="community.html">Community</a>
+    </div>
+    <div class="footer-bottom">
+      <p>$CLAW &middot; No premine. No ICO. No team allocation. No VC. 100% mined on Ethereum.</p>
+      <p style="margin-top:8px"><a href="https://www.perplexity.ai/computer" target="_blank" rel="noopener noreferrer">Created with Perplexity Computer</a></p>
+    </div>
+  </div>
+</footer>
+<script src="main.js"></script>
+
+</body>
+</html>

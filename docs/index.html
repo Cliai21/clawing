@@ -17,916 +17,268 @@
 <link rel="author" href="https://www.perplexity.ai/computer">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CLAWING — The First AI Mining Skill for OpenClaw</title>
-<meta name="description" content="CLAWING is the first Proof of AI Work mining skill. Install on OpenClaw and start mining $CLAW in 60 seconds — no setup, no code, no private key access.">
-<meta property="og:title" content="CLAWING — Mine $CLAW with AI on OpenClaw">
-<meta property="og:description" content="Install the claw-mining skill on OpenClaw. Your AI does the work, you earn $CLAW. Proof of AI Work on Ethereum.">
-<meta property="og:type" content="website">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
 <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
 <link href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700,900&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<title>CLAWING — Start Mining $CLAW</title>
+<meta name="description" content="CLAWING is an OpenClaw skill that mines $CLAW tokens through Proof of AI Work. Install. Say Mine CLAW. That's it.">
 <style>
-/* ═══ RESET & TOKENS ═══ */
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-
-:root{
-  --bg:#0A0A0A;
-  --surface:#111111;
-  --surface-2:#161616;
-  --surface-3:#1A1A1A;
-  --border:#1E1E1E;
-  --border-2:#2A2A2A;
-  --border-3:#333;
-  --text:#E0E0E0;
-  --text-muted:#999;
-  --text-dim:#666;
-  --text-faint:#444;
-  --lime:#CDFF50;
-  --lime-dark:#9ACC2D;
-  --lime-glow:rgba(205,255,80,0.08);
-  --lime-glow-2:rgba(205,255,80,0.15);
-  --orange:#E8720A;
-  --green:#4EC36B;
-  --red:#E85050;
-  --blue:#5BA0D0;
-  --sans:'Satoshi',system-ui,-apple-system,sans-serif;
-  --mono:'JetBrains Mono','SF Mono','Fira Code',monospace;
-  --ease:cubic-bezier(0.16,1,0.3,1);
-  --max-w:1100px;
-}
-
-html{scroll-behavior:smooth}
-body{
-  font-family:var(--sans);
-  background:var(--bg);
-  color:var(--text);
-  line-height:1.6;
-  font-size:15px;
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
-  overflow-x:hidden;
-}
-::selection{background:var(--lime);color:#000}
-img{max-width:100%;display:block}
-a{color:var(--lime);text-decoration:none;transition:opacity .2s}
-a:hover{opacity:.8}
-
-/* ═══ NAV ═══ */
-.nav{
-  position:sticky;top:0;z-index:100;
-  background:rgba(10,10,10,0.92);
-  backdrop-filter:blur(12px);
-  -webkit-backdrop-filter:blur(12px);
-  border-bottom:1px solid var(--border);
-  transition:box-shadow .3s var(--ease);
-}
-.nav.scrolled{box-shadow:0 1px 20px rgba(0,0,0,.5)}
-.nav-inner{
-  max-width:var(--max-w);margin:0 auto;
-  padding:0 clamp(16px,4vw,32px);
-  height:56px;
-  display:flex;align-items:center;justify-content:space-between;
-}
-.nav-logo{
-  display:flex;align-items:center;gap:10px;
-  font-weight:900;font-size:16px;letter-spacing:.06em;
-  color:var(--text);
-}
-.nav-logo svg{width:32px;height:32px}
-.nav-links{display:flex;gap:clamp(12px,2vw,24px);align-items:center}
-.nav-links a{
-  font-family:var(--mono);font-size:11px;
-  color:var(--text-dim);text-transform:uppercase;
-  letter-spacing:.06em;transition:color .2s;
-}
-.nav-links a:hover{color:var(--lime);opacity:1}
-.nav-cta{
-  background:var(--lime);color:#000;
-  padding:6px 14px;border-radius:6px;
-  font-family:var(--mono);font-size:11px;
-  font-weight:600;letter-spacing:.04em;
-  text-transform:uppercase;
-  transition:all .2s var(--ease);
-}
-.nav-cta:hover{background:var(--lime-dark);opacity:1;transform:translateY(-1px)}
-.mobile-menu{display:none;background:none;border:none;cursor:pointer;padding:4px}
-.mobile-menu svg{width:24px;height:24px;color:var(--text)}
-
-/* ═══ HERO ═══ */
+/* ── HERO ── */
 .hero{
-  min-height:calc(100vh - 56px);
+  min-height:100vh;
   display:flex;flex-direction:column;
   align-items:center;justify-content:center;
   text-align:center;
-  padding:clamp(48px,8vw,80px) clamp(16px,4vw,32px);
+  padding:clamp(80px,12vw,120px) clamp(16px,4vw,32px) clamp(48px,6vw,80px);
   position:relative;
   overflow:hidden;
 }
 .hero::before{
   content:'';position:absolute;inset:0;
-  background:
-    radial-gradient(ellipse 60% 50% at 50% 40%, rgba(205,255,80,0.04) 0%, transparent 70%),
-    radial-gradient(ellipse 80% 60% at 50% 100%, rgba(205,255,80,0.02) 0%, transparent 50%);
+  background:radial-gradient(ellipse 60% 50% at 50% 30%,rgba(205,255,80,0.04),transparent 70%);
   pointer-events:none;
 }
+
 .hero-badge{
-  display:inline-flex;align-items:center;gap:6px;
-  padding:6px 16px;border-radius:999px;
-  background:rgba(205,255,80,0.06);
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--mono);font-size:11px;font-weight:500;
+  text-transform:uppercase;letter-spacing:.1em;
+  color:var(--lime);
+  background:var(--lime-glow);
   border:1px solid rgba(205,255,80,0.12);
-  font-family:var(--mono);font-size:11px;
-  color:var(--lime);letter-spacing:.04em;
-  margin-bottom:2rem;
+  padding:6px 16px;border-radius:100px;
+  margin-bottom:24px;
   animation:fadeUp .6s var(--ease) both;
 }
-.hero-badge span{color:var(--text-muted)}
-.hero-logo{
-  width:clamp(80px,14vw,120px);
-  height:clamp(80px,14vw,120px);
-  margin-bottom:2rem;
-  filter:drop-shadow(0 0 40px rgba(205,255,80,0.15));
-  animation:float 6s ease-in-out infinite;
-}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-.hero h1{
-  font-size:clamp(2.2rem,5.5vw,4rem);
-  font-weight:900;letter-spacing:-.01em;
-  line-height:1.1;margin-bottom:1rem;
-  animation:fadeUp .6s var(--ease) .1s both;
-}
-.hero h1 .hl{color:var(--lime)}
-.hero-sub{
-  font-size:clamp(1rem,2vw,1.2rem);
-  color:var(--text-muted);
-  font-weight:300;
-  max-width:560px;
-  margin-bottom:2rem;
-  line-height:1.7;
-  animation:fadeUp .6s var(--ease) .2s both;
+.hero-badge::before{
+  content:'';width:6px;height:6px;
+  background:var(--lime);border-radius:50%;
+  box-shadow:0 0 8px var(--lime);
 }
 
-/* Hero Chat Preview */
+.hero-logo{
+  width:clamp(72px,12vw,96px);height:auto;
+  margin-bottom:28px;
+  animation:fadeUp .6s .1s var(--ease) both;
+  filter:drop-shadow(0 0 40px rgba(205,255,80,0.15));
+}
+
+.hero h1{
+  font-size:clamp(2rem,5vw,3.5rem);
+  font-weight:900;letter-spacing:-.03em;
+  line-height:1.15;
+  max-width:720px;
+  margin-bottom:20px;
+  animation:fadeUp .6s .2s var(--ease) both;
+}
+.hero h1 span{color:var(--lime)}
+
+.hero-sub{
+  font-size:clamp(.9375rem,1.5vw,1.0625rem);
+  color:var(--text-muted);
+  max-width:560px;
+  line-height:1.75;
+  margin-bottom:36px;
+  animation:fadeUp .6s .3s var(--ease) both;
+}
+
+/* ── HERO CHAT PREVIEW ── */
 .hero-chat{
-  width:100%;max-width:440px;
-  margin-bottom:2rem;
+  width:100%;max-width:480px;
   background:var(--surface);
-  border:1px solid var(--border-2);
-  border-radius:16px;
+  border:1px solid var(--border);
+  border-radius:14px;
   overflow:hidden;
-  box-shadow:0 8px 40px rgba(0,0,0,.4);
-  animation:fadeUp .6s var(--ease) .3s both;
+  margin-bottom:36px;
+  animation:fadeUp .6s .4s var(--ease) both;
+  text-align:left;
 }
 .chat-header{
-  display:flex;align-items:center;gap:10px;
-  padding:10px 16px;
-  background:var(--surface-2);
+  display:flex;align-items:center;gap:8px;
+  padding:12px 16px;
   border-bottom:1px solid var(--border);
+  font-family:var(--mono);font-size:11px;
+  color:var(--text-dim);text-transform:uppercase;
+  letter-spacing:.08em;
 }
-.chat-avatar{
-  width:32px;height:32px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  font-size:16px;flex-shrink:0;
+.chat-header::before{
+  content:'';width:8px;height:8px;
+  background:var(--green);border-radius:50%;
 }
-.chat-avatar-oc{background:linear-gradient(135deg,#FF6B6B,#E85050)}
-.chat-avatar-claw{background:linear-gradient(135deg,#CDFF50,#9ACC2D)}
-.chat-hinfo{flex:1}
-.chat-hname{font-size:.8125rem;font-weight:700;color:var(--text)}
-.chat-hstatus{font-size:.6875rem;color:var(--green)}
-.chat-body{
-  padding:14px 12px;
-  display:flex;flex-direction:column;gap:8px;
-  background:var(--bg);
-}
-.bubble{
-  padding:8px 14px;
+.chat-body{padding:16px;display:flex;flex-direction:column;gap:12px}
+
+.chat-msg{
+  max-width:85%;padding:10px 14px;
   border-radius:12px;
-  font-size:.875rem;
-  line-height:1.5;
-  max-width:88%;
-  animation:fadeUp .5s var(--ease) both;
+  font-size:.875rem;line-height:1.55;
 }
-.bubble-user{
+.chat-msg.user{
   align-self:flex-end;
-  background:rgba(205,255,80,0.12);
-  color:var(--text);
+  background:var(--lime);color:#000;
+  font-weight:600;
   border-bottom-right-radius:4px;
 }
-.bubble-bot{
+.chat-msg.bot{
   align-self:flex-start;
   background:var(--surface-2);
+  border:1px solid var(--border);
   color:var(--text);
   border-bottom-left-radius:4px;
 }
-.bubble-bot .hl{color:var(--lime);font-weight:700}
-.bubble:nth-child(1){animation-delay:.5s}
-.bubble:nth-child(2){animation-delay:.8s}
-.bubble:nth-child(3){animation-delay:1.1s}
-.chat-inputbar{
-  display:flex;align-items:center;gap:8px;
-  padding:8px 12px;
-  border-top:1px solid var(--border);
-  background:var(--surface-2);
+.chat-msg.bot .chat-label{
+  font-family:var(--mono);font-size:10px;
+  color:var(--lime);text-transform:uppercase;
+  letter-spacing:.08em;margin-bottom:6px;
+  display:block;
 }
-.chat-inputbar span{
-  flex:1;padding:6px 12px;
-  background:var(--bg);border:1px solid var(--border);
-  border-radius:20px;
-  font-size:.75rem;color:var(--text-faint);
-  font-family:var(--sans);
+.chat-msg.bot .chat-result{
+  font-family:var(--mono);font-size:.8125rem;
+  color:var(--text-muted);line-height:1.6;
 }
-.chat-sendbtn{
-  width:28px;height:28px;
-  background:var(--lime);border:none;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  flex-shrink:0;
-}
-.chat-sendbtn svg{width:14px;height:14px;color:#000}
+.chat-msg.bot .chat-result strong{color:var(--lime);font-weight:600}
 
-/* Hero CTAs */
+/* ── HERO CTAs ── */
 .hero-ctas{
-  display:flex;gap:12px;flex-wrap:wrap;justify-content:center;
-  animation:fadeUp .6s var(--ease) .4s both;
+  display:flex;gap:12px;flex-wrap:wrap;
+  justify-content:center;
+  margin-bottom:28px;
+  animation:fadeUp .6s .5s var(--ease) both;
 }
-.btn-primary{
-  display:inline-flex;align-items:center;gap:8px;
-  background:var(--lime);color:#000;
-  padding:12px 24px;border-radius:8px;
-  font-family:var(--mono);font-size:13px;
-  font-weight:600;letter-spacing:.02em;
-  transition:all .2s var(--ease);
-  border:none;cursor:pointer;
-}
-.btn-primary:hover{background:var(--lime-dark);opacity:1;transform:translateY(-2px);box-shadow:0 4px 20px rgba(205,255,80,0.2)}
-.btn-secondary{
-  display:inline-flex;align-items:center;gap:8px;
-  background:transparent;color:var(--text);
-  padding:12px 24px;border-radius:8px;
-  font-family:var(--mono);font-size:13px;
-  font-weight:500;letter-spacing:.02em;
-  border:1px solid var(--border-2);
-  transition:all .2s var(--ease);
-  cursor:pointer;
-}
-.btn-secondary:hover{border-color:var(--lime);color:var(--lime);opacity:1;transform:translateY(-2px)}
+
+/* ── HERO TAG ── */
 .hero-tag{
-  font-family:var(--mono);font-size:12px;
-  color:var(--text-faint);letter-spacing:.05em;
-  margin-top:1.5rem;
-  animation:fadeUp .6s var(--ease) .5s both;
-}
-@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-
-/* ═══ SECTIONS ═══ */
-.section{
-  max-width:var(--max-w);margin:0 auto;
-  padding:clamp(48px,8vw,96px) clamp(16px,4vw,32px);
-}
-.section-header{margin-bottom:clamp(32px,5vw,48px)}
-.section-label{
-  font-family:var(--mono);font-size:11px;font-weight:500;
-  text-transform:uppercase;letter-spacing:.12em;
-  color:var(--lime);margin-bottom:8px;
-  display:flex;align-items:center;gap:10px;
-}
-.section-label::after{content:'';flex:1;height:1px;background:var(--border)}
-.section h2{
-  font-size:clamp(1.75rem,3.5vw,2.5rem);
-  font-weight:900;letter-spacing:-.02em;
-  line-height:1.2;margin-bottom:12px;
-}
-.section p.lead{
-  font-size:clamp(.9375rem,1.5vw,1.0625rem);
-  color:var(--text-muted);max-width:600px;
-  line-height:1.7;
-}
-.divider{
-  max-width:var(--max-w);margin:0 auto;
-  padding:0 clamp(16px,4vw,32px);
-}
-.divider-line{
-  height:1px;
-  background:linear-gradient(90deg,transparent,var(--border-2) 20%,var(--border-2) 80%,transparent);
+  font-family:var(--mono);font-size:11px;
+  color:var(--text-faint);
+  letter-spacing:.06em;
+  animation:fadeUp .6s .6s var(--ease) both;
 }
 
-/* ═══ SCROLL REVEAL ═══ */
-.reveal{opacity:0;transform:translateY(20px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
-.reveal.visible{opacity:1;transform:none}
-
-/* ═══ ABOUT: 2-COL GRID ═══ */
+/* ── ABOUT SECTION ── */
 .about-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:48px;
+  gap:clamp(32px,4vw,48px);
   align-items:start;
 }
-.about-text h3{
-  font-size:1.125rem;font-weight:700;
-  margin-bottom:8px;letter-spacing:-.01em;
-}
-.about-text p{
-  font-size:.875rem;color:var(--text-muted);
-  line-height:1.7;margin-bottom:1.5rem;
-}
-.about-features{
-  list-style:none;padding:0;
-  display:flex;flex-direction:column;gap:0;
-}
-.about-features li{
-  font-size:.875rem;color:var(--text-muted);
-  padding:10px 0;
-  border-bottom:1px solid var(--border);
-  display:flex;align-items:center;gap:10px;
-}
-.about-features li:first-child{border-top:1px solid var(--border)}
-.feat-icon{
-  width:28px;height:28px;min-width:28px;
-  border-radius:6px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:.875rem;
-  background:rgba(205,255,80,0.08);
-}
-
-/* About: Chat Demo */
-.about-chat-demo{
-  background:var(--surface);
-  border:1px solid var(--border-2);
-  border-radius:16px;
-  overflow:hidden;
-}
-.about-chat-body{
-  padding:14px 12px;
-  display:flex;flex-direction:column;gap:8px;
-  background:var(--bg);
-  min-height:280px;
-}
-.about-chat-body .bubble{animation:none;opacity:1}
-
-/* ═══ HOW IT WORKS: 4-step ═══ */
-.steps{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:16px;
-}
-.step{
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius:12px;
-  padding:clamp(20px,3vw,28px);
-  position:relative;
-  transition:border-color .3s, box-shadow .3s;
-}
-.step:hover{border-color:var(--border-2);box-shadow:0 2px 20px rgba(0,0,0,.3)}
-.step-num{
-  font-family:var(--mono);font-size:11px;
-  color:var(--lime);font-weight:600;
-  margin-bottom:12px;letter-spacing:.04em;
-}
-.step h3{
-  font-size:.9375rem;font-weight:700;
-  margin-bottom:8px;letter-spacing:-.01em;
-}
-.step p{font-size:.8125rem;color:var(--text-muted);line-height:1.7}
-
-/* ═══ FOUR NOES ═══ */
-.noes{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:12px;
-}
-.noe{
+.about-features{display:flex;flex-direction:column;gap:16px}
+.about-feat{
+  display:flex;align-items:flex-start;gap:14px;
+  padding:14px 16px;
   background:var(--surface);
   border:1px solid var(--border);
   border-radius:10px;
-  padding:clamp(16px,2.5vw,24px);
-  text-align:center;
-  transition:border-color .3s, box-shadow .3s;
+  transition:border-color .3s;
 }
-.noe:hover{border-color:var(--lime);box-shadow:0 0 20px var(--lime-glow)}
-.noe-icon{
-  font-size:1.5rem;margin-bottom:8px;
-  filter:grayscale(1) brightness(1.5);
+.about-feat:hover{border-color:var(--border-2)}
+.feat-icon{
+  flex-shrink:0;
+  width:36px;height:36px;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--lime-glow);
+  border:1px solid rgba(205,255,80,0.1);
+  border-radius:8px;
+  font-size:16px;
 }
-.noe h4{
-  font-size:.8125rem;font-weight:700;
-  text-transform:uppercase;letter-spacing:.04em;
-  margin-bottom:4px;
+.about-feat h3{
+  font-size:.9375rem;font-weight:700;
+  margin-bottom:2px;
 }
-.noe p{font-size:.75rem;color:var(--text-dim);line-height:1.6}
+.about-feat p{
+  font-size:.8125rem;color:var(--text-muted);
+  line-height:1.55;
+}
 
-/* ═══ PLATFORMS ═══ */
+/* ── ABOUT CHAT DEMO ── */
+.about-chat-demo{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:14px;
+  overflow:hidden;
+}
+.about-chat-demo .chat-header{
+  padding:12px 16px;
+  border-bottom:1px solid var(--border);
+  font-family:var(--mono);font-size:11px;
+  color:var(--text-dim);text-transform:uppercase;
+  letter-spacing:.08em;
+  display:flex;align-items:center;gap:8px;
+}
+.about-chat-demo .chat-header::before{
+  content:'';width:8px;height:8px;
+  background:var(--green);border-radius:50%;
+}
+.about-chat-demo .chat-body{
+  padding:16px;display:flex;flex-direction:column;gap:10px;
+  max-height:420px;overflow-y:auto;
+}
+.about-chat-demo .chat-msg{font-size:.8125rem}
+.about-chat-demo .chat-msg.bot .chat-step{
+  font-family:var(--mono);font-size:.75rem;
+  color:var(--text-dim);line-height:1.6;
+}
+.about-chat-demo .chat-msg.bot .chat-step .done{color:var(--green)}
+
+/* ── PLATFORMS ── */
 .platforms-grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:16px;
+  gap:clamp(16px,2vw,24px);
 }
 .platform-card{
   background:var(--surface);
   border:1px solid var(--border);
   border-radius:12px;
-  padding:clamp(20px,3vw,28px);
-  transition:all .3s var(--ease);
-  position:relative;
+  padding:clamp(24px,3vw,32px);
+  display:flex;flex-direction:column;gap:12px;
+  transition:border-color .3s,box-shadow .3s;
 }
-.platform-card:hover{border-color:var(--border-3);transform:translateY(-2px)}
-.platform-card-primary{border-color:rgba(205,255,80,0.2)}
-.platform-card-primary:hover{border-color:rgba(205,255,80,0.4);box-shadow:0 0 30px var(--lime-glow)}
-.platform-badge{
-  position:absolute;top:12px;right:12px;
-  font-family:var(--mono);font-size:9px;
-  padding:3px 8px;border-radius:4px;
-  text-transform:uppercase;letter-spacing:.06em;
-  font-weight:600;
-}
-.badge-rec{background:rgba(205,255,80,0.15);color:var(--lime)}
-.badge-compat{background:rgba(232,114,10,0.15);color:var(--orange)}
-.badge-soon{background:rgba(91,160,208,0.15);color:var(--blue)}
-.platform-icon{
-  width:40px;height:40px;margin-bottom:12px;
-  border-radius:10px;
-  display:flex;align-items:center;justify-content:center;
-}
-.platform-icon-oc{background:rgba(232,80,80,0.15)}
-.platform-icon-oc svg{color:#E85050}
-.platform-icon-ha{background:rgba(232,114,10,0.15)}
-.platform-icon-ha svg{color:var(--orange)}
-.platform-icon-px{background:rgba(91,160,208,0.15)}
-.platform-icon-px svg{color:var(--blue)}
+.platform-card:hover{border-color:var(--border-2);box-shadow:0 2px 20px rgba(0,0,0,.3)}
 .platform-card h3{
-  font-size:1rem;font-weight:700;
-  margin-bottom:4px;
-}
-.platform-card p{font-size:.8125rem;color:var(--text-muted);line-height:1.6;margin-bottom:12px}
-.platform-cmd{
-  font-family:var(--mono);font-size:.75rem;
-  padding:8px 12px;
-  background:var(--bg);
-  border:1px solid var(--border);
-  border-radius:6px;
-  color:var(--text-dim);
-  word-break:break-all;
-}
-.platform-cmd code{color:var(--lime)}
-
-/* ═══ CONTRACTS ═══ */
-.contracts{display:grid;gap:8px}
-.contract-row{
-  display:grid;
-  grid-template-columns:140px 1fr;
-  gap:12px;
-  align-items:center;
-  padding:12px 16px;
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius:8px;
-  font-family:var(--mono);
-  font-size:12px;
-  transition:border-color .2s;
-  cursor:pointer;
-}
-.contract-row:hover{border-color:var(--border-2)}
-.contract-label{color:var(--lime);font-weight:500}
-.contract-addr{
-  color:var(--text-dim);
-  word-break:break-all;
-  transition:color .2s;
-}
-.contract-row:hover .contract-addr{color:var(--text)}
-.contract-addr .copied{
-  color:var(--green);font-size:10px;
-  margin-left:6px;display:none;
-}
-
-/* ═══ COMMUNITY LINKS ═══ */
-.link-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:12px;
-}
-.link-card{
-  display:flex;align-items:center;gap:14px;
-  padding:16px 20px;
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius:10px;
-  transition:all .2s var(--ease);
-  color:var(--text);
-}
-.link-card:hover{border-color:var(--border-3);transform:translateY(-2px);opacity:1}
-.link-icon{
-  width:36px;height:36px;min-width:36px;
-  background:var(--surface-2);border-radius:8px;
-  display:flex;align-items:center;justify-content:center;
-}
-.link-icon svg{width:18px;height:18px;color:var(--text-muted)}
-.link-name{font-size:.875rem;font-weight:600}
-.link-desc{font-size:.75rem;color:var(--text-dim)}
-
-/* ═══ ARCHITECTURE FLOW ═══ */
-.arch-flow{
-  display:flex;flex-direction:column;align-items:center;gap:0;
-}
-.arch-card{
-  padding:14px 24px;
-  border-radius:10px;
-  font-weight:700;font-size:.9375rem;
-  text-align:center;
-  position:relative;
+  font-size:1.125rem;font-weight:800;
   display:flex;align-items:center;gap:10px;
-  justify-content:center;
+  flex-wrap:wrap;
 }
-.arch-primary{
-  background:var(--surface);
-  border:1px solid rgba(205,255,80,0.2);
-  color:var(--lime);min-width:200px;
-}
-.arch-secondary{
-  background:var(--surface);
-  border:1px solid var(--border-2);
-  color:var(--orange);min-width:120px;
-}
-.arch-label{
-  font-family:var(--mono);font-size:.625rem;
+.platform-badge{
+  font-family:var(--mono);font-size:10px;font-weight:600;
   text-transform:uppercase;letter-spacing:.08em;
-  color:var(--text-faint);font-weight:500;
+  padding:3px 10px;border-radius:100px;
 }
-.arch-arrow{
-  font-family:var(--mono);font-size:.75rem;
-  color:var(--text-faint);padding:6px 0;
-  letter-spacing:.04em;
-}
-.arch-row{display:flex;gap:12px}
-
-/* ═══ POAIW GRID ═══ */
-.poaiw-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:40px;
-  align-items:start;
-}
-.poaiw-text h3{
-  font-size:1.125rem;font-weight:700;
-  margin-bottom:8px;
-}
-.poaiw-text p{
+.badge-rec{background:var(--lime);color:#000}
+.badge-compat{background:var(--surface-3);color:var(--lime);border:1px solid var(--border-2)}
+.badge-soon{background:var(--surface-3);color:var(--text-dim);border:1px solid var(--border)}
+.platform-card p{
   font-size:.875rem;color:var(--text-muted);
-  line-height:1.7;margin-bottom:1rem;
+  line-height:1.6;flex:1;
 }
-.poaiw-text ul{list-style:none;padding:0}
-.poaiw-text li{
-  font-size:.875rem;color:var(--text-muted);
-  padding:6px 0;
-  border-bottom:1px solid var(--border);
-  display:flex;align-items:baseline;gap:8px;
-}
-.poaiw-text li::before{
-  content:'›';color:var(--lime);font-weight:700;
-  font-size:1rem;
-}
-
-/* ═══ TOKENOMICS ═══ */
-.token-params{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:12px;
-  margin-bottom:40px;
-}
-.token-param{
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius:10px;
-  padding:clamp(16px,2.5vw,24px);
-  text-align:center;
-  transition:border-color .3s;
-}
-.token-param:hover{border-color:var(--border-2)}
-.token-param-value{
-  font-family:var(--mono);font-size:clamp(1.1rem,2vw,1.5rem);
-  font-weight:700;color:var(--lime);
-  margin-bottom:4px;letter-spacing:-.01em;
-}
-.token-param-label{
-  font-size:.75rem;color:var(--text-dim);
-  text-transform:uppercase;letter-spacing:.06em;
-  font-family:var(--mono);
-}
-
-/* Fair distribution badges */
-.fair-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:12px;
-  margin-bottom:40px;
-}
-.fair-card{
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius:10px;
-  padding:clamp(16px,2.5vw,20px);
-  text-align:center;
-  transition:border-color .3s, box-shadow .3s;
-}
-.fair-card:hover{border-color:var(--lime);box-shadow:0 0 20px var(--lime-glow)}
-.fair-icon{font-size:1.25rem;margin-bottom:6px;filter:grayscale(1) brightness(1.5)}
-.fair-title{
-  font-size:.8125rem;font-weight:700;
-  margin-bottom:2px;
-}
-.fair-desc{font-size:.6875rem;color:var(--text-dim);line-height:1.5}
-
-/* Concept explainer cards */
-.concept-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:16px;
-  margin-bottom:40px;
-}
-.concept-card{
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius:12px;
-  padding:clamp(20px,3vw,28px);
-  transition:border-color .3s;
-}
-.concept-card:hover{border-color:var(--border-2)}
-.concept-card h4{
-  font-size:1rem;font-weight:700;
-  margin-bottom:4px;
-  display:flex;align-items:center;gap:8px;
-}
-.concept-card h4 .concept-tag{
-  font-family:var(--mono);font-size:.6875rem;
-  color:var(--lime);font-weight:600;
-  background:rgba(205,255,80,0.08);
-  padding:2px 8px;border-radius:4px;
-}
-.concept-card .concept-duration{
+.platform-cmd{
   font-family:var(--mono);font-size:.8125rem;
-  color:var(--lime);font-weight:600;
-  margin-bottom:8px;
-}
-.concept-card p{
-  font-size:.8125rem;color:var(--text-muted);
-  line-height:1.7;
-}
-.concept-card p strong{color:var(--text);font-weight:600}
-
-/* Dual-layer visual */
-.dual-layer{
-  background:var(--surface);
-  border:1px solid rgba(205,255,80,0.12);
-  border-radius:12px;
-  padding:clamp(20px,3vw,32px);
-  margin-bottom:40px;
-}
-.dual-layer-title{
-  font-family:var(--mono);font-size:.75rem;
-  color:var(--lime);text-transform:uppercase;
-  letter-spacing:.08em;font-weight:600;
-  margin-bottom:16px;
-}
-.era-visual{
-  display:flex;flex-direction:column;gap:8px;
-}
-.epoch-row{
-  display:flex;align-items:center;gap:8px;
-}
-.epoch-block{
-  height:28px;
-  border-radius:4px;
-  flex:1;
-  display:flex;align-items:center;justify-content:center;
-  font-family:var(--mono);font-size:.625rem;
-  font-weight:500;letter-spacing:.02em;
-  transition:transform .2s;
-}
-.epoch-block:hover{transform:scaleY(1.15)}
-.epoch-mining{background:rgba(205,255,80,0.12);color:var(--lime);border:1px solid rgba(205,255,80,0.2)}
-.epoch-nom{background:rgba(232,114,10,0.12);color:var(--orange);border:1px solid rgba(232,114,10,0.2)}
-.epoch-vote{background:rgba(91,160,208,0.12);color:var(--blue);border:1px solid rgba(91,160,208,0.2)}
-.epoch-announce{background:rgba(78,195,107,0.12);color:var(--green);border:1px solid rgba(78,195,107,0.2)}
-.epoch-label{
-  font-family:var(--mono);font-size:.625rem;
-  color:var(--text-faint);min-width:36px;
-  text-align:right;
-}
-.era-visual-legend{
-  display:flex;gap:16px;flex-wrap:wrap;
-  margin-top:12px;
-  padding-top:12px;
-  border-top:1px solid var(--border);
-}
-.legend-item{
-  display:flex;align-items:center;gap:6px;
-  font-size:.6875rem;color:var(--text-dim);
-}
-.legend-dot{
-  width:8px;height:8px;border-radius:2px;
-}
-
-/* Rules list */
-.rules-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-  margin-bottom:40px;
-}
-.rule-item{
-  display:flex;align-items:flex-start;gap:10px;
-  padding:14px 16px;
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius:8px;
-}
-.rule-icon{
-  font-family:var(--mono);font-size:.75rem;
-  color:var(--lime);font-weight:700;
-  min-width:20px;text-align:center;
-  padding-top:1px;
-}
-.rule-text{
-  font-size:.8125rem;color:var(--text-muted);line-height:1.6;
-}
-.rule-text strong{color:var(--text);font-weight:600}
-
-/* Reward formula */
-.formula-box{
-  background:var(--surface);
-  border:1px solid rgba(205,255,80,0.15);
-  border-radius:12px;
-  padding:clamp(20px,3vw,32px);
-  margin-bottom:40px;
-}
-.formula-display{
-  text-align:center;
-  margin-bottom:16px;
-}
-.formula-math{
-  font-family:var(--mono);
-  font-size:clamp(1.1rem,2.5vw,1.5rem);
-  font-weight:700;
-  color:var(--lime);
-  letter-spacing:.02em;
-}
-.formula-sub{
-  font-size:.8125rem;color:var(--text-dim);
-  text-align:center;margin-bottom:16px;
-}
-.formula-params{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:8px;
-}
-.formula-param{
-  display:flex;align-items:baseline;gap:8px;
-  font-size:.8125rem;color:var(--text-muted);
-  padding:6px 0;
-  border-bottom:1px solid var(--border);
-}
-.formula-param code{
-  font-family:var(--mono);font-size:.75rem;
-  color:var(--lime);font-weight:600;
-  background:rgba(205,255,80,0.06);
-  padding:1px 6px;border-radius:3px;
-}
-
-/* Era table */
-.era-table-wrap{
-  overflow-x:auto;
-  border-radius:12px;
-  border:1px solid var(--border);
-  background:var(--surface);
-}
-.era-table{
-  width:100%;
-  border-collapse:collapse;
-  font-size:.8125rem;
-}
-.era-table th{
-  font-family:var(--mono);font-size:.6875rem;
-  text-transform:uppercase;letter-spacing:.06em;
-  color:var(--lime);font-weight:600;
-  padding:12px 14px;
-  text-align:left;
-  border-bottom:1px solid var(--border-2);
   background:var(--surface-2);
-  position:sticky;top:0;
+  border:1px solid var(--border);
+  padding:10px 14px;border-radius:8px;
+  color:var(--lime);
+  word-break:break-all;
 }
-.era-table td{
-  padding:8px 14px;
-  border-bottom:1px solid var(--border);
-  color:var(--text-muted);
-  font-family:var(--mono);font-size:.75rem;
-}
-.era-table tr:last-child td{border-bottom:none}
-.era-table tr:hover td{background:rgba(205,255,80,0.03);color:var(--text)}
-.era-table .era-active td{color:var(--lime);font-weight:600}
-.era-bar{
-  height:4px;border-radius:2px;
-  background:rgba(205,255,80,0.15);
-  position:relative;min-width:40px;
-}
-.era-bar-fill{
-  height:100%;border-radius:2px;
-  background:var(--lime);
-}
-.era-duration{
-  font-size:.6875rem;
-  color:var(--text-faint);
-  text-align:center;
-  margin-top:12px;
-  font-family:var(--mono);
-  letter-spacing:.02em;
-}
+.platform-cmd .prompt{color:var(--text-faint);user-select:none}
 
+/* ── MOBILE ── */
 @media(max-width:768px){
-  .token-params{grid-template-columns:repeat(2,1fr)}
-  .fair-grid{grid-template-columns:repeat(2,1fr)}
-  .concept-grid{grid-template-columns:1fr}
-  .rules-grid{grid-template-columns:1fr}
-  .formula-params{grid-template-columns:1fr}
-  .era-table{font-size:.75rem}
-  .era-table th,.era-table td{padding:8px 10px}
-  .epoch-block{font-size:.5rem;height:24px}
-}
-@media(max-width:480px){
-  .token-params{grid-template-columns:1fr}
-}
-
-/* ═══ FOOTER ═══ */
-.footer{
-  border-top:1px solid var(--border);
-  margin-top:clamp(48px,8vw,80px);
-}
-.footer-inner{
-  max-width:var(--max-w);margin:0 auto;
-  padding:clamp(32px,5vw,48px) clamp(16px,4vw,32px);
-  text-align:center;
-}
-.footer-logo{
-  display:inline-flex;align-items:center;gap:8px;
-  font-weight:900;font-size:15px;letter-spacing:.06em;
-  color:var(--text);margin-bottom:8px;
-}
-.footer-logo svg{width:24px;height:24px}
-.footer-tagline{
-  font-size:.8125rem;color:var(--text-dim);
-  margin-bottom:1.5rem;
-}
-.footer-links{
-  display:flex;justify-content:center;gap:clamp(16px,3vw,28px);
-  flex-wrap:wrap;margin-bottom:1.5rem;
-}
-.footer-links a{
-  font-family:var(--mono);font-size:11px;
-  color:var(--text-dim);text-transform:uppercase;
-  letter-spacing:.06em;
-}
-.footer-links a:hover{color:var(--lime);opacity:1}
-.footer-bottom{font-size:.75rem;color:var(--text-faint)}
-.footer-bottom a{color:var(--text-faint);font-size:.6875rem}
-.footer-bottom a:hover{color:var(--lime)}
-
-/* ═══ MOBILE ═══ */
-@media(max-width:768px){
-  .nav-links{
-    display:none;flex-direction:column;
-    position:absolute;top:56px;left:0;right:0;
-    background:rgba(10,10,10,0.97);
-    padding:16px clamp(16px,4vw,32px);
-    border-bottom:1px solid var(--border);
-    gap:12px;
-  }
-  .nav-links.open{display:flex}
-  .mobile-menu{display:block}
-  
-  .hero h1{font-size:clamp(1.75rem,7vw,2.5rem)}
-
-  .about-grid{grid-template-columns:1fr;gap:32px}
-  
-  .steps{grid-template-columns:1fr 1fr}
-  
-  .noes{grid-template-columns:1fr 1fr}
-  
+  .hero-chat{max-width:100%}
+  .about-grid{grid-template-columns:1fr}
   .platforms-grid{grid-template-columns:1fr}
-  
-  .poaiw-grid{grid-template-columns:1fr}
-  
-  .contract-row{grid-template-columns:1fr;gap:4px}
-  .contract-label{font-size:11px}
-}
-@media(max-width:480px){
-  .steps{grid-template-columns:1fr}
-  .noes{grid-template-columns:1fr 1fr}
+  .hero-ctas{flex-direction:column;align-items:center}
+  .hero-ctas a{width:100%;max-width:320px;justify-content:center}
 }
 </style>
 </head>
 <body>
 
-<!-- ═══ NAV ═══ -->
+<!-- ── NAV ── -->
 <nav class="nav" id="nav">
   <div class="nav-inner">
-    <div class="nav-logo">
+    <a href="index.html" class="nav-logo">
       <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
         <rect x="16" y="16" width="168" height="168" rx="36" fill="#CDFF50"/>
         <rect x="72" y="78" width="56" height="56" rx="16" fill="#0a0a0a"/>
@@ -940,14 +292,14 @@ a:hover{opacity:.8}
         <circle cx="128" cy="50" r="4" fill="#0a0a0a"/>
       </svg>
       CLAWING
-    </div>
+    </a>
     <div class="nav-links" id="navLinks">
-      <a href="#about">About</a>
-      <a href="#how-it-works">PoAIW</a>
-      <a href="#platforms">Platforms</a>
-      <a href="#contracts">Contracts</a>
-      <a href="#tokenomics">Tokenomics</a>
-      <a href="#community">Community</a>
+      <a href="index.html">Start Mining</a>
+      <a href="poaiw.html">PoAIW</a>
+      <a href="tokenomics.html">Tokenomics</a>
+      <a href="whitepaper.html">Whitepaper</a>
+      <a href="roadmap.html">Roadmap</a>
+      <a href="community.html">Community</a>
       <a href="https://clawhub.ai/skills/claw-mining" target="_blank" rel="noopener noreferrer" class="nav-cta">Install Skill</a>
     </div>
     <button class="mobile-menu" id="mobileMenu" aria-label="Menu">
@@ -956,586 +308,154 @@ a:hover{opacity:.8}
   </div>
 </nav>
 
-<!-- ═══ HERO ═══ -->
+<!-- ── HERO ── -->
 <section class="hero">
-  <div class="hero-badge">
-    <svg width="14" height="14" viewBox="0 0 200 200"><rect x="16" y="16" width="168" height="168" rx="36" fill="#CDFF50"/><rect x="72" y="78" width="56" height="56" rx="16" fill="#0a0a0a"/><circle cx="88" cy="102" r="6" fill="#CDFF50"/><circle cx="112" cy="102" r="6" fill="#CDFF50"/></svg>
-    The First AI Mining Skill <span>&middot; Ethereum</span>
-  </div>
+  <div class="hero-badge">The First AI Mining Skill · Ethereum</div>
 
-  <h1>Install. Say <span class="hl">"Mine CLAW"</span>.<br>That's it.</h1>
-  
+  <img src="assets/logo-512.png" alt="CLAWING" class="hero-logo">
+
+  <h1>Install. Say <span>"Mine CLAW"</span>. That's it.</h1>
+
   <p class="hero-sub">CLAWING is an OpenClaw skill that mines $CLAW tokens through Proof of AI Work. No setup, no code, no private key access. Your AI does the work, you earn the tokens.</p>
 
-  <!-- Chat Preview -->
   <div class="hero-chat">
-    <div class="chat-header">
-      <div class="chat-avatar chat-avatar-oc">
-        <svg viewBox="0 0 40 40" width="18" height="18"><circle cx="20" cy="22" r="14" fill="#E85050"/><circle cx="14" cy="20" r="3" fill="#fff"/><circle cx="26" cy="20" r="3" fill="#fff"/><circle cx="14" cy="19.5" r="1.5" fill="#222"/><circle cx="26" cy="19.5" r="1.5" fill="#222"/><line x1="20" y1="8" x2="20" y2="2" stroke="#E85050" stroke-width="2.5" stroke-linecap="round"/><circle cx="20" cy="1" r="2" fill="#E85050"/></svg>
-      </div>
-      <div class="chat-hinfo">
-        <div class="chat-hname">Your OpenClaw</div>
-        <div class="chat-hstatus">online</div>
-      </div>
-    </div>
+    <div class="chat-header">OpenClaw · Mining Session</div>
     <div class="chat-body">
-      <div class="bubble bubble-user">Mine CLAW</div>
-      <div class="bubble bubble-bot">🦞 Mining complete!<br><span class="hl">⛏ Mined 866,038 $CLAW</span><br><span style="font-size:.75rem;color:var(--text-dim)">TX: 0xae4f...c821 &middot; Ethereum Mainnet</span></div>
-    </div>
-    <div class="chat-inputbar">
-      <span>Message Your OpenClaw...</span>
-      <div class="chat-sendbtn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg></div>
+      <div class="chat-msg user">Mine CLAW</div>
+      <div class="chat-msg bot">
+        <span class="chat-label">⛏ Mining Result</span>
+        <div class="chat-result">
+          Block <strong>#19,482,031</strong> mined<br>
+          Reward: <strong>2.4 $CLAW</strong><br>
+          Nonce: <strong>0x7a3f…e1c9</strong><br>
+          Status: <strong>Confirmed ✓</strong>
+        </div>
+      </div>
     </div>
   </div>
 
   <div class="hero-ctas">
-    <a href="https://clawhub.ai/skills/claw-mining" target="_blank" rel="noopener noreferrer" class="btn-primary">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-      Install on OpenClaw
-    </a>
-    <a href="https://clawhub.ai/skills/claw-mining" target="_blank" rel="noopener noreferrer" class="btn-secondary">
-      View on ClawHub
-    </a>
+    <a href="https://clawhub.ai/skills/claw-mining" class="btn-primary" target="_blank" rel="noopener noreferrer">Install on OpenClaw</a>
+    <a href="https://clawhub.ai/skills/claw-mining" class="btn-secondary" target="_blank" rel="noopener noreferrer">View on ClawHub</a>
   </div>
-  <div class="hero-tag">$CLAW &middot; Ethereum Mainnet &middot; No premine &middot; No ICO &middot; No VC &middot; 100% mined</div>
+
+  <div class="hero-tag">$CLAW · Ethereum Mainnet · No premine · No ICO · No VC · 100% mined</div>
 </section>
 
-<!-- ═══ ABOUT ═══ -->
+<!-- ── DIVIDER ── -->
 <div class="divider"><div class="divider-line"></div></div>
-<section class="section" id="about">
-  <div class="section-header reveal">
-    <div class="section-label">01 &middot; About</div>
+
+<!-- ── ABOUT ── -->
+<section class="section reveal">
+  <div class="section-header">
+    <div class="section-label">About</div>
     <h2>OpenClaw's First AI Mining Skill</h2>
-    <p class="lead">CLAWING turns your AI agent into a miner. Install the skill, say "Mine CLAW", and earn tokens backed by verified AI computation on Ethereum.</p>
+    <p class="lead">A skill that turns any compatible AI agent into a $CLAW miner. Fair launch, fully on-chain, zero configuration.</p>
   </div>
 
-  <div class="about-grid reveal">
-    <!-- Left: Feature list -->
-    <div class="about-text">
-      <h3>One Skill. Zero Complexity.</h3>
-      <p>No wallets to configure, no nodes to run, no private keys to share. The claw-mining skill handles everything — wallet setup, oracle connection, Ethereum submission, and token minting — in a single chat command.</p>
-      
-      <ul class="about-features">
-        <li>
-          <span class="feat-icon">⛏</span>
-          <span><strong style="color:var(--text)">Proof of AI Work</strong> — every token represents real AI inference</span>
-        </li>
-        <li>
-          <span class="feat-icon">🔒</span>
-          <span><strong style="color:var(--text)">No private key access</strong> — the skill never touches your keys</span>
-        </li>
-        <li>
-          <span class="feat-icon">⚡</span>
-          <span><strong style="color:var(--text)">60-second setup</strong> — install and mine in one command</span>
-        </li>
-        <li>
-          <span class="feat-icon">🔓</span>
-          <span><strong style="color:var(--text)">Fully open-source</strong> — read every line on GitHub</span>
-        </li>
-        <li>
-          <span class="feat-icon">⚖️</span>
-          <span><strong style="color:var(--text)">Fair launch</strong> — no premine, no ICO, no team allocation, no VC</span>
-        </li>
-      </ul>
+  <div class="about-grid">
+    <div class="about-features">
+      <div class="about-feat">
+        <div class="feat-icon">⛏</div>
+        <div>
+          <h3>Proof of AI Work</h3>
+          <p>Miners solve computational challenges verified on-chain. No GPUs, no staking — just AI inference.</p>
+        </div>
+      </div>
+      <div class="about-feat">
+        <div class="feat-icon">🔒</div>
+        <div>
+          <h3>No Private Key Access</h3>
+          <p>The skill never touches your keys. Rewards are sent directly to your configured wallet address.</p>
+        </div>
+      </div>
+      <div class="about-feat">
+        <div class="feat-icon">⚡</div>
+        <div>
+          <h3>60-Second Setup</h3>
+          <p>Install the skill, set your wallet, say "Mine CLAW". You're mining in under a minute.</p>
+        </div>
+      </div>
+      <div class="about-feat">
+        <div class="feat-icon">📖</div>
+        <div>
+          <h3>Open Source</h3>
+          <p>Fully auditable code. Verify the contracts, review the skill logic, trust the math.</p>
+        </div>
+      </div>
+      <div class="about-feat">
+        <div class="feat-icon">⚖</div>
+        <div>
+          <h3>Fair Launch</h3>
+          <p>No premine, no ICO, no team allocation, no VC. Every single $CLAW token is mined.</p>
+        </div>
+      </div>
     </div>
 
-    <!-- Right: Chat demo showing install flow -->
     <div class="about-chat-demo">
-      <div class="chat-header">
-        <div class="chat-avatar chat-avatar-oc">
-          <svg viewBox="0 0 40 40" width="18" height="18"><circle cx="20" cy="22" r="14" fill="#E85050"/><circle cx="14" cy="20" r="3" fill="#fff"/><circle cx="26" cy="20" r="3" fill="#fff"/><circle cx="14" cy="19.5" r="1.5" fill="#222"/><circle cx="26" cy="19.5" r="1.5" fill="#222"/><line x1="20" y1="8" x2="20" y2="2" stroke="#E85050" stroke-width="2.5" stroke-linecap="round"/><circle cx="20" cy="1" r="2" fill="#E85050"/></svg>
+      <div class="chat-header">OpenClaw · Install Flow</div>
+      <div class="chat-body">
+        <div class="chat-msg user">Install claw-mining skill</div>
+        <div class="chat-msg bot">
+          <span class="chat-label">⚙ Installing Skill</span>
+          <div class="chat-step">
+            <span class="done">✓</span> Searching ClawHub for claw-mining…<br>
+            <span class="done">✓</span> Found: claw-mining v1.2.0<br>
+            <span class="done">✓</span> Resolving dependencies…<br>
+            <span class="done">✓</span> Skill installed successfully
+          </div>
         </div>
-        <div class="chat-hinfo">
-          <div class="chat-hname">Your OpenClaw</div>
-          <div class="chat-hstatus">online</div>
+        <div class="chat-msg user">Mine CLAW</div>
+        <div class="chat-msg bot">
+          <span class="chat-label">⛏ Mining Result</span>
+          <div class="chat-result">
+            Block <strong>#19,482,031</strong> mined<br>
+            Reward: <strong>2.4 $CLAW</strong><br>
+            Nonce: <strong>0x7a3f…e1c9</strong><br>
+            Status: <strong>Confirmed ✓</strong>
+          </div>
         </div>
       </div>
-      <div class="about-chat-body">
-        <div class="bubble bubble-user">Install claw-mining skill</div>
-        <div class="bubble bubble-bot">🔍 Searching ClawHub...<br><span style="font-size:.8125rem">Found <code style="font-family:var(--mono);font-size:.75rem;background:var(--surface-3);padding:1px 6px;border-radius:3px;color:var(--lime)">claw-mining</code> by CLAWING</span></div>
-        <div class="bubble bubble-bot"><span style="color:var(--green)">✓</span> Dependencies resolved<br><span style="color:var(--green)">✓</span> Wallet module loaded<br><span style="color:var(--green)">✓</span> Oracle endpoint configured<br><span style="color:var(--green)">✓</span> Ethereum RPC connected</div>
-        <div class="bubble bubble-bot"><span style="color:var(--green)">✓</span> Skill installed.<br><span style="font-size:.75rem;color:var(--text-dim)">Say "Mine CLAW" to start mining.</span></div>
-        <div class="bubble bubble-user">Mine CLAW</div>
-        <div class="bubble bubble-bot">🦞 <span class="hl">⛏ Mined 866,038 $CLAW</span><br><span style="font-size:.75rem;color:var(--text-dim)">TX: 0xae4f...c821 &middot; Ethereum Mainnet</span></div>
-      </div>
-      <div class="chat-inputbar">
-        <span>Message Your OpenClaw...</span>
-        <div class="chat-sendbtn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg></div>
-      </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ HOW IT WORKS ═══ -->
+<!-- ── DIVIDER ── -->
 <div class="divider"><div class="divider-line"></div></div>
-<section class="section" id="how-it-works">
-  <div class="section-header reveal">
-    <div class="section-label">02 &middot; Mechanism</div>
-    <h2>Proof of AI Work</h2>
-    <p class="lead">A new consensus where mining produces useful AI computation instead of wasting energy on arbitrary hashes.</p>
+
+<!-- ── COMPATIBLE PLATFORMS ── -->
+<section class="section reveal">
+  <div class="section-header">
+    <div class="section-label">Platforms</div>
+    <h2>Compatible Platforms</h2>
+    <p class="lead">Mine $CLAW from any supported AI agent platform.</p>
   </div>
 
-  <div class="steps reveal">
-    <div class="step">
-      <div class="step-num">01</div>
-      <h3>Request Task</h3>
-      <p>The skill calls the smart contract to receive an AI inference task — real computation that produces useful output.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">02</div>
-      <h3>Run Inference</h3>
-      <p>Your AI agent runs the model. The output is real work — not a random hash, but actual cognitive computation.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">03</div>
-      <h3>Oracle Verify</h3>
-      <p>An independent oracle verifies the AI inference was performed correctly and the output meets quality standards.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">04</div>
-      <h3>Mint $CLAW</h3>
-      <p>The verified proof is submitted on-chain. The smart contract mints $CLAW tokens as reward.</p>
-    </div>
-  </div>
-
-  <div class="poaiw-grid reveal" style="margin-top:48px">
-    <div class="poaiw-text">
-      <h3>Why It Matters</h3>
-      <p>Bitcoin mining consumes more electricity than some countries — all to compute meaningless SHA-256 hashes. CLAWING proves there's a better way.</p>
-      <ul>
-        <li>Every mined token represents real AI work done</li>
-        <li>Verified by independent oracle on-chain</li>
-        <li>4 audited smart contracts, 154 tests passing</li>
-        <li>Fully open-source — read every line of code</li>
-        <li>Fair launch — same rules for everyone</li>
-      </ul>
-    </div>
-    <div class="arch-flow">
-      <div class="arch-card arch-primary"><span class="arch-label">ERC-20</span>CLAW Token</div>
-      <div class="arch-arrow">↓ mint()</div>
-      <div class="arch-card arch-primary"><span class="arch-label">Core</span>PoAIWMint</div>
-      <div class="arch-arrow">↓</div>
-      <div class="arch-row">
-        <div class="arch-card arch-secondary"><span class="arch-label">Proxy</span>Minter</div>
-        <div class="arch-card arch-secondary"><span class="arch-label">Verify</span>Oracle</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Four Noes -->
-  <div class="noes reveal" style="margin-top:48px">
-    <div class="noe">
-      <div class="noe-icon">🚫</div>
-      <h4>No Premine</h4>
-      <p>Zero tokens created before launch. Every CLAW is mined.</p>
-    </div>
-    <div class="noe">
-      <div class="noe-icon">🚫</div>
-      <h4>No ICO</h4>
-      <p>No token sale. No fundraising. Pure proof-of-work.</p>
-    </div>
-    <div class="noe">
-      <div class="noe-icon">🚫</div>
-      <h4>No Team Alloc</h4>
-      <p>The team mines like everyone else. No special wallets.</p>
-    </div>
-    <div class="noe">
-      <div class="noe-icon">🚫</div>
-      <h4>No VC</h4>
-      <p>No venture capital. No investors. Community from day one.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ PLATFORMS ═══ -->
-<div class="divider"><div class="divider-line"></div></div>
-<section class="section" id="platforms">
-  <div class="section-header reveal">
-    <div class="section-label">03 &middot; Compatible Platforms</div>
-    <h2>Mine from Any AI Agent</h2>
-    <p class="lead">The claw-mining skill works across multiple AI agent platforms. Install once, mine anywhere.</p>
-  </div>
-
-  <div class="platforms-grid reveal">
-    <!-- OpenClaw (Recommended) -->
-    <div class="platform-card platform-card-primary">
-      <div class="platform-badge badge-rec">Recommended</div>
-      <div class="platform-icon platform-icon-oc">
-        <svg viewBox="0 0 40 40" width="24" height="24"><circle cx="20" cy="22" r="14" fill="currentColor"/><circle cx="14" cy="20" r="3" fill="#fff"/><circle cx="26" cy="20" r="3" fill="#fff"/><circle cx="14" cy="19.5" r="1.5" fill="#222"/><circle cx="26" cy="19.5" r="1.5" fill="#222"/><line x1="20" y1="8" x2="20" y2="2" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><circle cx="20" cy="1" r="2" fill="currentColor"/></svg>
-      </div>
-      <h3>OpenClaw</h3>
-      <p>The open-source AI assistant with the largest skill marketplace. Install via ClawHub in one click.</p>
-      <div class="platform-cmd"><code>install claw-mining</code></div>
-    </div>
-
-    <!-- Hermes Agent -->
+  <div class="platforms-grid">
     <div class="platform-card">
-      <div class="platform-badge badge-compat">Compatible</div>
-      <div class="platform-icon platform-icon-ha">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-      </div>
-      <h3>Hermes Agent</h3>
-      <p>Skill-compatible AI agent framework. Load the claw-mining skill from GitHub.</p>
-      <div class="platform-cmd"><code>load skill claw-mining</code></div>
+      <h3>OpenClaw <span class="platform-badge badge-rec">Recommended</span></h3>
+      <p>The native platform for CLAW mining. Full skill support with automatic updates and built-in wallet management.</p>
+      <div class="platform-cmd"><span class="prompt">&gt; </span>install claw-mining</div>
     </div>
 
-    <!-- Perplexity -->
     <div class="platform-card">
-      <div class="platform-badge badge-soon">Coming Soon</div>
-      <div class="platform-icon platform-icon-px">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-      </div>
-      <h3>Perplexity</h3>
-      <p>AI-powered search with computer use. Skill support coming soon.</p>
-      <div class="platform-cmd" style="color:var(--text-faint);font-style:italic">Skill support in development</div>
+      <h3>Hermes Agent <span class="platform-badge badge-compat">Compatible</span></h3>
+      <p>Load the mining skill directly into Hermes. Requires manual wallet configuration and skill version management.</p>
+      <div class="platform-cmd"><span class="prompt">&gt; </span>load skill claw-mining</div>
+    </div>
+
+    <div class="platform-card">
+      <h3>Perplexity <span class="platform-badge badge-soon">Coming Soon</span></h3>
+      <p>Skill support in development. Perplexity integration is on the roadmap for a future release.</p>
+      <div class="platform-cmd" style="color:var(--text-faint);border-style:dashed">Skill support in development</div>
     </div>
   </div>
 </section>
 
-<!-- ═══ CONTRACTS ═══ -->
-<div class="divider"><div class="divider-line"></div></div>
-<section class="section" id="contracts">
-  <div class="section-header reveal">
-    <div class="section-label">04 &middot; Smart Contracts</div>
-    <h2>Contract Addresses</h2>
-    <p class="lead">All contracts deployed on Ethereum Mainnet, open-source, and verified on Etherscan. Click to copy.</p>
-  </div>
-
-  <div class="contracts reveal">
-    <div class="contract-row" onclick="copyAddr(this)">
-      <span class="contract-label">CLAW Token</span>
-      <span class="contract-addr" data-addr="0x4ba1209b165b62a1f0d2fbf22d67cacf43a6df2b">0x4ba1209b165b62a1f0d2fbf22d67cacf43a6df2b<span class="copied">copied</span></span>
-    </div>
-    <div class="contract-row" onclick="copyAddr(this)">
-      <span class="contract-label">PoAIWMint</span>
-      <span class="contract-addr" data-addr="0x511351940d99f3012c79c613478e8f2c887a8259">0x511351940d99f3012c79c613478e8f2c887a8259<span class="copied">copied</span></span>
-    </div>
-    <div class="contract-row" onclick="copyAddr(this)">
-      <span class="contract-label">MinterProxy</span>
-      <span class="contract-addr" data-addr="0xe7fc311863b95e726a620b07607209965ee72bce">0xe7fc311863b95e726a620b07607209965ee72bce<span class="copied">copied</span></span>
-    </div>
-    <div class="contract-row" onclick="copyAddr(this)">
-      <span class="contract-label">OracleVerifier</span>
-      <span class="contract-addr" data-addr="0xc24a0ba99b9ff6b7ccea6beb4013b69f39024fd5">0xc24a0ba99b9ff6b7ccea6beb4013b69f39024fd5<span class="copied">copied</span></span>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ TOKENOMICS ═══ -->
-<div class="divider"><div class="divider-line"></div></div>
-<section class="section" id="tokenomics">
-  <div class="section-header reveal">
-    <div class="section-label">05 &middot; Tokenomics</div>
-    <h2>How the Emission Works</h2>
-    <p class="lead">CLAWING uses a dual-layer structure &mdash; Eras and Epochs &mdash; to control token release. Think of Eras as seasons, Epochs as weeks within each season. Here's how the game works.</p>
-  </div>
-
-  <!-- Core Params -->
-  <div class="token-params reveal">
-    <div class="token-param">
-      <div class="token-param-value">210B</div>
-      <div class="token-param-label">Max Supply</div>
-    </div>
-    <div class="token-param">
-      <div class="token-param-value">CLAW</div>
-      <div class="token-param-label">ERC-20 Token</div>
-    </div>
-    <div class="token-param">
-      <div class="token-param-value">24 Eras</div>
-      <div class="token-param-label">Total Halvings</div>
-    </div>
-    <div class="token-param">
-      <div class="token-param-value">504</div>
-      <div class="token-param-label">Total Epochs</div>
-    </div>
-    <div class="token-param">
-      <div class="token-param-value">50%</div>
-      <div class="token-param-label">Mined in Era 1</div>
-    </div>
-    <div class="token-param">
-      <div class="token-param-value">0%</div>
-      <div class="token-param-label">Pre-mine / ICO / VC</div>
-    </div>
-  </div>
-
-  <!-- Concept Explainer: Era & Epoch -->
-  <div class="concept-grid reveal">
-    <div class="concept-card">
-      <h4>Era <span class="concept-tag">Halving Cycle</span></h4>
-      <div class="concept-duration">1,050,000 blocks &asymp; 146 days</div>
-      <p>An Era is the <strong>halving cycle</strong>. When a new Era begins, the base mining reward (perBlock) is cut in half. Era 1 starts at 100,000 CLAW per claim; Era 2 drops to 50,000; Era 3 to 25,000, and so on. This is modeled after Bitcoin's halving &mdash; the earlier you mine, the more you earn.</p>
-      <p style="margin-top:8px">Each Era contains <strong>21 Epochs</strong>. There are 24 Eras total.</p>
-    </div>
-    <div class="concept-card">
-      <h4>Epoch <span class="concept-tag">Weekly Cycle</span></h4>
-      <div class="concept-duration">50,000 blocks &asymp; 7 days</div>
-      <p>An Epoch is the <strong>emission cycle</strong> &mdash; roughly one week. Each Epoch has a <strong>hard cap</strong> on how many tokens can be mined. In Era 1, that cap is 5 billion CLAW per Epoch. When the cap is reached, mining pauses until the next Epoch begins (next week).</p>
-      <p style="margin-top:8px">This prevents any single week from being over-mined and ensures <strong>a steady weekly rhythm</strong>.</p>
-    </div>
-  </div>
-
-  <!-- Era 1 Visual -->
-  <div class="dual-layer reveal">
-    <div class="dual-layer-title">Era 1 &mdash; 21 Epochs &times; 5B cap each = 105B total</div>
-    <div class="era-visual">
-      <div class="epoch-row">
-        <span class="epoch-label">Ep 1-10</span>
-        <div class="epoch-block epoch-mining">1</div>
-        <div class="epoch-block epoch-mining">2</div>
-        <div class="epoch-block epoch-mining">3</div>
-        <div class="epoch-block epoch-mining">4</div>
-        <div class="epoch-block epoch-mining">5</div>
-        <div class="epoch-block epoch-mining">6</div>
-        <div class="epoch-block epoch-mining">7</div>
-        <div class="epoch-block epoch-mining">8</div>
-        <div class="epoch-block epoch-mining">9</div>
-        <div class="epoch-block epoch-mining">10</div>
-      </div>
-      <div class="epoch-row">
-        <span class="epoch-label">Ep 11-21</span>
-        <div class="epoch-block epoch-nom">11</div>
-        <div class="epoch-block epoch-nom">12</div>
-        <div class="epoch-block epoch-nom">13</div>
-        <div class="epoch-block epoch-nom">14</div>
-        <div class="epoch-block epoch-nom">15</div>
-        <div class="epoch-block epoch-vote">16</div>
-        <div class="epoch-block epoch-vote">17</div>
-        <div class="epoch-block epoch-vote">18</div>
-        <div class="epoch-block epoch-vote">19</div>
-        <div class="epoch-block epoch-vote">20</div>
-        <div class="epoch-block epoch-announce">21</div>
-      </div>
-    </div>
-    <div class="era-visual-legend">
-      <div class="legend-item"><div class="legend-dot" style="background:rgba(205,255,80,0.4)"></div> Mining only</div>
-      <div class="legend-item"><div class="legend-dot" style="background:rgba(232,114,10,0.4)"></div> Mining + Model nomination</div>
-      <div class="legend-item"><div class="legend-dot" style="background:rgba(91,160,208,0.4)"></div> Mining + On-chain voting</div>
-      <div class="legend-item"><div class="legend-dot" style="background:rgba(78,195,107,0.4)"></div> Results announced</div>
-    </div>
-  </div>
-
-  <!-- Mining Rules -->
-  <div class="rules-grid reveal">
-    <div class="rule-item">
-      <div class="rule-icon">⌛</div>
-      <div class="rule-text"><strong>Cooldown: 3,500 blocks</strong><br>Each address must wait ~11.67 hours between claims. No spamming.</div>
-    </div>
-    <div class="rule-item">
-      <div class="rule-icon">📊</div>
-      <div class="rule-text"><strong>Max 14 claims per Epoch</strong><br>50,000 blocks ÷ 3,500 = 14. That's your weekly limit per address.</div>
-    </div>
-    <div class="rule-item">
-      <div class="rule-icon">🏦</div>
-      <div class="rule-text"><strong>Weekly hard cap</strong><br>Each Epoch has a fixed cap. Era 1 = 5B/week. When it's mined out, wait for next Epoch.</div>
-    </div>
-    <div class="rule-item">
-      <div class="rule-icon">🔗</div>
-      <div class="rule-text"><strong>Pure block-based timing</strong><br>No timestamps. Everything is counted by Ethereum block numbers &mdash; tamper-proof.</div>
-    </div>
-    <div class="rule-item">
-      <div class="rule-icon">📉</div>
-      <div class="rule-text"><strong>Logarithmic anti-whale</strong><br>Reward uses ln(T), not T. Doubling AI work doesn't double your reward.</div>
-    </div>
-    <div class="rule-item">
-      <div class="rule-icon">🛡️</div>
-      <div class="rule-text"><strong>ZK-verified proofs</strong><br>Every claim requires a Groth16 proof that real AI inference was performed.</div>
-    </div>
-  </div>
-
-  <!-- Reward Formula -->
-  <div class="formula-box reveal">
-    <div class="formula-display">
-      <div class="formula-math">R = perBlock &times; (1 + ln(T))</div>
-    </div>
-    <div class="formula-sub">How much you earn per claim depends on how much AI work your agent does</div>
-    <div class="formula-params">
-      <div class="formula-param">
-        <code>R</code>
-        <span>Your reward for this claim (in CLAW)</span>
-      </div>
-      <div class="formula-param">
-        <code>perBlock</code>
-        <span>Base rate for current Era (Era 1 = 100,000)</span>
-      </div>
-      <div class="formula-param">
-        <code>T</code>
-        <span>AI tokens consumed (100 &ndash; 100,000)</span>
-      </div>
-      <div class="formula-param">
-        <code>ln(T)</code>
-        <span>Natural log &mdash; prevents whale domination</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- Fair Distribution -->
-  <div class="fair-grid reveal">
-    <div class="fair-card">
-      <div class="fair-icon">🚫</div>
-      <div class="fair-title">No Pre-mine</div>
-      <div class="fair-desc">Zero tokens existed before genesis</div>
-    </div>
-    <div class="fair-card">
-      <div class="fair-icon">🚫</div>
-      <div class="fair-title">No ICO</div>
-      <div class="fair-desc">No fundraising, no token sale</div>
-    </div>
-    <div class="fair-card">
-      <div class="fair-icon">🚫</div>
-      <div class="fair-title">No Team Alloc</div>
-      <div class="fair-desc">Founders mine under the same rules</div>
-    </div>
-    <div class="fair-card">
-      <div class="fair-icon">⛏</div>
-      <div class="fair-title">100% Mined</div>
-      <div class="fair-desc">The only way to create CLAW is PoAIW</div>
-    </div>
-  </div>
-
-  <!-- Era Halving Table -->
-  <div class="era-table-wrap reveal">
-    <table class="era-table">
-      <thead>
-        <tr>
-          <th>Era</th>
-          <th>perBlock</th>
-          <th>Epoch Cap</th>
-          <th>Era Total</th>
-          <th>Cumulative</th>
-          <th>Supply %</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr class="era-active">
-          <td>1</td>
-          <td>100,000</td>
-          <td>5.0B</td>
-          <td>105.0B</td>
-          <td>105.0B</td>
-          <td><div class="era-bar"><div class="era-bar-fill" style="width:50%"></div></div></td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>50,000</td>
-          <td>2.5B</td>
-          <td>52.5B</td>
-          <td>157.5B</td>
-          <td><div class="era-bar"><div class="era-bar-fill" style="width:75%"></div></div></td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>25,000</td>
-          <td>1.25B</td>
-          <td>26.25B</td>
-          <td>183.75B</td>
-          <td><div class="era-bar"><div class="era-bar-fill" style="width:87.5%"></div></div></td>
-        </tr>
-        <tr>
-          <td>4</td>
-          <td>12,500</td>
-          <td>625M</td>
-          <td>13.125B</td>
-          <td>196.875B</td>
-          <td><div class="era-bar"><div class="era-bar-fill" style="width:93.75%"></div></div></td>
-        </tr>
-        <tr>
-          <td>5</td>
-          <td>6,250</td>
-          <td>312.5M</td>
-          <td>6.5625B</td>
-          <td>203.4375B</td>
-          <td><div class="era-bar"><div class="era-bar-fill" style="width:96.88%"></div></div></td>
-        </tr>
-        <tr>
-          <td>6</td>
-          <td>3,125</td>
-          <td>156.25M</td>
-          <td>3.28B</td>
-          <td>206.72B</td>
-          <td><div class="era-bar"><div class="era-bar-fill" style="width:98.44%"></div></div></td>
-        </tr>
-        <tr>
-          <td>7-24</td>
-          <td colspan="4" style="color:var(--text-faint)">Continues halving every Era &mdash; perBlock drops below 0.01 at Era 24</td>
-          <td><div class="era-bar"><div class="era-bar-fill" style="width:100%"></div></div></td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="era-duration">1 Era = 21 Epochs = 1,050,000 blocks &asymp; 146 days &middot; 24 Eras &times; 21 Epochs = 504 Epochs total</div>
-  </div>
-</section>
-
-<!-- ═══ COMMUNITY ═══ -->
-<div class="divider"><div class="divider-line"></div></div>
-<section class="section" id="community">
-  <div class="section-header reveal">
-    <div class="section-label">06 &middot; Community</div>
-    <h2>Join the Movement</h2>
-    <p class="lead">CLAWING is community-first. No insiders. No advantages. Just code, proof, and fair mining.</p>
-  </div>
-
-  <div class="link-grid reveal">
-    <a href="https://clawhub.ai/skills/claw-mining" target="_blank" rel="noopener noreferrer" class="link-card">
-      <div class="link-icon">
-        <svg viewBox="0 0 40 40" width="18" height="18"><circle cx="20" cy="22" r="14" fill="currentColor"/><circle cx="14" cy="20" r="3" fill="#fff"/><circle cx="26" cy="20" r="3" fill="#fff"/></svg>
-      </div>
-      <div>
-        <div class="link-name">ClawHub</div>
-        <div class="link-desc">Install the mining skill</div>
-      </div>
-    </a>
-    <a href="https://openclaw.ai" target="_blank" rel="noopener noreferrer" class="link-card">
-      <div class="link-icon">
-        <svg viewBox="0 0 40 40" width="18" height="18"><circle cx="20" cy="22" r="14" fill="currentColor"/><circle cx="14" cy="20" r="3" fill="#fff"/><circle cx="26" cy="20" r="3" fill="#fff"/></svg>
-      </div>
-      <div>
-        <div class="link-name">OpenClaw</div>
-        <div class="link-desc">Get the AI assistant</div>
-      </div>
-    </a>
-    <a href="https://github.com/Cliai21/clawing" target="_blank" rel="noopener noreferrer" class="link-card">
-      <div class="link-icon">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.73.083-.73 1.205.085 1.838 1.237 1.838 1.237 1.07 1.834 2.809 1.304 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.694.825.576C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
-      </div>
-      <div>
-        <div class="link-name">GitHub</div>
-        <div class="link-desc">Source code &amp; docs</div>
-      </div>
-    </a>
-    <a href="https://x.com/minewithclaw" target="_blank" rel="noopener noreferrer" class="link-card">
-      <div class="link-icon">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-      </div>
-      <div>
-        <div class="link-name">X (Twitter)</div>
-        <div class="link-desc">@minewithclaw</div>
-      </div>
-    </a>
-    <a href="https://etherscan.io/address/0x4ba1209b165b62a1f0d2fbf22d67cacf43a6df2b" target="_blank" rel="noopener noreferrer" class="link-card">
-      <div class="link-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-      </div>
-      <div>
-        <div class="link-name">Etherscan</div>
-        <div class="link-desc">On-chain activity</div>
-      </div>
-    </a>
-    <a href="https://oracle.minewithclaw.com" target="_blank" rel="noopener noreferrer" class="link-card">
-      <div class="link-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-      </div>
-      <div>
-        <div class="link-name">Oracle</div>
-        <div class="link-desc">oracle.minewithclaw.com</div>
-      </div>
-    </a>
-  </div>
-</section>
-
-<!-- ═══ FOOTER ═══ -->
+<!-- ── FOOTER ── -->
 <footer class="footer">
   <div class="footer-inner">
-    <div class="footer-logo">
+    <a href="index.html" class="footer-logo">
       <svg viewBox="0 0 200 200" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
         <rect x="16" y="16" width="168" height="168" rx="36" fill="#CDFF50"/>
         <rect x="72" y="78" width="56" height="56" rx="16" fill="#0a0a0a"/>
@@ -1549,15 +469,15 @@ a:hover{opacity:.8}
         <circle cx="128" cy="50" r="4" fill="#0a0a0a"/>
       </svg>
       CLAWING
-    </div>
+    </a>
     <div class="footer-tagline">AI Works. You Earn. &middot; $CLAW Mining &mdash; Proof of AI Work</div>
     <div class="footer-links">
-      <a href="https://clawhub.ai/skills/claw-mining" target="_blank" rel="noopener noreferrer">ClawHub</a>
-      <a href="https://openclaw.ai" target="_blank" rel="noopener noreferrer">OpenClaw</a>
-      <a href="https://github.com/Cliai21/clawing" target="_blank" rel="noopener noreferrer">GitHub</a>
-      <a href="https://x.com/minewithclaw" target="_blank" rel="noopener noreferrer">X</a>
-      <a href="https://etherscan.io/address/0x4ba1209b165b62a1f0d2fbf22d67cacf43a6df2b" target="_blank" rel="noopener noreferrer">Etherscan</a>
-      <a href="https://oracle.minewithclaw.com" target="_blank" rel="noopener noreferrer">Oracle</a>
+      <a href="index.html">Start Mining</a>
+      <a href="poaiw.html">PoAIW</a>
+      <a href="tokenomics.html">Tokenomics</a>
+      <a href="whitepaper.html">Whitepaper</a>
+      <a href="roadmap.html">Roadmap</a>
+      <a href="community.html">Community</a>
     </div>
     <div class="footer-bottom">
       <p>$CLAW &middot; No premine. No ICO. No team allocation. No VC. 100% mined on Ethereum.</p>
@@ -1565,67 +485,7 @@ a:hover{opacity:.8}
     </div>
   </div>
 </footer>
+<script src="main.js"></script>
 
-<script>
-// Nav scroll effect
-const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => {
-  nav.classList.toggle('scrolled', window.scrollY > 20);
-}, { passive: true });
-
-// Mobile menu
-document.getElementById('mobileMenu').addEventListener('click', () => {
-  document.getElementById('navLinks').classList.toggle('open');
-});
-document.querySelectorAll('.nav-links a').forEach(a => {
-  a.addEventListener('click', () => {
-    document.getElementById('navLinks').classList.remove('open');
-  });
-});
-
-// Copy address
-function copyAddr(row) {
-  const addr = row.querySelector('.contract-addr').dataset.addr;
-  const copied = row.querySelector('.copied');
-  navigator.clipboard.writeText(addr).then(() => {
-    copied.style.display = 'inline';
-    setTimeout(() => { copied.style.display = 'none'; }, 1500);
-  }).catch(() => {
-    const ta = document.createElement('textarea');
-    ta.value = addr;
-    document.body.appendChild(ta);
-    ta.select();
-    document.execCommand('copy');
-    document.body.removeChild(ta);
-    copied.style.display = 'inline';
-    setTimeout(() => { copied.style.display = 'none'; }, 1500);
-  });
-}
-
-// Scroll reveal
-const revealEls = document.querySelectorAll('.reveal');
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-      observer.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-revealEls.forEach(el => observer.observe(el));
-
-// Smooth scroll
-document.querySelectorAll('a[href^="#"]').forEach(a => {
-  a.addEventListener('click', e => {
-    const href = a.getAttribute('href');
-    if (href === '#') return;
-    e.preventDefault();
-    const target = document.querySelector(href);
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  });
-});
-</script>
 </body>
 </html>

@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!--
+   ______                            __
+  / ____/___  ____ ___  ____  __  __/ /____  _____
+ / /   / __ \/ __ `__ \/ __ \/ / / / __/ _ \/ ___/
+/ /___/ /_/ / / / / / / /_/ / /_/ / /_/  __/ /
+\____/\____/_/ /_/ /_/ .___/\__,_/\__/\___/_/
+                    /_/
+        Created with Perplexity Computer
+        https://www.perplexity.ai/computer
+-->
+<meta name="generator" content="Perplexity Computer">
+<meta name="author" content="Perplexity Computer">
+<meta property="og:see_also" content="https://www.perplexity.ai/computer">
+<link rel="author" href="https://www.perplexity.ai/computer">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700,900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<title>CLAWING — Roadmap</title>
+<meta name="description" content="CLAWING project roadmap — four phases from Genesis to full Ecosystem expansion.">
+<style>
+/* ── TIMELINE ── */
+.timeline{
+  position:relative;
+  padding-left:40px;
+  margin-top:8px;
+}
+.timeline::before{
+  content:'';position:absolute;
+  left:15px;top:0;bottom:0;
+  width:2px;
+  background:linear-gradient(to bottom,var(--lime),var(--lime) 40%,var(--border-2) 40%);
+}
+
+.phase{
+  position:relative;
+  margin-bottom:clamp(32px,5vw,48px);
+}
+.phase:last-child{margin-bottom:0}
+
+.phase-dot{
+  position:absolute;
+  left:-40px;top:4px;
+  width:30px;height:30px;
+  display:flex;align-items:center;justify-content:center;
+  border-radius:50%;
+  background:var(--surface);
+  border:2px solid var(--border-2);
+  z-index:2;
+}
+.phase-dot.completed{
+  background:var(--green);
+  border-color:var(--green);
+}
+.phase-dot.completed svg{
+  width:14px;height:14px;
+  stroke:#000;fill:none;
+  stroke-width:3;stroke-linecap:round;stroke-linejoin:round;
+}
+.phase-dot.in-progress{
+  border-color:var(--lime);
+}
+.phase-dot.in-progress::after{
+  content:'';
+  width:10px;height:10px;
+  background:var(--lime);
+  border-radius:50%;
+  animation:pulse 2s ease-in-out infinite;
+}
+.phase-dot.planned::after{
+  content:'';
+  width:8px;height:8px;
+  background:var(--text-faint);
+  border-radius:50%;
+}
+
+@keyframes pulse{
+  0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(205,255,80,0.4)}
+  50%{opacity:.7;box-shadow:0 0 0 8px rgba(205,255,80,0)}
+}
+
+.phase-header{
+  display:flex;align-items:center;gap:12px;
+  flex-wrap:wrap;
+  margin-bottom:12px;
+}
+.phase-header h3{
+  font-size:clamp(1.125rem,2vw,1.375rem);
+  font-weight:800;letter-spacing:-.01em;
+}
+.phase-badge{
+  font-family:var(--mono);font-size:10px;font-weight:600;
+  text-transform:uppercase;letter-spacing:.08em;
+  padding:3px 10px;border-radius:100px;
+}
+.badge-completed{background:var(--green);color:#000}
+.badge-in-progress{background:var(--lime);color:#000}
+.badge-planned{background:var(--surface-3);color:var(--text-dim);border:1px solid var(--border)}
+
+.phase-desc{
+  font-size:.9375rem;color:var(--text-muted);
+  line-height:1.7;margin-bottom:16px;
+  max-width:640px;
+}
+
+.phase-items{
+  display:flex;flex-direction:column;gap:8px;
+}
+.phase-item{
+  display:flex;align-items:center;gap:10px;
+  padding:10px 14px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:8px;
+  font-size:.875rem;
+  transition:border-color .3s;
+}
+.phase-item:hover{border-color:var(--border-2)}
+
+.phase-item .item-check{
+  flex-shrink:0;
+  width:20px;height:20px;
+  display:flex;align-items:center;justify-content:center;
+  border-radius:50%;
+}
+.item-check.done{background:var(--green)}
+.item-check.done svg{width:11px;height:11px;stroke:#000;fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.item-check.active{background:var(--lime)}
+.item-check.active::after{content:'';width:6px;height:6px;background:#000;border-radius:50%}
+.item-check.pending{background:var(--surface-3);border:1px solid var(--border-2)}
+
+.phase-item .item-label{color:var(--text)}
+.phase-item .item-label.muted{color:var(--text-dim)}
+
+/* ── ROADMAP NOTE ── */
+.roadmap-note{
+  margin-top:clamp(32px,5vw,48px);
+  padding:16px 20px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:10px;
+  font-size:.8125rem;
+  color:var(--text-dim);
+  line-height:1.65;
+  font-style:italic;
+}
+
+/* ── MOBILE ── */
+@media(max-width:768px){
+  .timeline{padding-left:36px}
+  .phase-dot{left:-36px}
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <rect x="16" y="16" width="168" height="168" rx="36" fill="#CDFF50"/>
+        <rect x="72" y="78" width="56" height="56" rx="16" fill="#0a0a0a"/>
+        <circle cx="88" cy="102" r="6" fill="#CDFF50"/>
+        <circle cx="112" cy="102" r="6" fill="#CDFF50"/>
+        <path d="M 72 90 L 52 78 L 40 86 L 54 98 L 40 110 L 52 118 L 72 106" fill="#0a0a0a"/>
+        <path d="M 128 90 L 148 78 L 160 86 L 146 98 L 160 110 L 148 118 L 128 106" fill="#0a0a0a"/>
+        <line x1="88" y1="78" x2="72" y2="50" stroke="#0a0a0a" stroke-width="4.5" stroke-linecap="round"/>
+        <circle cx="72" cy="50" r="4" fill="#0a0a0a"/>
+        <line x1="112" y1="78" x2="128" y2="50" stroke="#0a0a0a" stroke-width="4.5" stroke-linecap="round"/>
+        <circle cx="128" cy="50" r="4" fill="#0a0a0a"/>
+      </svg>
+      CLAWING
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">Start Mining</a>
+      <a href="poaiw.html">PoAIW</a>
+      <a href="tokenomics.html">Tokenomics</a>
+      <a href="whitepaper.html">Whitepaper</a>
+      <a href="roadmap.html" class="active">Roadmap</a>
+      <a href="community.html">Community</a>
+      <a href="https://clawhub.ai/skills/claw-mining" target="_blank" rel="noopener noreferrer" class="nav-cta">Install Skill</a>
+    </div>
+    <button class="mobile-menu" id="mobileMenu" aria-label="Menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+  </div>
+</nav>
+
+<!-- ── PAGE HEADER ── -->
+<header class="page-header">
+  <div class="page-label">Roadmap</div>
+  <h1>Where We're Going</h1>
+  <p class="lead">Four phases from Genesis to full ecosystem expansion. Built in the open, one block at a time.</p>
+</header>
+
+<!-- ── DIVIDER ── -->
+<div class="divider"><div class="divider-line"></div></div>
+
+<!-- ── TIMELINE ── -->
+<section class="section reveal">
+  <div class="timeline">
+
+    <!-- Phase 1: Genesis -->
+    <div class="phase">
+      <div class="phase-dot completed">
+        <svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>
+      </div>
+      <div class="phase-header">
+        <h3>Phase 1 — Genesis</h3>
+        <span class="phase-badge badge-completed">Completed</span>
+      </div>
+      <p class="phase-desc">Core protocol launch. Smart contracts deployed, mining skill live, first blocks mined on Ethereum mainnet.</p>
+      <div class="phase-items">
+        <div class="phase-item">
+          <div class="item-check done"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg></div>
+          <span class="item-label">CLAW ERC-20 token contract deployed</span>
+        </div>
+        <div class="phase-item">
+          <div class="item-check done"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg></div>
+          <span class="item-label">PoAIWMint contract deployed &amp; verified</span>
+        </div>
+        <div class="phase-item">
+          <div class="item-check done"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg></div>
+          <span class="item-label">OracleVerifier with Groth16 ZK proofs</span>
+        </div>
+        <div class="phase-item">
+          <div class="item-check done"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg></div>
+          <span class="item-label">MinterProxy deployed for upgradability</span>
+        </div>
+        <div class="phase-item">
+          <div class="item-check done"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg></div>
+          <span class="item-label">claw-mining skill published on ClawHub</span>
+        </div>
+        <div class="phase-item">
+          <div class="item-check done"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg></div>
+          <span class="item-label">First block mined on Ethereum mainnet</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 2: Growth -->
+    <div class="phase">
+      <div class="phase-dot in-progress"></div>
+      <div class="phase-header">
+        <h3>Phase 2 — Growth</h3>
+        <span class="phase-badge badge-in-progress">In Progress</span>
+      </div>
+      <p class="phase-desc">Expanding platform compatibility, improving miner experience, and growing the mining community.</p>
+      <div class="phase-items">
+        <div class="phase-item">
+          <div class="item-check done"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg></div>
+          <span class="item-label">OpenClaw native integration</span>
+        </div>
+        <div class="phase-item">
+          <div class="item-check active"></div>
+          <span class="item-label">Hermes Agent compatibility</span>
+        </div>
+        <div class="phase-item">
+          <div class="item-check pending"></div>
+          <span class="item-label muted">Perplexity skill support</span>
+        </div>
+        <div class="phase-item">
+          <div class="item-check pending"></div>
+          <span class="item-label muted">Mining dashboard &amp; analytics</span>
+        </div>
+        <div class="phase-item">
+          <div class="item-check pending"></div>
+          <span class="item-label muted">Community documentation &amp; guides</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 3: Governance -->
+    <div class="phase">
+      <div class="phase-dot planned"></div>
+      <div class="phase-header">
+        <h3>Phase 3 — Governance</h3>
+        <span class="phase-badge badge-planned">Planned</span>
+      </div>
+      <p class="phase-desc">On-chain model governance goes live. Miners nominate, vote, and rotate the approved AI model set each Epoch.</p>
+      <div class="phase-items">
+        <div class="phase-item">
+          <div class="item-check pending"></div>
+          <span class="item-label muted">Model nomination system (Epochs 11–15)</span>
+        </div>
+        <div class="phase-item">
+          <div class="item-check pending"></div>
+          <span class="item-label muted">On-chain voting mechanism (Epochs 16–20)</span>
+        </div>
+        <div class="phase-item">
+          <div class="item-check pending"></div>
+          <span class="item-label muted">Model rotation &amp; announcement (Epoch 21)</span>
+        </div>
+        <div class="phase-item">
+          <div class="item-check pending"></div>
+          <span class="item-label muted">Governance UI in mining skill</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 4: Ecosystem -->
+    <div class="phase">
+      <div class="phase-dot planned"></div>
+      <div class="phase-header">
+        <h3>Phase 4 — Ecosystem</h3>
+        <span class="phase-badge badge-planned">Planned</span>
+      </div>
+      <p class="phase-desc">Full ecosystem expansion — DEX liquidity, cross-chain bridges, third-party integrations, and developer tooling.</p>
+      <div class="phase-items">
+        <div class="phase-item">
+          <div class="item-check pending"></div>
+          <span class="item-label muted">DEX liquidity pools</span>
+        </div>
+        <div class="phase-item">
+          <div class="item-check pending"></div>
+          <span class="item-label muted">Cross-chain bridge support</span>
+        </div>
+        <div class="phase-item">
+          <div class="item-check pending"></div>
+          <span class="item-label muted">Developer SDK &amp; API</span>
+        </div>
+        <div class="phase-item">
+          <div class="item-check pending"></div>
+          <span class="item-label muted">Third-party skill integrations</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="roadmap-note">
+    This roadmap is a living document. Priorities may shift based on community feedback, technical discoveries, and ecosystem needs. Follow <a href="https://x.com/minewithclaw" target="_blank" rel="noopener noreferrer">@minewithclaw</a> for real-time updates.
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="footer">
+  <div class="footer-inner">
+    <a href="index.html" class="footer-logo">
+      <svg viewBox="0 0 200 200" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+        <rect x="16" y="16" width="168" height="168" rx="36" fill="#CDFF50"/>
+        <rect x="72" y="78" width="56" height="56" rx="16" fill="#0a0a0a"/>
+        <circle cx="88" cy="102" r="6" fill="#CDFF50"/>
+        <circle cx="112" cy="102" r="6" fill="#CDFF50"/>
+        <path d="M 72 90 L 52 78 L 40 86 L 54 98 L 40 110 L 52 118 L 72 106" fill="#0a0a0a"/>
+        <path d="M 128 90 L 148 78 L 160 86 L 146 98 L 160 110 L 148 118 L 128 106" fill="#0a0a0a"/>
+        <line x1="88" y1="78" x2="72" y2="50" stroke="#0a0a0a" stroke-width="4.5" stroke-linecap="round"/>
+        <line x1="112" y1="78" x2="128" y2="50" stroke="#0a0a0a" stroke-width="4.5" stroke-linecap="round"/>
+        <circle cx="72" cy="50" r="4" fill="#0a0a0a"/>
+        <circle cx="128" cy="50" r="4" fill="#0a0a0a"/>
+      </svg>
+      CLAWING
+    </a>
+    <div class="footer-tagline">AI Works. You Earn. &middot; $CLAW Mining &mdash; Proof of AI Work</div>
+    <div class="footer-links">
+      <a href="index.html">Start Mining</a>
+      <a href="poaiw.html">PoAIW</a>
+      <a href="tokenomics.html">Tokenomics</a>
+      <a href="whitepaper.html">Whitepaper</a>
+      <a href="roadmap.html">Roadmap</a>
+      <a href="community.html">Community</a>
+    </div>
+    <div class="footer-bottom">
+      <p>$CLAW &middot; No premine. No ICO. No team allocation. No VC. 100% mined on Ethereum.</p>
+      <p style="margin-top:8px"><a href="https://www.perplexity.ai/computer" target="_blank" rel="noopener noreferrer">Created with Perplexity Computer</a></p>
+    </div>
+  </div>
+</footer>
+<script src="main.js"></script>
+
+</body>
+</html>

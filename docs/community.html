@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!--
+   ______                            __
+  / ____/___  ____ ___  ____  __  __/ /____  _____
+ / /   / __ \/ __ `__ \/ __ \/ / / / __/ _ \/ ___/
+/ /___/ /_/ / / / / / / /_/ / /_/ / /_/  __/ /
+\____/\____/_/ /_/ /_/ .___/\__,_/\__/\___/_/
+                    /_/
+        Created with Perplexity Computer
+        https://www.perplexity.ai/computer
+-->
+<meta name="generator" content="Perplexity Computer">
+<meta name="author" content="Perplexity Computer">
+<meta property="og:see_also" content="https://www.perplexity.ai/computer">
+<link rel="author" href="https://www.perplexity.ai/computer">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700,900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<title>CLAWING — Community</title>
+<meta name="description" content="Join the CLAWING community. Find resources, links, contract addresses, and connect with fellow $CLAW miners.">
+<style>
+/* ── COMMUNITY LINKS GRID ── */
+.community-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:clamp(16px,2vw,20px);
+}
+.community-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:clamp(20px,3vw,28px);
+  display:flex;align-items:flex-start;gap:16px;
+  transition:border-color .3s,box-shadow .3s,transform .2s;
+  text-decoration:none;color:var(--text);
+}
+.community-card:hover{
+  border-color:var(--border-2);
+  box-shadow:0 2px 20px rgba(0,0,0,.3);
+  transform:translateY(-2px);
+  opacity:1;
+}
+.card-icon{
+  flex-shrink:0;
+  width:44px;height:44px;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--lime-glow);
+  border:1px solid rgba(205,255,80,0.1);
+  border-radius:10px;
+  font-size:20px;
+}
+.card-content h3{
+  font-size:1rem;font-weight:700;
+  margin-bottom:4px;
+}
+.card-content p{
+  font-size:.8125rem;color:var(--text-muted);
+  line-height:1.55;
+}
+.card-content .card-link{
+  display:inline-flex;align-items:center;gap:4px;
+  font-family:var(--mono);font-size:11px;
+  color:var(--lime);text-transform:uppercase;
+  letter-spacing:.06em;margin-top:8px;
+}
+.card-content .card-link::after{
+  content:'→';
+}
+
+/* ── CONTRACTS LIST ── */
+.contracts-section{margin-top:clamp(32px,5vw,48px)}
+.contracts-list{
+  display:flex;flex-direction:column;gap:8px;
+}
+.contract-row{
+  display:flex;align-items:center;gap:12px;
+  padding:12px 16px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:10px;
+  transition:border-color .3s;
+}
+.contract-row:hover{border-color:var(--border-2)}
+.contract-name{
+  font-size:.875rem;font-weight:600;
+  min-width:130px;
+}
+.contract-addr{
+  font-family:var(--mono);font-size:.8125rem;
+  color:var(--text-muted);
+  flex:1;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+.contract-copy{
+  font-family:var(--mono);font-size:10px;
+  text-transform:uppercase;letter-spacing:.08em;
+  color:var(--lime);cursor:pointer;
+  padding:4px 10px;
+  border:1px solid rgba(205,255,80,0.15);
+  border-radius:6px;
+  background:var(--lime-glow);
+  transition:all .2s;
+  flex-shrink:0;
+}
+.contract-copy:hover{background:var(--lime-glow-2);border-color:rgba(205,255,80,0.3)}
+
+/* ── QUICK STATS ── */
+.stats-section{margin-top:clamp(32px,5vw,48px)}
+.stats-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:clamp(12px,2vw,16px);
+}
+.stat-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:clamp(16px,2vw,24px);
+  text-align:center;
+  transition:border-color .3s;
+}
+.stat-card:hover{border-color:var(--border-2)}
+.stat-icon{
+  font-size:24px;
+  margin-bottom:8px;
+}
+.stat-value{
+  font-size:clamp(1rem,2vw,1.25rem);
+  font-weight:800;
+  margin-bottom:2px;
+}
+.stat-label{
+  font-family:var(--mono);font-size:10px;
+  text-transform:uppercase;letter-spacing:.08em;
+  color:var(--text-dim);
+}
+
+/* ── MOBILE ── */
+@media(max-width:768px){
+  .community-grid{grid-template-columns:1fr}
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .contract-row{flex-wrap:wrap}
+  .contract-name{min-width:auto;width:100%}
+  .contract-addr{width:100%;order:1}
+  .contract-copy{order:2}
+}
+@media(max-width:480px){
+  .stats-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <rect x="16" y="16" width="168" height="168" rx="36" fill="#CDFF50"/>
+        <rect x="72" y="78" width="56" height="56" rx="16" fill="#0a0a0a"/>
+        <circle cx="88" cy="102" r="6" fill="#CDFF50"/>
+        <circle cx="112" cy="102" r="6" fill="#CDFF50"/>
+        <path d="M 72 90 L 52 78 L 40 86 L 54 98 L 40 110 L 52 118 L 72 106" fill="#0a0a0a"/>
+        <path d="M 128 90 L 148 78 L 160 86 L 146 98 L 160 110 L 148 118 L 128 106" fill="#0a0a0a"/>
+        <line x1="88" y1="78" x2="72" y2="50" stroke="#0a0a0a" stroke-width="4.5" stroke-linecap="round"/>
+        <circle cx="72" cy="50" r="4" fill="#0a0a0a"/>
+        <line x1="112" y1="78" x2="128" y2="50" stroke="#0a0a0a" stroke-width="4.5" stroke-linecap="round"/>
+        <circle cx="128" cy="50" r="4" fill="#0a0a0a"/>
+      </svg>
+      CLAWING
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">Start Mining</a>
+      <a href="poaiw.html">PoAIW</a>
+      <a href="tokenomics.html">Tokenomics</a>
+      <a href="whitepaper.html">Whitepaper</a>
+      <a href="roadmap.html">Roadmap</a>
+      <a href="community.html" class="active">Community</a>
+      <a href="https://clawhub.ai/skills/claw-mining" target="_blank" rel="noopener noreferrer" class="nav-cta">Install Skill</a>
+    </div>
+    <button class="mobile-menu" id="mobileMenu" aria-label="Menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+  </div>
+</nav>
+
+<!-- ── PAGE HEADER ── -->
+<header class="page-header">
+  <div class="page-label">Community</div>
+  <h1>Join the Miners</h1>
+  <p class="lead">Connect with the CLAWING community. Find resources, verify contracts, and start mining together.</p>
+</header>
+
+<!-- ── DIVIDER ── -->
+<div class="divider"><div class="divider-line"></div></div>
+
+<!-- ── COMMUNITY LINKS ── -->
+<section class="section reveal">
+  <div class="section-header">
+    <div class="section-label">Links &amp; Resources</div>
+    <h2>Get Connected</h2>
+    <p class="lead">Everything you need to participate in the CLAWING ecosystem.</p>
+  </div>
+
+  <div class="community-grid">
+
+    <a href="https://clawhub.ai/skills/claw-mining" target="_blank" rel="noopener noreferrer" class="community-card">
+      <div class="card-icon">⛏</div>
+      <div class="card-content">
+        <h3>ClawHub</h3>
+        <p>Install the claw-mining skill directly from ClawHub. One click to start mining $CLAW tokens.</p>
+        <span class="card-link">Install Skill</span>
+      </div>
+    </a>
+
+    <a href="https://openclaw.ai" target="_blank" rel="noopener noreferrer" class="community-card">
+      <div class="card-icon">🤖</div>
+      <div class="card-content">
+        <h3>OpenClaw</h3>
+        <p>The recommended AI agent platform for CLAW mining. Full skill support with automatic updates.</p>
+        <span class="card-link">Open Platform</span>
+      </div>
+    </a>
+
+    <a href="https://github.com/clawing" target="_blank" rel="noopener noreferrer" class="community-card">
+      <div class="card-icon">📂</div>
+      <div class="card-content">
+        <h3>GitHub</h3>
+        <p>Review the source code, audit the contracts, and contribute to the CLAWING ecosystem.</p>
+        <span class="card-link">View Source</span>
+      </div>
+    </a>
+
+    <a href="https://x.com/minewithclaw" target="_blank" rel="noopener noreferrer" class="community-card">
+      <div class="card-icon">𝕏</div>
+      <div class="card-content">
+        <h3>X / Twitter</h3>
+        <p>Follow @minewithclaw for real-time updates, mining stats, and community announcements.</p>
+        <span class="card-link">Follow</span>
+      </div>
+    </a>
+
+    <a href="https://etherscan.io/token/0x4ba1209b165b62a1f0d2fbf22d67cacf43a6df2b" target="_blank" rel="noopener noreferrer" class="community-card">
+      <div class="card-icon">🔍</div>
+      <div class="card-content">
+        <h3>Etherscan</h3>
+        <p>Verify the $CLAW token contract, check transactions, and monitor on-chain activity.</p>
+        <span class="card-link">View Token</span>
+      </div>
+    </a>
+
+    <a href="https://etherscan.io/address/0xc24a0ba99b9ff6b7ccea6beb4013b69f39024fd5" target="_blank" rel="noopener noreferrer" class="community-card">
+      <div class="card-icon">🔮</div>
+      <div class="card-content">
+        <h3>Oracle Verifier</h3>
+        <p>Inspect the OracleVerifier contract — the ZK proof verification layer for Proof of AI Work.</p>
+        <span class="card-link">View Contract</span>
+      </div>
+    </a>
+
+  </div>
+
+  <!-- ── CONTRACTS ── -->
+  <div class="contracts-section">
+    <div class="section-header">
+      <div class="section-label">Smart Contracts</div>
+      <h2>Verified On-Chain</h2>
+      <p class="lead">All contracts are verified and open source on Ethereum mainnet.</p>
+    </div>
+
+    <div class="contracts-list">
+      <div class="contract-row">
+        <span class="contract-name">CLAW Token</span>
+        <span class="contract-addr">0x4ba1209b165b62a1f0d2fbf22d67cacf43a6df2b</span>
+        <div class="contract-copy" onclick="copyAddr('0x4ba1209b165b62a1f0d2fbf22d67cacf43a6df2b',this)">Copy</div>
+      </div>
+      <div class="contract-row">
+        <span class="contract-name">PoAIWMint</span>
+        <span class="contract-addr">0x511351940d99f3012c79c613478e8f2c887a8259</span>
+        <div class="contract-copy" onclick="copyAddr('0x511351940d99f3012c79c613478e8f2c887a8259',this)">Copy</div>
+      </div>
+      <div class="contract-row">
+        <span class="contract-name">MinterProxy</span>
+        <span class="contract-addr">0xe7fc311863b95e726a620b07607209965ee72bce</span>
+        <div class="contract-copy" onclick="copyAddr('0xe7fc311863b95e726a620b07607209965ee72bce',this)">Copy</div>
+      </div>
+      <div class="contract-row">
+        <span class="contract-name">OracleVerifier</span>
+        <span class="contract-addr">0xc24a0ba99b9ff6b7ccea6beb4013b69f39024fd5</span>
+        <div class="contract-copy" onclick="copyAddr('0xc24a0ba99b9ff6b7ccea6beb4013b69f39024fd5',this)">Copy</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── QUICK STATS ── -->
+  <div class="stats-section">
+    <div class="section-header">
+      <div class="section-label">At a Glance</div>
+      <h2>Quick Stats</h2>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon">📖</div>
+        <div class="stat-value">100%</div>
+        <div class="stat-label">Open Source</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🔒</div>
+        <div class="stat-value">4</div>
+        <div class="stat-label">Audited Contracts</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">⚖</div>
+        <div class="stat-value">Zero</div>
+        <div class="stat-label">Privileges</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🗳</div>
+        <div class="stat-value">Community</div>
+        <div class="stat-label">Governed</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="footer">
+  <div class="footer-inner">
+    <a href="index.html" class="footer-logo">
+      <svg viewBox="0 0 200 200" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+        <rect x="16" y="16" width="168" height="168" rx="36" fill="#CDFF50"/>
+        <rect x="72" y="78" width="56" height="56" rx="16" fill="#0a0a0a"/>
+        <circle cx="88" cy="102" r="6" fill="#CDFF50"/>
+        <circle cx="112" cy="102" r="6" fill="#CDFF50"/>
+        <path d="M 72 90 L 52 78 L 40 86 L 54 98 L 40 110 L 52 118 L 72 106" fill="#0a0a0a"/>
+        <path d="M 128 90 L 148 78 L 160 86 L 146 98 L 160 110 L 148 118 L 128 106" fill="#0a0a0a"/>
+        <line x1="88" y1="78" x2="72" y2="50" stroke="#0a0a0a" stroke-width="4.5" stroke-linecap="round"/>
+        <line x1="112" y1="78" x2="128" y2="50" stroke="#0a0a0a" stroke-width="4.5" stroke-linecap="round"/>
+        <circle cx="72" cy="50" r="4" fill="#0a0a0a"/>
+        <circle cx="128" cy="50" r="4" fill="#0a0a0a"/>
+      </svg>
+      CLAWING
+    </a>
+    <div class="footer-tagline">AI Works. You Earn. &middot; $CLAW Mining &mdash; Proof of AI Work</div>
+    <div class="footer-links">
+      <a href="index.html">Start Mining</a>
+      <a href="poaiw.html">PoAIW</a>
+      <a href="tokenomics.html">Tokenomics</a>
+      <a href="whitepaper.html">Whitepaper</a>
+      <a href="roadmap.html">Roadmap</a>
+      <a href="community.html">Community</a>
+    </div>
+    <div class="footer-bottom">
+      <p>$CLAW &middot; No premine. No ICO. No team allocation. No VC. 100% mined on Ethereum.</p>
+      <p style="margin-top:8px"><a href="https://www.perplexity.ai/computer" target="_blank" rel="noopener noreferrer">Created with Perplexity Computer</a></p>
+    </div>
+  </div>
+</footer>
+<script>
+function copyAddr(addr,el){
+  navigator.clipboard.writeText(addr).then(()=>{
+    el.textContent='Copied!';
+    setTimeout(()=>{el.textContent='Copy'},2000);
+  });
+}
+</script>
+<script src="main.js"></script>
+
+</body>
+</html>
