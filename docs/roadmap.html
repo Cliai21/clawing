@@ -42,6 +42,7 @@
   overflow:hidden;
 }
 .trust-bar-seg{
+  cursor:pointer;
   flex:1;
   padding:12px 16px;
   text-align:center;
@@ -322,23 +323,23 @@
 <!-- ═══ TRUST EVOLUTION BAR ═══ -->
 <div class="trust-evolution reveal">
   <div class="trust-bar">
-    <div class="trust-bar-seg active">
+    <div class="trust-bar-seg active" data-phase="phase-1">
       <div class="trust-bar-label">Phase 1</div>
       <div class="trust-bar-value">Trust a server</div>
     </div>
-    <div class="trust-bar-seg">
+    <div class="trust-bar-seg" data-phase="phase-2">
       <div class="trust-bar-label">Phase 2</div>
       <div class="trust-bar-value">Harden the server</div>
     </div>
-    <div class="trust-bar-seg">
+    <div class="trust-bar-seg" data-phase="phase-3">
       <div class="trust-bar-label">Phase 3</div>
       <div class="trust-bar-value">Trust math (zkTLS)</div>
     </div>
-    <div class="trust-bar-seg">
+    <div class="trust-bar-seg" data-phase="phase-4">
       <div class="trust-bar-label">Phase 4</div>
       <div class="trust-bar-value">Trust the network</div>
     </div>
-    <div class="trust-bar-seg">
+    <div class="trust-bar-seg" data-phase="phase-5">
       <div class="trust-bar-label">Phase 5</div>
       <div class="trust-bar-value">Sovereign L1</div>
     </div>
@@ -351,7 +352,7 @@
 <div class="timeline">
 
   <!-- ════ PHASE 1 ════ -->
-  <div class="phase reveal">
+  <div class="phase reveal" id="phase-1">
     <div class="phase-dot phase-dot-completed">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
     </div>
@@ -405,7 +406,7 @@
   </div>
 
   <!-- ════ PHASE 2 ════ -->
-  <div class="phase reveal">
+  <div class="phase reveal" id="phase-2">
     <div class="phase-dot phase-dot-planned"></div>
     <div class="phase-header">
       <div class="phase-num">Phase 2 &mdash; Q2 2026</div>
@@ -453,7 +454,7 @@
   </div>
 
   <!-- ════ PHASE 3 ════ -->
-  <div class="phase reveal">
+  <div class="phase reveal" id="phase-3">
     <div class="phase-dot phase-dot-planned"></div>
     <div class="phase-header">
       <div class="phase-num">Phase 3 &mdash; Q3&ndash;Q4 2026</div>
@@ -566,7 +567,7 @@
   </div>
 
   <!-- ════ PHASE 4 ════ -->
-  <div class="phase reveal">
+  <div class="phase reveal" id="phase-4">
     <div class="phase-dot phase-dot-planned"></div>
     <div class="phase-header">
       <div class="phase-num">Phase 4 &mdash; 2027</div>
@@ -655,7 +656,7 @@
   </div>
 
   <!-- ════ PHASE 5 ════ -->
-  <div class="phase reveal">
+  <div class="phase reveal" id="phase-5">
     <div class="phase-dot phase-dot-planned"></div>
     <div class="phase-header">
       <div class="phase-num">Phase 5 &mdash; 2027+</div>
@@ -792,6 +793,42 @@
   </div>
 </footer>
 
+<script>
+// Trust evolution bar: click to scroll to phase
+document.querySelectorAll('.trust-bar-seg').forEach(seg => {
+  seg.addEventListener('click', () => {
+    const id = seg.dataset.phase;
+    const target = document.getElementById(id);
+    if (!target) return;
+    // Update active state
+    document.querySelectorAll('.trust-bar-seg').forEach(s => s.classList.remove('active'));
+    seg.classList.add('active');
+    // Smooth scroll with nav offset
+    const navH = document.querySelector('.nav')?.offsetHeight || 64;
+    const y = target.getBoundingClientRect().top + window.scrollY - navH - 24;
+    window.scrollTo({ top: y, behavior: 'smooth' });
+  });
+});
+
+// Update active tab on scroll
+const phases = Array.from(document.querySelectorAll('.phase[id^="phase-"]'));
+const segs = Array.from(document.querySelectorAll('.trust-bar-seg'));
+let ticking = false;
+window.addEventListener('scroll', () => {
+  if (ticking) return;
+  ticking = true;
+  requestAnimationFrame(() => {
+    const navH = document.querySelector('.nav')?.offsetHeight || 64;
+    const scrollY = window.scrollY + navH + 120;
+    let activeIdx = 0;
+    phases.forEach((p, i) => {
+      if (p.offsetTop <= scrollY) activeIdx = i;
+    });
+    segs.forEach((s, i) => s.classList.toggle('active', i === activeIdx));
+    ticking = false;
+  });
+});
+</script>
 <script src="main.js"></script>
 </body>
 </html>
