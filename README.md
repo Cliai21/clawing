@@ -71,7 +71,7 @@ However, we decided to rename the token to **CLAW**. The new name draws on the i
 
 We considered several alternatives before settling on CLAW, including MINE (too generic, widely used), PICK (ambiguous, diluted meaning), MOLE (unusual, hard to take seriously), and TOIL (negative connotation). CLAW stood out for its sharpness and memorability.
 
-The contract on Etherscan still shows the original CLI ticker. Updating an ERC-20 token's name and symbol after deployment requires a contract upgrade through a proxy pattern. Our contract is currently a standard (non-upgradeable) ERC-20 deployed at a fixed address. A rename would involve deploying a new proxy contract, migrating token state, and re-routing all integrations — a substantial engineering effort. For now, the on-chain ticker remains CLI while we use CLAW in all documentation, communications, and community references. A formal on-chain rename will be proposed as a governance item in a future community vote.
+The token has since been renamed to CLAW on-chain, unifying the brand across all touchpoints: contract, Etherscan, documentation, and community.
 
 ### Reward Formula
 
