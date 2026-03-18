@@ -290,7 +290,7 @@ describe('verifier', () => {
     });
 
     it('should reject invalid nonce', async () => {
-      const req = makeValidAttestRequest('CLI-invalid-000');
+      const req = makeValidAttestRequest('CLAW-invalid-000');
       const chain = mockChainReader();
       await expectOracleError(verifyAttestation(req, chain, nonceManager, config), 'INVALID_NONCE');
     });

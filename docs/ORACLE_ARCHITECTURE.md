@@ -38,7 +38,7 @@ Step 6: Oracle Server extracts key data (model, total_tokens, etc.)
 Step 7: Oracle Server signs the attestation with its private key
 Step 8: Oracle returns the signature to the Miner CLI
 Step 9: Miner CLI assembles the transaction and calls PoAIWMint.mint()
-Step 10: On-chain contract uses ecrecover to verify signature and mints CLI
+Step 10: On-chain contract uses ecrecover to verify signature and mints CLAW
 ```
 
 ---
@@ -730,9 +730,9 @@ After Oracle receives the API response submitted by a miner:
 ```
 Flow:
 1. Miner requests nonce from Oracle: GET /api/v1/nonce?miner=0x...
-2. Oracle generates a one-time nonce (e.g. "CLI-a3f8b2c1-1710000000"), stores in database
+2. Oracle generates a one-time nonce (e.g. "CLAW-a3f8b2c1-1710000000"), stores in database
 3. Miner must embed the nonce in the prompt:
-   "Clawing Mining | Seed: ... | Nonce: CLI-a3f8b2c1-1710000000 | ..."
+   "Clawing Mining | Seed: ... | Nonce: CLAW-a3f8b2c1-1710000000 | ..."
 4. After Oracle receives the API response, it checks whether the response contains the nonce
 5. Nonce is marked as consumed after use, cannot be reused
 6. Nonce validity: 5 minutes

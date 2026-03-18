@@ -25,19 +25,19 @@ describe('prompt', () => {
       const prompt = buildMiningPrompt({
         seedHex: '0xabc123',
         epoch: 42,
-        nonce: 'CLI-12345678-1710000000',
+        nonce: 'CLAW-12345678-1710000000',
         minerAddress: TEST_MINER_ADDRESS,
         claimIndex: 3,
         taskText: 'Explain quantum computing.',
       });
 
       expect(prompt).toBe(
-        `Clawing Mining | Seed: 0xabc123 | Epoch: 42 | Nonce: CLI-12345678-1710000000 | Miner: ${TEST_MINER_ADDRESS} | ClaimIndex: 3 | Task: Explain quantum computing.`,
+        `Clawing Mining | Seed: 0xabc123 | Epoch: 42 | Nonce: CLAW-12345678-1710000000 | Miner: ${TEST_MINER_ADDRESS} | ClaimIndex: 3 | Task: Explain quantum computing.`,
       );
     });
 
     it('should contain all fields the Oracle verifier checks', () => {
-      const nonce = 'CLI-aabbccdd-9999999999';
+      const nonce = 'CLAW-aabbccdd-9999999999';
       const seed = '0xdeadbeef';
       const prompt = buildMiningPrompt({
         seedHex: seed,
@@ -62,7 +62,7 @@ describe('prompt', () => {
       const prompt = buildMiningPrompt({
         seedHex: '0x0',
         epoch: 0,
-        nonce: 'CLI-00000000-0',
+        nonce: 'CLAW-00000000-0',
         minerAddress: TEST_MINER_ADDRESS,
         claimIndex: 0,
         taskText: 'Test.',
@@ -76,7 +76,7 @@ describe('prompt', () => {
       const prompt = buildMiningPrompt({
         seedHex: '0xabc',
         epoch: 1,
-        nonce: 'CLI-11111111-1111111111',
+        nonce: 'CLAW-11111111-1111111111',
         minerAddress: TEST_MINER_ADDRESS,
         claimIndex: 5,
         taskText: 'What is 2+2? Explain "quantum" effects & more!',
@@ -90,7 +90,7 @@ describe('prompt', () => {
       const prompt = buildMiningPrompt({
         seedHex: largeSeed,
         epoch: 999,
-        nonce: 'CLI-ffffffff-9999999999',
+        nonce: 'CLAW-ffffffff-9999999999',
         minerAddress: TEST_MINER_ADDRESS,
         claimIndex: 13,
         taskText: 'Task.',
@@ -105,7 +105,7 @@ describe('prompt', () => {
       const messages = buildMessages({
         seedHex: '0xabc123',
         epoch: 42,
-        nonce: 'CLI-12345678-1710000000',
+        nonce: 'CLAW-12345678-1710000000',
         minerAddress: TEST_MINER_ADDRESS,
         claimIndex: 0,
         taskText: 'Test.',

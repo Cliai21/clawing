@@ -309,7 +309,7 @@ describe('Integration Tests', () => {
       const res = await request(server, 'GET', `/api/v1/nonce?miner=${TEST_MINER_ADDRESS}`);
       expect(res.status).toBe(200);
       expect(res.body.success).toBe(true);
-      expect(res.body.nonce).toMatch(/^CLI-/);
+      expect(res.body.nonce).toMatch(/^CLAW-/);
     });
 
     it('should reject invalid address', async () => {

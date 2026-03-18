@@ -533,7 +533,7 @@ contract PoAIWMintTest is Test {
     }
 
     function test_Governance_Vote() public {
-        // give miner1 some CLI for voting
+        // give miner1 some CLAW for voting
         mint.updateSeed();
         _doMint(miner1);
         uint256 balance = token.balanceOf(miner1);
@@ -687,7 +687,7 @@ contract PoAIWMintTest is Test {
 
     /// @notice Full governance cycle: nomination -> voting -> tallying -> new Era mining
     function test_Governance_FullCycle() public {
-        // give miner1 some CLI
+        // give miner1 some CLAW
         mint.updateSeed();
         _doMint(miner1);
         uint256 balance = token.balanceOf(miner1);
@@ -738,7 +738,7 @@ contract PoAIWMintTest is Test {
 
     /// @notice Vote withdrawal: vote -> Era ends -> withdraw -> verify balance
     function test_Governance_VoteWithdrawal() public {
-        // give miner1 some CLI
+        // give miner1 some CLAW
         mint.updateSeed();
         _doMint(miner1);
         uint256 balanceBefore = token.balanceOf(miner1);
@@ -774,7 +774,7 @@ contract PoAIWMintTest is Test {
 
     /// @notice Multiple candidates: highest vote count wins
     function test_Governance_MultipleCandidates() public {
-        // give miner1 and miner2 some CLI
+        // give miner1 and miner2 some CLAW
         mint.updateSeed();
         _doMint(miner1, 50000);
         _advanceBlocks(3_500);
@@ -965,11 +965,11 @@ contract PoAIWMintTest is Test {
     function test_Era2_HalvedReward() public {
         // Era 1 perBlock
         uint256 era1PerBlock = mint.perBlockForEra(1);
-        assertEq(era1PerBlock, 100_000 * 1e18, "Era 1 perBlock should be 100,000 CLI");
+        assertEq(era1PerBlock, 100_000 * 1e18, "Era 1 perBlock should be 100,000 CLAW");
 
         // Era 2 perBlock should be half of Era 1
         uint256 era2PerBlock = mint.perBlockForEra(2);
-        assertEq(era2PerBlock, 50_000 * 1e18, "Era 2 perBlock should be 50,000 CLI (halved)");
+        assertEq(era2PerBlock, 50_000 * 1e18, "Era 2 perBlock should be 50,000 CLAW (halved)");
 
         // advance to Era 1 announcement phase, and finalize Era 2 model (carry over Era 1)
         uint256 BLOCKS_PER_EPOCH = 50_000;
@@ -991,7 +991,7 @@ contract PoAIWMintTest is Test {
         uint256 balAfter = token.balanceOf(miner1);
         uint256 reward = balAfter - balBefore;
 
-        // Era 2 reward should be based on 50,000 CLI perBlock (half of Era 1)
+        // Era 2 reward should be based on 50,000 CLAW perBlock (half of Era 1)
         // For T=5000: R = 50,000e18 * (1000 + 12*693) / 1000 = 50,000e18 * 9316 / 1000
         uint256 expectedReward = era2PerBlock * (1000 + 12 * 693) / 1000;
         assertEq(reward, expectedReward, "Era 2 reward should use halved perBlock");
@@ -1109,7 +1109,7 @@ contract PoAIWMintTest is Test {
 
     /// @notice [V4-I3] withdrawVote reentrancy safety: two consecutive withdrawVote calls on the same era, the second should revert
     function test_Governance_WithdrawVote_DoubleWithdrawReverts() public {
-        // give miner1 some CLI
+        // give miner1 some CLAW
         mint.updateSeed();
         _doMint(miner1);
         uint256 balance = token.balanceOf(miner1);

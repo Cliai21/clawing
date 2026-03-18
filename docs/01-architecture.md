@@ -124,7 +124,7 @@ The entire contract no longer uses `block.timestamp`; all time logic is entirely
 
 ### 2.1 Era Level (Halving Perspective)
 
-| Era | perBlock (CLI) | Epoch hard cap | Era total emission | Cumulative emission | Cumulative years |
+| Era | perBlock (CLAW) | Epoch hard cap | Era total emission | Cumulative emission | Cumulative years |
 |----:|----------------:|-----------:|----------:|---------:|--------:|
 | 1 | 100,000 | 5,000,000,000 | 105,000,000,000 | 105,000,000,000 | 0.40 |
 | 2 | 50,000 | 2,500,000,000 | 52,500,000,000 | 157,500,000,000 | 0.80 |
