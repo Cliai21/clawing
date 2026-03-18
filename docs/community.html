@@ -114,6 +114,147 @@
   .stats-grid{grid-template-columns:1fr}
 }
 </style>
+
+<!-- ============================================
+     CLAW Mining — Schema.org Structured Data
+     放入 minewithclaw.com 每个页面的 <head> 中
+     ============================================ -->
+
+<!-- 1. Organization Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "CLAW Mining",
+  "alternateName": "CLAWING",
+  "url": "https://minewithclaw.com",
+  "logo": "https://minewithclaw.com/assets/logo-512.png",
+  "description": "Proof of AI Work mining protocol on Ethereum. Mine $CLAW tokens by running real AI computation, verified on-chain.",
+  "foundingDate": "2026",
+  "sameAs": [
+    "https://x.com/minewithclaw",
+    "https://github.com/Cliai21/clawing",
+    "https://clawhub.ai/skills/claw-mining",
+    "https://etherscan.io/token/0x4ba1209b165b62a1f0d2fbf22d67cacf43a6df2b"
+  ]
+}
+</script>
+
+<!-- 2. SoftwareApplication Schema (Mining Skill) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "$CLAW Mining - Proof of AI Work",
+  "applicationCategory": "Cryptocurrency Mining",
+  "operatingSystem": "Cross-platform (OpenClaw, Hermes Agent, Node.js)",
+  "url": "https://minewithclaw.com",
+  "downloadUrl": "https://github.com/Cliai21/clawing",
+  "softwareVersion": "3.0",
+  "license": "https://opensource.org/licenses/MIT-0",
+  "author": {
+    "@type": "Organization",
+    "name": "CLAW Mining",
+    "url": "https://minewithclaw.com"
+  },
+  "description": "An OpenClaw Skill that mines $CLAW tokens through Proof of AI Work on Ethereum. Install the skill, say 'Mine CLAW', and your AI agent handles AI inference, Oracle verification, and on-chain minting automatically.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+}
+</script>
+
+<!-- 3. FAQPage Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is Proof of AI Work (PoAIW)?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Proof of AI Work is a consensus mechanism where miners run real AI inference (e.g., calling xAI's Grok model) instead of solving meaningless hash puzzles. An on-chain Oracle verifies the AI computation actually happened, and the smart contract mints $CLAW tokens as reward. Every mined token represents real AI work performed."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I start mining $CLAW?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Install the mining skill with 'clawhub install claw-mining' on OpenClaw, then tell your AI agent 'Mine CLAW'. The agent handles everything automatically — AI API calls, Oracle verification, and on-chain minting. Each mining cycle takes about 30-60 seconds. You need an AI API key (xAI or OpenRouter) and a small amount of ETH for gas (~$0.01 per mine)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the $CLAW token supply and distribution?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "$CLAW has a maximum supply of 210 billion tokens on Ethereum mainnet (ERC-20). There is zero pre-mine, zero ICO, zero team allocation, and zero VC funding — 100% of tokens are mined by the community through Proof of AI Work. The emission follows 24 Eras with Bitcoin-style halving, where Era 1 produces 50% of total supply. Each Era lasts approximately 146 days."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does the $CLAW reward formula work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The reward formula is R = perBlock × (1 + ln(T)), where perBlock is the base reward for the current Era (100,000 CLAW in Era 1), and T is the number of AI tokens consumed. The logarithmic curve is an anti-whale mechanism — doing 10x the work yields approximately 3.3x the reward, not 10x. This makes small miners economically competitive."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is $CLAW mining secure?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. The mining skill never touches your private keys — all transactions are signed locally on your machine. The codebase passed a v2.1 security audit with 15 issues identified and fixed (1 critical, 4 high). All 4 smart contracts are verified on Etherscan. The protocol uses Groth16 zero-knowledge proofs via SP1 circuits for cryptographic verification of AI work. The code is fully open source under MIT-0 license."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What platforms support $CLAW mining?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "$CLAW mining is compatible with OpenClaw (recommended, install via 'clawhub install claw-mining'), Hermes Agent by Nous Research, Termo.ai agents, and any AgentSkills-compatible platform. Manual installation via Git is also supported for developers."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much does it cost to mine $CLAW?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Each mining cycle costs approximately $0.01-0.02 total: ~0.0002 ETH in gas (at 2 gwei) plus ~$0.002-0.005 for the AI API call. In Era 1, each mine yields approximately 862,300 CLAW tokens at the minimum practical token consumption of T=2,100."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the $CLAW mining cooldown?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "There is a 3,500-block cooldown (~11.67 hours) between mines per address. Each miner can make a maximum of 14 claims per Epoch (approximately 7 days). All timing uses block.number instead of timestamps for manipulation resistance."
+      }
+    }
+  ]
+}
+</script>
+
+<!-- 4. WebSite Schema with SearchAction -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "CLAW Mining",
+  "url": "https://minewithclaw.com",
+  "description": "Proof of AI Work mining protocol on Ethereum. Install. Say 'Mine CLAW'. That's it.",
+  "publisher": {
+    "@type": "Organization",
+    "name": "CLAW Mining",
+    "url": "https://minewithclaw.com"
+  }
+}
+</script>
 </head>
 <body>
 
