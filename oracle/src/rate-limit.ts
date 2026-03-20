@@ -77,6 +77,12 @@ export class RateLimiter {
     this.nonceCache.set(address, timestamps);
   }
 
+  /** Clear the attest rate limit for a specific address (admin use) */
+  clearAttest(address: string): void {
+    this.attestCache.delete(address);
+    this.db.prepare('DELETE FROM rate_limits WHERE address = ?').run(address);
+  }
+
   close(): void {
     this.db.close();
   }

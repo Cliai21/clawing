@@ -1,4 +1,6 @@
 import crypto from 'node:crypto';
+import path from 'node:path';
+import fs from 'node:fs';
 import express from 'express';
 import cors from 'cors';
 import { ethers } from 'ethers';
@@ -15,10 +17,20 @@ import { OracleError } from './errors.js';
 import type { AttestRequest, HealthResponse, ErrorResponse } from './types.js';
 
 const config = loadConfig();
+
+// Resolve SQLite database paths (persistent or in-memory)
+function resolveDbPath(filename: string): string {
+  if (!config.dbDir) return ':memory:';
+  if (!fs.existsSync(config.dbDir)) {
+    fs.mkdirSync(config.dbDir, { recursive: true });
+  }
+  return path.join(config.dbDir, filename);
+}
+
 const chain = new ChainReader(config);
-const nonceManager = new NonceManager(config);
-const rateLimiter = new RateLimiter(config);
-const logger = new RequestLogger();
+const nonceManager = new NonceManager(config, resolveDbPath('nonce.db'));
+const rateLimiter = new RateLimiter(config, resolveDbPath('rate-limit.db'));
+const logger = new RequestLogger(resolveDbPath('request-log.db'));
 const metrics = new MetricsCollector();
 const wallet = new ethers.Wallet(config.oraclePrivateKey);
 
@@ -98,6 +110,33 @@ app.get('/health', async (_req, res) => {
 app.get('/metrics', (_req, res) => {
   res.setHeader('Content-Type', 'text/plain; charset=utf-8');
   res.send(metrics.toPrometheus());
+});
+
+// ═══════════════ Admin: DELETE /admin/rate-limit/:address ═══════════════
+
+app.delete('/admin/rate-limit/:address', (req, res) => {
+  // Require ADMIN_TOKEN for authentication
+  if (!config.adminToken) {
+    res.status(403).json({ success: false, error: 'ADMIN_DISABLED', message: 'Admin API is disabled. Set ADMIN_TOKEN in .env to enable.' });
+    return;
+  }
+  const authHeader = req.headers.authorization ?? '';
+  const token = authHeader.startsWith('Bearer ') ? authHeader.slice(7) : '';
+  if (token !== config.adminToken) {
+    res.status(401).json({ success: false, error: 'UNAUTHORIZED', message: 'Invalid or missing admin token.' });
+    return;
+  }
+
+  const addressParam = req.params.address;
+  if (!addressParam || !ethers.isAddress(addressParam)) {
+    res.status(400).json({ success: false, error: 'INVALID_ADDRESS', message: 'URL param must be a valid Ethereum address.' });
+    return;
+  }
+
+  const address = ethers.getAddress(addressParam);
+  rateLimiter.clearAttest(address);
+  console.log(`[ADMIN] Rate limit cleared for ${address}`);
+  res.json({ success: true, message: `Rate limit cleared for ${address}` });
 });
 
 // ═══════════════════ GET /api/v1/nonce ═══════════════════

@@ -26,6 +26,10 @@ export interface Config {
   rateLimitMaxPerWindow: number;
   deadlineBlocksAhead: number;
   signatureValidityBlocks: number;
+  /** Directory for persistent SQLite database files. Empty string = in-memory. */
+  dbDir: string;
+  /** Secret token for admin endpoints (rate-limit clearing, etc.) */
+  adminToken: string;
   /** Trusted router model aliases (router model → canonical model) */
   trustedRouterAliases: Map<string, string>;
 }
@@ -48,6 +52,8 @@ export function loadConfig(): Config {
     rateLimitMaxPerWindow: intEnv('RATE_LIMIT_MAX_PER_WINDOW', 1),
     deadlineBlocksAhead: intEnv('DEADLINE_BLOCKS_AHEAD', 200),
     signatureValidityBlocks: intEnv('SIGNATURE_VALIDITY_BLOCKS', 300),
+    dbDir: envOrDefault('DB_DIR', ''),
+    adminToken: envOrDefault('ADMIN_TOKEN', ''),
     trustedRouterAliases: parseTrustedRouterAliases(
       envOrDefault('TRUSTED_ROUTER_ALIASES', DEFAULT_TRUSTED_ROUTER_ALIASES),
     ),
